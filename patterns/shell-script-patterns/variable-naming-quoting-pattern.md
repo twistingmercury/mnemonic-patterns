@@ -20,6 +20,7 @@ Consistent variable naming and proper quoting prevents common shell scripting er
 
 ## Pattern
 
+[//]: pattern
 ### Naming Convention
 
 **Global Variables: SCREAMING_SNAKE_CASE**
@@ -61,6 +62,7 @@ readonly MAX_CONNECTIONS=100
 readonly CONFIG_VERSION="1.0.0"
 ```
 
+[//]: pattern
 ### Referencing Style
 
 **Always use curly brackets: "${var}"**
@@ -94,6 +96,7 @@ if [ -f ${file_path} ]; then
 fi
 ```
 
+[//]: pattern
 ## Complete Function Example
 
 ```bash
@@ -177,6 +180,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Global variables always SCREAMING_SNAKE_CASE** - Makes globals immediately visible
@@ -187,6 +191,7 @@ main "$@"
 6. **Use readonly for constants** - Prevents accidental modification
 7. **Initialize locals from parameters** - Clear parameter mapping
 
+[//]: pattern
 ## Why Always Quote?
 
 Unquoted variables cause problems:

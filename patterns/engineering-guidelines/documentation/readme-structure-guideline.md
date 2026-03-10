@@ -16,6 +16,7 @@ tags:
 
 Every project MUST include a README.md file that follows this exact structure. No exceptions.
 
+[//]: pattern
 ## Required Structure Template
 
 ```markdown
@@ -50,6 +51,7 @@ A sentence describing the project. Two at most.
 
 ## Section Requirements
 
+[//]: pattern
 ### Maturity Level (Required)
 
 **Purpose**: Immediately communicate the project's stability and readiness.
@@ -72,6 +74,7 @@ A sentence describing the project. Two at most.
 > **Maturity Level**: Basic - Core features work but API may evolve based on feedback
 ```
 
+[//]: pattern
 ### Project Description (Required)
 
 **Purpose**: Provide a clear, concise overview of what the project does.
@@ -88,6 +91,7 @@ A sentence describing the project. Two at most.
 A CLI tool for managing database migrations across multiple environments. Supports PostgreSQL, MySQL, and SQLite with automatic rollback capabilities.
 ```
 
+[//]: pattern
 ### Usage (Required)
 
 **Purpose**: Show users how to actually use the project.
@@ -124,6 +128,7 @@ dbmigrate status
 ```
 ```
 
+[//]: pattern
 ### How it works (Required)
 
 **Purpose**: Explain the high-level approach, architecture, or design philosophy.
@@ -149,6 +154,7 @@ dbmigrate status
 The tool tracks migrations using a version table in your database. Each migration is executed in a transaction, allowing automatic rollback if errors occur. Migration files follow a numbered naming convention (001_initial.sql, 002_add_users.sql) to maintain ordering.
 ```
 
+[//]: pattern
 ### Key Considerations (Required)
 
 **Purpose**: Highlight important information users need to know before using the project.
@@ -172,6 +178,7 @@ The tool tracks migrations using a version table in your database. Each migratio
 - SQLite support is limited to local file databases
 ```
 
+[//]: pattern
 ### Development Considerations (Required)
 
 **Purpose**: Help contributors and developers work on the project.
@@ -308,6 +315,7 @@ git push origin v1.2.3
 See [CHANGELOG.md](CHANGELOG.md) for version history.
 ```
 
+[//]: pattern
 ## README Writing Rules
 
 Follow these rules to keep READMEs useful and professional:
@@ -349,6 +357,7 @@ Requires Node.js 18+ ([installation instructions](https://nodejs.org/en/download
 
 **Format**: `[Tool] [Version Range]+ ([link to official installation docs])`
 
+[//]: pattern
 ## Examples
 
 ### Minimal CLI Tool README

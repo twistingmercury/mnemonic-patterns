@@ -24,10 +24,7 @@ related_patterns:
 
 This pattern provides a comprehensive AsyncAPI 3.0.0 specification for event-driven APIs. AsyncAPI is used to document message-based and event-driven architectures, similar to how OpenAPI documents REST APIs. It covers message channels, operations, and protocol bindings for Kafka, MQTT, AMQP, and WebSocket.
 
-# AsyncAPI Specification Pattern
-
-This pattern provides a comprehensive AsyncAPI 3.0.0 specification for event-driven APIs. AsyncAPI is used to document message-based and event-driven architectures, similar to how OpenAPI documents REST APIs.
-
+[//]: pattern
 ## When to Use AsyncAPI
 
 - **Event-driven architectures**: Services communicate through events, not direct calls
@@ -37,6 +34,7 @@ This pattern provides a comprehensive AsyncAPI 3.0.0 specification for event-dri
 - **Real-time data streaming**: Continuous data flows (logs, metrics, IoT)
 - **WebSocket APIs**: Bidirectional communication channels
 
+[//]: pattern
 ## Core AsyncAPI Concepts
 
 ### Channels
@@ -63,6 +61,7 @@ Message brokers or streaming platforms (Kafka, MQTT broker, RabbitMQ, etc.)
 - HTTP/SSE
 - Redis Streams
 
+[//]: pattern
 ## Basic AsyncAPI Specification
 
 ```yaml
@@ -298,6 +297,7 @@ components:
 
 ## Protocol-Specific Examples
 
+[//]: pattern
 ### Kafka Bindings
 
 ```yaml
@@ -388,7 +388,7 @@ components:
           type: string
           format: date-time
 ```
-
+[//]: pattern
 ### MQTT Bindings
 
 ```yaml
@@ -475,6 +475,7 @@ components:
       description: Username and password for MQTT broker
 ```
 
+[//]: pattern
 ### WebSocket Example
 
 ```yaml
@@ -544,6 +545,7 @@ components:
       bearerFormat: JWT
 ```
 
+[//]: pattern
 ## Request-Reply Pattern (Correlation)
 
 For request-reply patterns over async protocols:
@@ -648,6 +650,7 @@ components:
             type: string
 ```
 
+[//]: pattern
 ## Channel Naming Best Practices
 
 ### Hierarchical Naming
@@ -684,6 +687,7 @@ Include in all messages:
 - `timestamp`: ISO 8601 datetime when event occurred
 - `version`: Schema version for evolution
 
+[//]: pattern
 ### Envelope Pattern
 
 ```yaml
@@ -719,6 +723,7 @@ schemas:
             type: string
 ```
 
+[//]: pattern
 ## Error Handling
 
 ### Dead Letter Queues
@@ -763,6 +768,7 @@ components:
 
 ## Security Examples
 
+[//]: pattern
 ### SASL/SCRAM for Kafka
 
 ```yaml
@@ -779,6 +785,7 @@ components:
       description: SASL/SCRAM-SHA-256 authentication
 ```
 
+[//]: pattern
 ### TLS Client Certificates
 
 ```yaml
@@ -795,6 +802,7 @@ components:
       description: Client certificate authentication
 ```
 
+[//]: pattern
 ### OAuth 2.0
 
 ```yaml
@@ -818,6 +826,7 @@ components:
 
 ## Versioning Strategy
 
+[//]: pattern
 ### Channel Versioning
 
 Include version in channel address:
@@ -830,6 +839,7 @@ channels:
     address: 'user.signup.v2'
 ```
 
+[//]: pattern
 ### Schema Evolution
 
 Use JSON Schema for backward compatibility:
@@ -854,6 +864,7 @@ schemas:
         description: "Use userId instead"
 ```
 
+[//]: pattern
 ## Documentation Best Practices
 
 1. **Provide examples**: Include real message examples in each message definition
@@ -865,6 +876,7 @@ schemas:
 7. **Error scenarios**: Document what happens when processing fails
 8. **Rate limits**: Specify any throughput limitations
 
+[//]: pattern
 ## Tools and Code Generation
 
 AsyncAPI specifications can be used with:
@@ -872,10 +884,3 @@ AsyncAPI specifications can be used with:
 - **AsyncAPI Studio**: Visual editor for specifications
 - **AsyncAPI CLI**: Command-line tools for validation and generation
 - **Language-specific libraries**: Various implementations for Go, Python, Java, etc.
-
-## Related Patterns
-
-- **REST API Specification Pattern**: For synchronous request-response APIs
-- **gRPC Service Definition Pattern**: For high-performance RPC communication
-- **GraphQL Schema Pattern**: For flexible query-based APIs
-- **AsyncAPI Implementation Pattern (Go)**: Language-specific implementation using Go

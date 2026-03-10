@@ -13,10 +13,6 @@ tags:
 
 # GitHub Actions CI Pattern
 
-## Overview
-
-Keep CI configuration minimal by delegating build logic to containerized scripts. The CI platform just orchestrates while Docker handles the actual build process.
-
 ## Philosophy
 
 When build logic lives in Docker and shell scripts, CI configuration becomes minimal. The CI platform just orchestrates - it doesn't own your build process. This makes switching between GitHub, GitLab, Azure DevOps trivial.
@@ -28,6 +24,7 @@ The build script contains all the complexity: multi-stage Docker builds, test ex
 - Build logic is testable and version-controlled
 - Platform-specific quirks stay out of your build process
 
+[//]: pattern
 ## The Pattern
 
 A minimal workflow that:
@@ -37,6 +34,7 @@ A minimal workflow that:
 3. Runs the build script (which handles Docker builds internally)
 4. Uploads artifacts
 
+[//]: pattern
 ## Example Workflow
 
 **.github/workflows/ci.yml**:
@@ -101,6 +99,7 @@ jobs:
 
 Because the build script handles all complexity, CI configurations across platforms look nearly identical.
 
+[//]: pattern
 ### GitLab CI
 
 **.gitlab-ci.yml**:
@@ -129,6 +128,7 @@ build:
     expire_in: 30 days
 ```
 
+[//]: pattern
 ### Azure Pipelines
 
 **azure-pipelines.yml**:
@@ -166,6 +166,7 @@ steps:
 
 ## Workflow Variations
 
+[//]: pattern
 ### Release Workflow
 
 Trigger on tags for releases with additional artifact naming:
@@ -211,6 +212,7 @@ jobs:
           retention-days: 90
 ```
 
+[//]: pattern
 ### Matrix Build for Multiple Runners
 
 When you need builds on different OS runners (rare with containerized builds):
@@ -255,6 +257,7 @@ The CI workflow expects the build script to:
 
 This contract keeps the CI configuration stable while allowing build logic to evolve independently.
 
+[//]: pattern
 ## Permissions for Artifacts
 
 When passing artifacts between workflows (CI → CD), specific permissions are required:
@@ -305,6 +308,7 @@ jobs:
           retention-days: 1  # Short retention for intermediate artifacts
 ```
 
+[//]: pattern
 ## Working Directory for Monorepos
 
 For monorepos where the service lives in a subdirectory, use `defaults.run.working-directory`:
@@ -352,6 +356,7 @@ jobs:
 - Actions (`uses:`) still require full paths from repo root
 - Combine with `paths:` filter to avoid running CI for unrelated changes
 
+[//]: pattern
 ## PR vs Push Behavior
 
 Control build behavior differently for PRs vs direct pushes. Common pattern: skip registry push on PRs.

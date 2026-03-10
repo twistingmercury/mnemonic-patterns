@@ -16,15 +16,12 @@ tags:
 
 ## Overview
 
-When testing shell scripts that interact with Docker, tests must properly manage Docker resources, ensure cleanup, and provide complete isolation between tests. Always use unique resource names to prevent conflicts.
-
-## Philosophy
-
 When testing shell scripts that interact with Docker (volumes, containers, images), tests must properly manage Docker resources, ensure cleanup, and provide complete isolation between tests. Always use unique resource names to prevent conflicts.
 
 ## Quality Standards
 
 All BATS Docker tests MUST:
+
 - **Pass shellcheck** with the project's `.shellcheckrc` configuration
 - **Be POSIX compliant** - use `printf` not `echo`, avoid bash-isms
 - **Be readable** - extract variables, avoid terse one-liners
@@ -47,6 +44,7 @@ All BATS Docker tests MUST:
    - Don't mock Docker - test real interactions
    - Verify state before and after operations
 
+[//]: pattern
 ## Example: Testing Script with Docker Volumes
 
 ```bash
@@ -110,6 +108,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## Example: Testing Script with Docker Containers
 
 ```bash
@@ -169,6 +168,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## Example: Testing Script with Docker Images
 
 ```bash
@@ -217,6 +217,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## Helper Functions for Docker Testing
 
 ```bash
@@ -295,6 +296,7 @@ cleanup_test_volumes() {
 }
 ```
 
+[//]: pattern
 ## Docker Compose Testing
 
 ```bash
@@ -346,6 +348,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## Testing Docker Volume Data Integrity
 
 ```bash

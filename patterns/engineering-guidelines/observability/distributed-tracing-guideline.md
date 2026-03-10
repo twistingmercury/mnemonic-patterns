@@ -17,6 +17,7 @@ tags:
 
 This guideline defines standards for implementing distributed tracing using OpenTelemetry to track requests across microservices. It covers trace context formats, sampling strategies, and correlation requirements.
 
+[//]: pattern
 ## Trace Context Standards
 
 ### Trace Identifiers
@@ -58,6 +59,7 @@ traceparent: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01
 - Child spans MUST use the same `trace_id` but generate new `span_id` values
 - This creates parent-child relationships that build the complete trace tree
 
+[//]: pattern
 ## Sampling Strategies
 
 ### Traffic-Based Sampling Rates
@@ -92,6 +94,7 @@ Adjust sampling rates based on request volume to balance observability with infr
 - Sufficient data capture for issue identification
 - Tracing infrastructure is not overwhelmed
 
+[//]: pattern
 ## What to Trace
 
 ### Always Trace
@@ -122,6 +125,7 @@ Use these as starting points; adjust based on service performance profile:
 - Don't trace every function call
 - Focus on operations that matter for debugging and performance monitoring
 
+[//]: pattern
 ## Span Naming Standards
 
 **DO:**
@@ -133,6 +137,7 @@ Use these as starting points; adjust based on service performance profile:
 
 - Use actual parameter values: `GET /users/12345`
 
+[//]: pattern
 ## Integration with Logging
 
 ### Correlation Fields
@@ -152,6 +157,7 @@ Most OpenTelemetry SDKs automatically inject trace context into structured logs:
 
 This enables complete observability while keeping costs reasonable - traces capture successful request flow efficiently, logs capture exceptions and warnings.
 
+[//]: pattern
 ## Implementation Requirements
 
 ### OpenTelemetry SDK

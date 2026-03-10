@@ -18,6 +18,7 @@ tags:
 
 This pattern demonstrates implementing Apollo Federation for distributed GraphQL APIs across multiple Go services.
 
+[//]: pattern
 ## Federation Architecture
 
 ```text
@@ -33,6 +34,7 @@ This pattern demonstrates implementing Apollo Federation for distributed GraphQL
 └────────────┘              └──────────────┘
 ```
 
+[//]: pattern
 ## Users Subgraph Schema
 
 ```graphql
@@ -101,6 +103,7 @@ input UpdateUserInput {
 scalar DateTime
 ```
 
+[//]: pattern
 ## Products Subgraph Schema
 
 ```graphql
@@ -225,6 +228,7 @@ input CreateReviewInput {
 scalar DateTime
 ```
 
+[//]: pattern
 ## Orders Subgraph Schema
 
 ```graphql
@@ -315,6 +319,7 @@ input OrderItemInput {
 scalar DateTime
 ```
 
+[//]: pattern
 ## Federation Resolver Implementation
 
 ```go
@@ -370,6 +375,7 @@ func (r *entityResolver) FindUserByID(ctx context.Context, id string) (*model.Us
 }
 ```
 
+[//]: pattern
 ## Reference Resolver (Extending Entities)
 
 ```go
@@ -394,6 +400,7 @@ func (r *Resolver) User() UserResolver {
 type userResolver struct{ *Resolver }
 ```
 
+[//]: pattern
 ## Federation gqlgen Configuration
 
 ```yaml
@@ -422,6 +429,7 @@ autobind:
   - github.com/yourorg/users-service/internal/model
 ```
 
+[//]: pattern
 ## Apollo Gateway Configuration
 
 ```typescript
@@ -452,6 +460,7 @@ const { url } = await startStandaloneServer(server, {
 console.log(`Gateway ready at ${url}`);
 ```
 
+[//]: pattern
 ## Rover CLI for Schema Management
 
 ```bash
@@ -473,6 +482,7 @@ rover subgraph publish my-graph@main \
 rover supergraph compose --config supergraph.yaml > supergraph.graphql
 ```
 
+[//]: pattern
 ## Supergraph Configuration
 
 ```yaml
@@ -493,6 +503,7 @@ subgraphs:
       file: ./orders-service/schema.graphql
 ```
 
+[//]: pattern
 ## Example Federated Query
 
 ```graphql
@@ -544,8 +555,10 @@ query GetUserWithOrdersAndReviews($userId: ID!) {
 }
 ```
 
+[//]: pattern
 ## Key Federation Concepts
 
+[//]: pattern
 ### @key Directive
 
 Marks a type as an entity that can be resolved across subgraphs:
@@ -557,6 +570,7 @@ type User @key(fields: "id") {
 }
 ```
 
+[//]: pattern
 ### @external Directive
 
 Marks a field as owned by another subgraph:
@@ -568,6 +582,7 @@ type User @key(fields: "id") {
 }
 ```
 
+[//]: pattern
 ### @requires Directive
 
 Specifies fields needed from another subgraph:
@@ -580,6 +595,7 @@ type Product @key(fields: "id") {
 }
 ```
 
+[//]: pattern
 ### @provides Directive
 
 Allows a subgraph to provide fields from another subgraph:
@@ -590,6 +606,7 @@ type Review {
 }
 ```
 
+[//]: pattern
 ### @shareable Directive
 
 Allows multiple subgraphs to resolve the same field:
@@ -601,8 +618,10 @@ type Product @key(fields: "id") {
 }
 ```
 
+[//]: pattern
 ## Best Practices
 
+[//]: pattern
 ### Schema Design
 
 1. Define clear entity boundaries
@@ -610,6 +629,7 @@ type Product @key(fields: "id") {
 3. Avoid circular dependencies between subgraphs
 4. Keep shared types minimal
 
+[//]: pattern
 ### Performance
 
 1. Implement DataLoader in each subgraph
@@ -617,6 +637,7 @@ type Product @key(fields: "id") {
 3. Consider caching at gateway level
 4. Monitor query complexity
 
+[//]: pattern
 ### Deployment
 
 1. Use managed federation (Apollo Studio)
@@ -624,6 +645,7 @@ type Product @key(fields: "id") {
 3. Version schemas with Rover CLI
 4. Test composition locally before deploy
 
+[//]: pattern
 ### Error Handling
 
 1. Return partial data on subgraph failures
@@ -631,6 +653,7 @@ type Product @key(fields: "id") {
 3. Use gateway-level error formatting
 4. Monitor subgraph availability
 
+[//]: pattern
 ## Testing Federation
 
 ```go
@@ -648,6 +671,7 @@ func TestUserEntity(t *testing.T) {
 }
 ```
 
+[//]: pattern
 ## Docker Compose for Local Development
 
 ```yaml

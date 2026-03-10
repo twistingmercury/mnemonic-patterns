@@ -15,10 +15,6 @@ tags:
 
 ## Overview
 
-Every service must expose a standardized health check endpoint at `/ops/health` to enable auto-healing, auto-scaling, troubleshooting, and alerting.
-
-## Purpose
-
 Every service must expose a standardized health check endpoint at `/ops/health` to enable:
 
 - **Auto-healing** - Kubernetes can restart unhealthy containers
@@ -26,6 +22,7 @@ Every service must expose a standardized health check endpoint at `/ops/health` 
 - **Troubleshooting** - Ops teams can quickly identify what's broken
 - **Alerting** - Automated monitoring can catch problems before users notice
 
+[//]: pattern
 ## Endpoint Specification
 
 ### Path
@@ -45,6 +42,7 @@ GET
 - **200** - Service is healthy
 - **503** - Service is unhealthy (Kubernetes will take appropriate action)
 
+[//]: pattern
 ## Response Schema
 
 ### Required Fields
@@ -71,6 +69,7 @@ The `Status` field MUST be one of:
 - `Warning` - Service is operating but showing concerning signs
 - `Critical` - Service is unhealthy or failing
 
+[//]: pattern
 ## Health Status Determination
 
 ### Resource Utilization Thresholds
@@ -93,6 +92,7 @@ The overall health status should reflect the **worst status** among all checked 
 - Any resource 75-80% or any dependency Warning → Status: `Warning`
 - Any resource >80% or any dependency Critical → Status: `Critical`
 
+[//]: pattern
 ## Dependency Health Checking
 
 ### DependencyHealth Schema
@@ -116,6 +116,7 @@ Include health status for:
 - **Message queues** - Connection status, queue depth
 - **Caches** - Connection status, memory usage
 
+[//]: pattern
 ## Example Response
 
 ### Healthy Service
@@ -198,6 +199,7 @@ Include health status for:
 }
 ```
 
+[//]: pattern
 ## Kubernetes Integration
 
 ### Unified Probe Configuration
@@ -233,6 +235,7 @@ spec:
         failureThreshold: 2
 ```
 
+[//]: pattern
 ## Implementation Notes
 
 ### Performance Considerations

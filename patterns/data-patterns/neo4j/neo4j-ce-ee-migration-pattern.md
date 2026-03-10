@@ -28,6 +28,7 @@ This pattern handles Neo4j schema migrations when features differ between Commun
 - Neo4j Community vs Enterprise: https://neo4j.com/docs/operations-manual/current/installation/
 - Relationship property indexes (4.3+): https://neo4j.com/docs/cypher-manual/4.3/indexes/
 
+[//]: pattern
 ## Problem
 
 Some Neo4j features are only available in Enterprise Edition:
@@ -38,6 +39,7 @@ Some Neo4j features are only available in Enterprise Edition:
 
 Mixing CE and EE features in the same migration file causes failures in CE environments (local development, CI pipelines) where Enterprise Edition is not available.
 
+[//]: pattern
 ## Solution
 
 Separate migrations into edition-specific tiers:
@@ -45,6 +47,7 @@ Separate migrations into edition-specific tiers:
 - **CE-compatible migrations**: Applied in all environments (dev, CI, staging, prod)
 - **EE-only migrations**: Skipped in CE environments, applied only in Enterprise Edition
 
+[//]: pattern
 ## Edition Feature Matrix
 
 | Feature                                      | Community | Enterprise |
@@ -61,6 +64,7 @@ Separate migrations into edition-specific tiers:
 
 **Important**: Relationship property indexes became CE-compatible in Neo4j 4.3 (2021). All index types are CE-compatible.
 
+[//]: pattern
 ## Migration File Structure
 
 ### Directory Organization (Phase 8A Example)
@@ -172,6 +176,7 @@ SET v.version = 3,
 RETURN v.version AS version;
 ```
 
+[//]: pattern
 ## Test Runner Implementation
 
 ### Edition Detection
@@ -218,6 +223,7 @@ run_migrations() {
 run_migrations "$NEO4J_EDITION"
 ```
 
+[//]: pattern
 ## Test Assertions
 
 ### Edition-Aware Object Counts
@@ -287,6 +293,7 @@ skip_if_not_ee() {
 }
 ```
 
+[//]: pattern
 ## Rollback Strategy
 
 ### SchemaVersion Branching
@@ -318,6 +325,7 @@ SET v.version = targetVersion,
 RETURN v.version AS version;
 ```
 
+[//]: pattern
 ## Key Rules
 
 1. **EE-only files contain ONLY EE-only features** - Never mix CE-compatible features into EE-only files
@@ -328,6 +336,7 @@ RETURN v.version AS version;
 6. **SchemaVersion rollback must branch by edition** - Different version targets for CE vs EE
 7. **All statements use IF NOT EXISTS / IF EXISTS** - For idempotent execution
 
+[//]: pattern
 ## Best Practices
 
 1. **Detect edition at runtime** - Use `CALL dbms.components() YIELD edition` for dynamic behavior
@@ -338,6 +347,7 @@ RETURN v.version AS version;
 6. **Keep EE files minimal** - Only include features that require Enterprise Edition
 7. **Group by feature type** - Separate files for constraints, indexes, etc.
 
+[//]: pattern
 ## Common Pitfalls
 
 ### Mixing Indexes with EE Constraints

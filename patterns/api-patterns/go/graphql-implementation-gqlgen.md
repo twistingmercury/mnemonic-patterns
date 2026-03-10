@@ -23,6 +23,7 @@ related_patterns:
 
 This pattern demonstrates implementing a GraphQL API in Go using gqlgen, including resolvers, dataloaders for N+1 prevention, custom directives, and subscriptions.
 
+[//]: pattern
 ## Prerequisites
 
 ```bash
@@ -31,6 +32,7 @@ go get github.com/99designs/gqlgen/graphql/handler
 go get github.com/99designs/gqlgen/graphql/playground
 ```
 
+[//]: pattern
 ## Project Structure
 
 ```
@@ -53,6 +55,7 @@ project/
 └── server.go                    # Server setup
 ```
 
+[//]: pattern
 ## Configuration (gqlgen.yml)
 
 ```yaml
@@ -87,6 +90,7 @@ autobind:
   - "yourapp/internal/model"
 ```
 
+[//]: pattern
 ## Root Resolver
 
 ```go
@@ -115,6 +119,7 @@ func NewResolver(
 }
 ```
 
+[//]: pattern
 ## Query Resolvers
 
 ```go
@@ -166,6 +171,7 @@ func (r *queryResolver) SearchUsers(
 }
 ```
 
+[//]: pattern
 ## Mutation Resolvers
 
 ```go
@@ -222,6 +228,7 @@ func (r *mutationResolver) DeleteUser(
 }
 ```
 
+[//]: pattern
 ## Field Resolvers
 
 ```go
@@ -260,6 +267,7 @@ func (r *postResolver) Author(
 }
 ```
 
+[//]: pattern
 ## DataLoaders (N+1 Prevention)
 
 ```go
@@ -346,6 +354,7 @@ func For(ctx context.Context) *Loaders {
 }
 ```
 
+[//]: pattern
 ## Custom Directives
 
 ```go
@@ -384,6 +393,7 @@ func Auth(ctx context.Context, obj interface{}, next graphql.Resolver, requires 
 }
 ```
 
+[//]: pattern
 ## Subscriptions
 
 ```go
@@ -438,6 +448,7 @@ func (r *subscriptionResolver) PostCreated(
 }
 ```
 
+[//]: pattern
 ## Server Setup
 
 ```go
@@ -508,6 +519,7 @@ func main() {
 }
 ```
 
+[//]: pattern
 ## Authentication Middleware
 
 ```go
@@ -547,6 +559,7 @@ func AuthMiddleware(next http.Handler) http.Handler {
 }
 ```
 
+[//]: pattern
 ## Code Generation
 
 ```bash
@@ -560,6 +573,7 @@ go run github.com/99designs/gqlgen generate
 go run github.com/99designs/gqlgen generate --watch
 ```
 
+[//]: pattern
 ## Testing
 
 ```go
@@ -611,6 +625,7 @@ func TestMutationCreateUser(t *testing.T) {
 }
 ```
 
+[//]: pattern
 ## Best Practices
 
 ### 1. Use DataLoaders
@@ -680,6 +695,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input model.CreateUse
 }
 ```
 
+[//]: pattern
 ## Performance Tips
 
 1. **Use DataLoaders** for all foreign key relationships

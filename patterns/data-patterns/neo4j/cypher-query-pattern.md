@@ -21,6 +21,7 @@ related_patterns:
 
 This pattern covers common Cypher query patterns for Neo4j graph operations including node CRUD, relationship traversal, path finding, aggregation, and pattern matching.
 
+[//]: pattern
 ## Node Operations
 
 ### Create Node
@@ -101,6 +102,7 @@ MATCH (p:Pattern {id: $id})
 DETACH DELETE p;
 ```
 
+[//]: pattern
 ## Relationship Operations
 
 ### Create Relationship
@@ -144,6 +146,7 @@ MATCH (p:Pattern {id: $patternId})-[r:CONTAINS]->()
 DELETE r;
 ```
 
+[//]: pattern
 ## Traversal Patterns
 
 ### Direct Neighbors
@@ -191,6 +194,7 @@ MATCH path = allShortestPaths(
 RETURN path;
 ```
 
+[//]: pattern
 ## Aggregation
 
 ### Count by Label
@@ -236,6 +240,7 @@ RETURN
     count(r) AS relationshipCount;
 ```
 
+[//]: pattern
 ## Full-Text Search
 
 ```cypher
@@ -255,6 +260,7 @@ ORDER BY score DESC
 LIMIT 10;
 ```
 
+[//]: pattern
 ## Common Query Patterns
 
 ### Find Related Patterns via Shared Concepts
@@ -317,6 +323,7 @@ DELETE c
 RETURN count(c) AS deletedCount;
 ```
 
+[//]: pattern
 ## Parameterized Queries (Go)
 
 ### Using neo4j-go-driver
@@ -354,6 +361,7 @@ func (r *GraphRepository) FindRelatedPatterns(ctx context.Context, patternID uui
 }
 ```
 
+[//]: pattern
 ## Performance Tips
 
 ### Use EXPLAIN/PROFILE
@@ -392,6 +400,7 @@ MATCH (p)-[:CONTAINS]->(c:Concept)
 RETURN p, collect(c) AS concepts;
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Always parameterize** - Never concatenate strings into queries

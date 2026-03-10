@@ -17,12 +17,9 @@ tags:
 
 ## Overview
 
-Use multi-stage Dockerfiles with Alpine for build and scratch for runtime to minimize attack surface and image size. Embed version information via build arguments and follow security best practices.
-
-## Philosophy
-
 Use multi-stage Dockerfiles with Alpine for build and scratch for runtime to minimize attack surface and image size. Embed version information via build arguments and ldflags. Follow security best practices.
 
+[//]: pattern
 ## Multi-Stage Dockerfile (Alpine → Scratch)
 
 ```dockerfile
@@ -102,6 +99,7 @@ ENTRYPOINT ["/app/servicename"]
 - **CGO_ENABLED=0**: Static binaries that don't depend on C libraries
 - **Build arguments**: VERSION, COMMIT, BUILD_DATE for traceability
 
+[//]: pattern
 ## Version Package Pattern
 
 Create `internal/version/version.go`:
@@ -116,6 +114,7 @@ var (
 )
 ```
 
+[//]: pattern
 ## Build Command
 
 ```bash
@@ -130,6 +129,7 @@ docker build \
     .
 ```
 
+[//]: pattern
 ## Security Considerations
 
 - **Scratch base image**: No unnecessary packages or files

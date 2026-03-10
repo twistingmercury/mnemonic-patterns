@@ -18,6 +18,7 @@ tags:
 
 This pattern demonstrates organizing Cobra CLI commands by business domain rather than flat command structure, improving scalability and maintainability for complex CLIs.
 
+[//]: pattern
 ## Directory Structure
 
 ```
@@ -63,6 +64,7 @@ project/
 │       └── config.go
 ```
 
+[//]: pattern
 ## Parent Command Pattern
 
 Each domain has a parent command that wires subcommands together:
@@ -120,6 +122,7 @@ func Command(cfg *config.Config) (*cobra.Command, error) {
 }
 ```
 
+[//]: pattern
 ## Domain Types Pattern
 
 Each domain defines its own types for YAML input and API requests:
@@ -151,6 +154,7 @@ type CompanyClaim struct {
 }
 ```
 
+[//]: pattern
 ## Domain Validation Pattern
 
 Each domain has dedicated validation logic with regex patterns:
@@ -223,6 +227,7 @@ func ValidateCompanySettings(settings CompanySettings) error {
 }
 ```
 
+[//]: pattern
 ## Main.go Wiring Pattern
 
 Wire domains to root command in main.go:
@@ -365,6 +370,7 @@ $ mytool user list --status active
 - Single-domain tools
 - Quick prototypes or scripts
 
+[//]: pattern
 ## Comparison to Flat Structure
 
 **Flat Cobra Structure:**
@@ -398,6 +404,7 @@ internal/cli/
 ```
 Benefits: Clear boundaries, scales well, easy navigation
 
+[//]: pattern
 ## Testing Strategy
 
 ```go

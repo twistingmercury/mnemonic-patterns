@@ -23,6 +23,7 @@ related_patterns:
 
 This pattern provides a complete OpenAPI 3.1 specification template for RESTful APIs. The specification is language-agnostic and can be implemented in any backend language or framework.
 
+[//]: pattern
 ## Complete OpenAPI 3.1 Specification
 
 ```yaml
@@ -473,14 +474,17 @@ components:
             $ref: "#/components/schemas/Error"
 ```
 
+[//]: pattern
 ## Key Patterns
 
+[//]: pattern
 ### API Versioning
 
 - Use URL path versioning (`/v1/`, `/v2/`)
 - Version in the base URL, not per endpoint
 - Maintain backwards compatibility within major versions
 
+[//]: pattern
 ### Pagination
 
 - Use `page` and `page_size` query parameters
@@ -488,12 +492,14 @@ components:
 - Enforce maximum page size limits
 - Use 1-indexed page numbers for user friendliness
 
+[//]: pattern
 ### Resource Naming
 
 - Use plural nouns for collections (`/users`, `/items`)
 - Use hierarchical paths for sub-resources
 - Keep URLs lowercase with hyphens for readability
 
+[//]: pattern
 ### HTTP Methods
 
 - GET: Retrieve resources (safe, idempotent)
@@ -502,6 +508,7 @@ components:
 - PATCH: Partial update (potentially non-idempotent)
 - DELETE: Remove resources (idempotent)
 
+[//]: pattern
 ### Response Codes
 
 - 200: Successful GET, PUT, PATCH
@@ -513,6 +520,7 @@ components:
 - 409: Conflict (duplicate resource)
 - 500: Internal server error
 
+[//]: pattern
 ### Error Handling
 
 - Consistent error response structure
@@ -520,12 +528,14 @@ components:
 - Provide field-level validation details
 - Use appropriate HTTP status codes
 
+[//]: pattern
 ### Security
 
 - Use Bearer JWT tokens for authentication
 - Document security requirements per endpoint
 - Support HTTPS only in production
 
+[//]: pattern
 ## Validation
 
 Validate OpenAPI spec using standard tools:
@@ -541,6 +551,7 @@ docker run --rm -v "${PWD}:/local" openapitools/openapi-generator-cli validate -
 npx @stoplight/spectral-cli lint openapi.yaml
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Use reusable components** - Define schemas, parameters, and responses once

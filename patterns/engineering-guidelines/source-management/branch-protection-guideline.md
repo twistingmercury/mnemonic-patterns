@@ -17,10 +17,6 @@ tags:
 
 Branch protection rules prevent accidental or unauthorized changes to critical branches (main/master/develop) and enforce quality gates through automated checks and peer review.
 
-## Purpose
-
-Branch protection rules prevent accidental or unauthorized changes to critical branches (main/master/develop) and enforce quality gates through automated checks and peer review.
-
 ## Protected Branches
 
 Apply these rules to:
@@ -29,6 +25,7 @@ Apply these rules to:
 - `develop` (if using git-flow or similar)
 - Release branches (if applicable)
 
+[//]: pattern
 ## Required Protection Rules
 
 ### 1. No Direct Commits
@@ -109,6 +106,7 @@ Apply these rules to:
 - Merge or rebase target branch into feature branch before final approval
 - Re-run CI checks after updating to verify compatibility
 
+[//]: pattern
 ## Workflow Impact
 
 ### Developer Workflow
@@ -133,6 +131,7 @@ In rare emergency situations (production outage, critical security fix):
 4. Still require CI checks and code review (expedited)
 5. Post-incident review of emergency change
 
+[//]: pattern
 ## Enforcement
 
 ### Platform Configuration
@@ -163,6 +162,7 @@ Configure branch protection in your source control platform:
 
 **Stability**: Protected branches remain stable and deployable at all times.
 
+[//]: pattern
 ## Common Pitfalls
 
 **Pitfall**: Granting bypass permissions too freely.

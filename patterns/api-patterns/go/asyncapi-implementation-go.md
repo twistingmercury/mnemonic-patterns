@@ -29,6 +29,7 @@ related_patterns:
 
 This pattern demonstrates how to implement AsyncAPI event-driven patterns in Go using popular messaging libraries for Kafka, MQTT, AMQP, and WebSocket integrations.
 
+[//]: pattern
 ## Libraries
 
 ### Kafka
@@ -55,6 +56,7 @@ go get github.com/rabbitmq/amqp091-go
 go get github.com/gorilla/websocket
 ```
 
+[//]: pattern
 ## Project Structure
 
 ```text
@@ -88,6 +90,7 @@ go get github.com/gorilla/websocket
 └── go.mod
 ```
 
+[//]: pattern
 ## Core Event Models
 
 ```go
@@ -153,6 +156,7 @@ type UserDeletedPayload struct {
 }
 ```
 
+[//]: pattern
 ## Event Publisher/Subscriber Interfaces
 
 ```go
@@ -192,8 +196,10 @@ type Message struct {
 }
 ```
 
+[//]: pattern
 ## Kafka Implementation
 
+[//]: pattern
 ### Kafka Producer
 
 ```go
@@ -267,6 +273,7 @@ func (p *Producer) Close() error {
 }
 ```
 
+[//]: pattern
 ### Kafka Consumer
 
 ```go
@@ -387,6 +394,7 @@ func (h *consumerGroupHandler) ConsumeClaim(session sarama.ConsumerGroupSession,
 }
 ```
 
+[//]: pattern
 ### Kafka Configuration
 
 ```go
@@ -406,8 +414,10 @@ func NewConfig(brokers []string, groupID string) *Config {
 }
 ```
 
+[//]: pattern
 ## MQTT Implementation
 
+[//]: pattern
 ### MQTT Publisher
 
 ```go
@@ -478,6 +488,7 @@ func (p *Publisher) Close() error {
 }
 ```
 
+[//]: pattern
 ### MQTT Subscriber
 
 ```go
@@ -551,6 +562,7 @@ func (s *Subscriber) Close() error {
 }
 ```
 
+[//]: pattern
 ### MQTT Configuration
 
 ```go
@@ -582,8 +594,10 @@ func NewConfig(broker, clientID, username, password string) *Config {
 }
 ```
 
+[//]: pattern
 ## AMQP (RabbitMQ) Implementation
 
+[//]: pattern
 ### AMQP Publisher
 
 ```go
@@ -657,6 +671,7 @@ func (p *Publisher) Close() error {
 }
 ```
 
+[//]: pattern
 ### AMQP Consumer
 
 ```go
@@ -790,6 +805,7 @@ func (c *Consumer) Close() error {
 }
 ```
 
+[//]: pattern
 ### AMQP Configuration
 
 ```go
@@ -807,8 +823,10 @@ func NewConfig(url string) *Config {
 }
 ```
 
+[//]: pattern
 ## WebSocket Implementation
 
+[//]: pattern
 ### WebSocket Server
 
 ```go
@@ -869,6 +887,7 @@ func (s *Server) Broadcast(message []byte) {
 }
 ```
 
+[//]: pattern
 ### WebSocket Hub
 
 ```go
@@ -917,6 +936,7 @@ func (h *Hub) Run() {
 }
 ```
 
+[//]: pattern
 ### WebSocket Client
 
 ```go
@@ -1014,6 +1034,7 @@ func (c *Client) writePump() {
 }
 ```
 
+[//]: pattern
 ## Message Handler Example
 
 ```go
@@ -1092,6 +1113,7 @@ func (h *UserEventHandler) handleUserDelete(ctx context.Context, envelope models
 }
 ```
 
+[//]: pattern
 ## Main Application Example
 
 ```go
@@ -1188,6 +1210,7 @@ func main() {
 }
 ```
 
+[//]: pattern
 ## Error Handling and Retries
 
 ```go
@@ -1264,6 +1287,7 @@ func (r *RetryHandler) sendToDLQ(ctx context.Context, msg events.Message, err er
 }
 ```
 
+[//]: pattern
 ## Testing
 
 ```go
@@ -1314,6 +1338,7 @@ func TestKafkaConsumer(t *testing.T) {
 }
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Graceful Shutdown**: Always close connections and consumers properly

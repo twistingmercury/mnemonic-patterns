@@ -24,6 +24,8 @@ related_patterns:
 
 This pattern demonstrates various authentication schemes for RESTful APIs in OpenAPI 3.1 specifications. These patterns are language-agnostic and can be implemented in any backend framework.
 
+[//]: pattern
+
 ## Multiple Authentication Schemes
 
 ```yaml
@@ -357,17 +359,21 @@ security:
 
 ## Authentication Patterns
 
+[//]: pattern
+
 ### JWT Bearer Token (Recommended)
 
 **Best for:** User authentication in web and mobile apps
 
 **Characteristics:**
+
 - Stateless authentication
 - Short-lived access tokens (15-60 minutes)
 - Long-lived refresh tokens for renewal
 - Include user claims in token payload
 
 **Token Structure:**
+
 ```json
 {
   "header": {
@@ -386,33 +392,41 @@ security:
 ```
 
 **Required Claims:**
+
 - `exp` - Expiration time
 - `iat` - Issued at time
 - `iss` - Issuer
 - `aud` - Audience
 - Custom claims (user_id, email, roles, etc.)
 
+[//]: pattern
+
 ### API Key Authentication
 
 **Best for:** Service-to-service communication, webhooks
 
 **Characteristics:**
+
 - Static keys for machine authentication
 - Store keys in environment variables or secret management
 - Use separate keys per environment
 - Rotate keys periodically
 
 **Key Format Examples:**
+
 ```
 X-API-Key: sk_prod_1234567890abcdef
 X-API-Key: pk_test_abcdef1234567890
 ```
 
 **Best Practices:**
-- Use prefixes to identify key type (sk_, pk_, etc.)
+
+- Use prefixes to identify key type (sk*, pk*, etc.)
 - Include environment in prefix (prod, test, dev)
 - Never log API keys
 - Support key rotation without downtime
+
+[//]: pattern
 
 ### OAuth 2.0 Flows
 
@@ -421,12 +435,14 @@ X-API-Key: pk_test_abcdef1234567890
 **Best for:** Web applications with backend
 
 **Characteristics:**
+
 - Most secure flow for user authentication
 - Access token never exposed to browser
 - Supports refresh tokens
 - PKCE extension for additional security
 
 **Flow:**
+
 1. Client redirects user to authorization server
 2. User authenticates and grants permissions
 3. Authorization server redirects back with code
@@ -438,12 +454,14 @@ X-API-Key: pk_test_abcdef1234567890
 **Best for:** Machine-to-machine authentication
 
 **Characteristics:**
+
 - No user involved
 - Service authenticates with client ID and secret
 - Short-lived access tokens
 - Direct token request to token endpoint
 
 **Use Cases:**
+
 - Microservice communication
 - Scheduled jobs
 - Background processes
@@ -454,6 +472,7 @@ X-API-Key: pk_test_abcdef1234567890
 **Legacy only:** Direct username/password exchange
 
 **Why avoid:**
+
 - Less secure than authorization code
 - Client handles user credentials directly
 - No consent screen
@@ -461,17 +480,21 @@ X-API-Key: pk_test_abcdef1234567890
 
 **Prefer:** Authorization code or client credentials
 
+[//]: pattern
+
 ### OpenID Connect
 
 **Best for:** Single Sign-On (SSO)
 
 **Characteristics:**
+
 - Built on OAuth 2.0
 - Provides user identity information
 - Standard claims for user profile
 - Supports multiple identity providers
 
 **Standard Claims:**
+
 - `sub` - Subject (user ID)
 - `name` - Full name
 - `email` - Email address
@@ -479,6 +502,8 @@ X-API-Key: pk_test_abcdef1234567890
 - `email_verified` - Email verification status
 
 ## Security Best Practices
+
+[//]: pattern
 
 ### Token Security
 
@@ -492,6 +517,8 @@ X-API-Key: pk_test_abcdef1234567890
 6. **Use strong signing algorithms** (RS256, ES256)
 7. **Never store tokens in localStorage** (use httpOnly cookies)
 
+[//]: pattern
+
 ### API Key Security
 
 1. **Never commit keys to version control**
@@ -501,6 +528,8 @@ X-API-Key: pk_test_abcdef1234567890
 5. **Use key prefixes** for identification
 6. **Implement rate limiting** per key
 7. **Support key revocation**
+
+[//]: pattern
 
 ### OAuth Security
 
@@ -512,9 +541,12 @@ X-API-Key: pk_test_abcdef1234567890
 6. **Use short-lived access tokens**
 7. **Refresh tokens should be single-use**
 
+[//]: pattern
+
 ### General Security
 
 1. **Implement rate limiting**
+
    ```yaml
    x-rate-limit:
      authenticated: 1000/hour
@@ -522,6 +554,7 @@ X-API-Key: pk_test_abcdef1234567890
    ```
 
 2. **Configure CORS properly**
+
    ```yaml
    x-cors:
      allowed-origins:
@@ -548,6 +581,8 @@ X-API-Key: pk_test_abcdef1234567890
    - Token generation
    - Failed authentication
    - Suspicious activity
+
+[//]: pattern
 
 ## Testing Authentication
 
@@ -602,18 +637,20 @@ curl https://api.example.com/v1/resources \
 
 ## Common Patterns
 
+[//]: pattern
+
 ### Public vs Protected Endpoints
 
 ```yaml
 paths:
   /public/health:
     get:
-      security: []  # No authentication
+      security: [] # No authentication
 
   /protected/data:
     get:
       security:
-        - bearerAuth: []  # Authentication required
+        - bearerAuth: [] # Authentication required
 ```
 
 ### Multiple Auth Options (OR)
@@ -628,6 +665,8 @@ paths:
       # Either Bearer token OR API key works
 ```
 
+[//]: pattern
+
 ### Multiple Auth Requirements (AND)
 
 ```yaml
@@ -640,6 +679,8 @@ paths:
       # Both Bearer token AND API key required
 ```
 
+[//]: pattern
+
 ### Scope-Based Authorization
 
 ```yaml
@@ -647,22 +688,25 @@ paths:
   /resources:
     get:
       security:
-        - oauth2AuthCode: [read]  # Requires 'read' scope
+        - oauth2AuthCode: [read] # Requires 'read' scope
 
     post:
       security:
-        - oauth2AuthCode: [write]  # Requires 'write' scope
+        - oauth2AuthCode: [write] # Requires 'write' scope
 
     delete:
       security:
-        - oauth2AuthCode: [admin]  # Requires 'admin' scope
+        - oauth2AuthCode: [admin] # Requires 'admin' scope
 ```
+
+[//]: pattern
 
 ## Error Responses
 
 ### 401 Unauthorized
 
 Missing or invalid authentication:
+
 ```json
 {
   "error": "unauthorized",
@@ -673,6 +717,7 @@ Missing or invalid authentication:
 ### 403 Forbidden
 
 Authenticated but insufficient permissions:
+
 ```json
 {
   "error": "forbidden",
@@ -683,6 +728,7 @@ Authenticated but insufficient permissions:
 ### 429 Too Many Requests
 
 Rate limit exceeded:
+
 ```json
 {
   "error": "rate_limit_exceeded",

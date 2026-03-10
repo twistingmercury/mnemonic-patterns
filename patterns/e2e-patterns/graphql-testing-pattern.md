@@ -18,10 +18,7 @@ tags:
 
 Use GraphQL client libraries to execute queries and mutations exactly as API consumers would. Never import GraphQL resolver or internal server packages to test as a black box from the consumer's perspective.
 
-## Philosophy
-
-Use GraphQL client libraries to execute queries and mutations exactly as API consumers would. Never import GraphQL resolver or internal server packages. Test as a black box from the consumer's perspective.
-
+[//]: pattern
 ## Core Approach
 
 1. **Use GraphQL client library**:
@@ -44,6 +41,7 @@ Use GraphQL client libraries to execute queries and mutations exactly as API con
    - Partial response handling
    - Error response validation
 
+[//]: pattern
 ## Example Test Structure
 
 ```go
@@ -369,6 +367,7 @@ func TestUpdateUser_PartialUpdate(t *testing.T) {
 }
 ```
 
+[//]: pattern
 ## Helper Functions
 
 ```go
@@ -488,6 +487,7 @@ func deleteUserByEmail(t *testing.T, email string) {
 }
 ```
 
+[//]: pattern
 ## Required Packages
 
 ```go
@@ -503,6 +503,7 @@ import (
 
 ## GraphQL-Specific Testing Patterns
 
+[//]: pattern
 ### Query Testing
 
 - **Fields Selection**: Test with minimal fields and all available fields
@@ -510,6 +511,7 @@ import (
 - **Aliases**: Test field aliasing when needed
 - **Fragments**: Test with inline and named fragments
 
+[//]: pattern
 ### Mutation Testing
 
 - **Input Validation**: Test required fields, type validation, format validation
@@ -517,6 +519,7 @@ import (
 - **Cascading Operations**: Test mutations that affect related entities
 - **Optimistic Responses**: Test mutation response structure
 
+[//]: pattern
 ### Error Handling
 
 - **GraphQL Errors**: Errors returned in `errors` array with `message`, `path`, `extensions`
@@ -524,6 +527,7 @@ import (
 - **Authorization Errors**: Field-level permission checks
 - **Custom Errors**: Application-specific error codes and messages
 
+[//]: pattern
 ### Pagination Patterns
 
 - **Cursor-based**: Test `first`, `after`, `last`, `before` arguments
@@ -531,6 +535,7 @@ import (
 - **Page Info**: Verify `hasNextPage`, `hasPreviousPage`, `startCursor`, `endCursor`
 - **Connection Pattern**: Test `edges`, `node`, `cursor` structure
 
+[//]: pattern
 ## Key Patterns
 
 1. **Use GraphQL Client**: Use `github.com/machinebox/graphql`, not raw HTTP
@@ -541,6 +546,7 @@ import (
 6. **Test Cleanup**: Use `t.Cleanup()` with deletion mutations
 7. **No Internal Imports**: Never import GraphQL resolver packages
 
+[//]: pattern
 ## Common Pitfalls
 
 - **Ignoring GraphQL errors**: Check both `err` and response `errors` array
@@ -555,6 +561,7 @@ import (
 
 All GraphQL operations must be tested for:
 
+[//]: pattern
 ### Query Testing
 
 - Successful retrieval with various field selections
@@ -563,6 +570,7 @@ All GraphQL operations must be tested for:
 - Filtering and sorting arguments
 - Nested object resolution
 
+[//]: pattern
 ### Mutation Testing
 
 - Successful creation/update/deletion
@@ -572,6 +580,7 @@ All GraphQL operations must be tested for:
 - Conflict scenarios
 - Partial updates
 
+[//]: pattern
 ### Error Scenarios
 
 - GraphQL validation errors (schema violations)
@@ -581,6 +590,7 @@ All GraphQL operations must be tested for:
 - Not found errors
 - Rate limiting errors
 
+[//]: pattern
 ### Edge Cases
 
 - Empty result sets

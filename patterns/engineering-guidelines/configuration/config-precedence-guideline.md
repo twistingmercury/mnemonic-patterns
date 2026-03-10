@@ -18,6 +18,7 @@ Applications must support multiple configuration sources to work effectively acr
 
 This approach follows the [12-factor app configuration methodology](https://12factor.net/config), emphasizing environment-based configuration that separates code from config.
 
+[//]: pattern
 ## Configuration Precedence Order
 
 Configuration sources are evaluated in this order, with **later sources overriding earlier ones**:
@@ -37,7 +38,8 @@ Configuration sources are evaluated in this order, with **later sources overridi
 
 In production containerized environments, environment variables should contain all necessary configuration rather than relying on built-in defaults or configuration files. The precedence order supports local development workflows where config files provide convenience, while maintaining production best practices.
 
-## Built-in Defaults
+[//]: pattern
+## PATTERN: Built-in Defaults
 
 ### Requirements
 
@@ -78,7 +80,8 @@ Never use these as built-in defaults:
 - Aggressive timeout values optimized for production
 - Feature flags that enable untested functionality
 
-## Configuration Files
+[//]: pattern
+## PATTERN: Configuration Files
 
 ### Supported Formats
 
@@ -112,7 +115,8 @@ Applications should check for configuration files in standard locations:
 
 Allow users to override with a `--config` flag or `CONFIG_FILE` environment variable.
 
-## Environment Variables
+[//]: pattern
+## PATTERN: Environment Variables
 
 ### When to Use
 
@@ -150,7 +154,8 @@ Never:
 - Include credentials in container image environment settings
 - Use environment variables for large configuration payloads (use config files)
 
-## Command Line Flags
+[//]: pattern
+## PATTERN: Command Line Flags
 
 ### Purpose
 
@@ -184,7 +189,8 @@ Command line flags provide the highest precedence for:
 ./myapp --port=8080 --log-level=debug --read-timeout=60s
 ```
 
-## Configuration Validation
+[//]: pattern
+## PATTERN: Configuration Validation
 
 ### Fail Fast on Startup
 
@@ -241,7 +247,8 @@ CRITICAL: Configuration validation failed:
 Exiting with code 1
 ```
 
-## Docker and Kubernetes Patterns
+[//]: pattern
+## PATTERN: Docker and Kubernetes Patterns
 
 ### Docker Containers
 
@@ -297,7 +304,8 @@ spec:
                   key: log-level
 ```
 
-## Configuration Storage by Type
+[//]: pattern
+## PATTERN: Configuration Storage by Type
 
 Different configuration data types have different security and lifecycle requirements:
 
@@ -307,7 +315,8 @@ Different configuration data types have different security and lifecycle require
 | **Environment-specific settings** | ConfigMaps / Environment variables   | Service URLs, database names, queue names, external API endpoints | No (managed per environment) |
 | **Credentials & secrets**         | Secrets Manager / Kubernetes Secrets | Passwords, API keys, certificates, encryption keys, access tokens | Never                        |
 
-## Common Pitfalls
+[//]: pattern
+## PATTERN: Common Pitfalls
 
 ### Hardcoded Production Values
 
@@ -339,7 +348,7 @@ Different configuration data types have different security and lifecycle require
 
 **Solution:** Use configuration values instead of environment detection. Make behavior configurable, not hardcoded.
 
-## Related Guidelines
+## PATTERN: Related Guidelines
 
 - [Security in Development](../../security/security-in-development.md)
 - [Secrets Management](../../security/secrets-management.md)

@@ -16,10 +16,6 @@ tags:
 
 ## Overview
 
-Separate CI (build+test) from CD (deploy) workflows. CI produces artifacts and validates quality. CD only runs after CI succeeds and handles deployment tasks like registry pushes.
-
-## Philosophy
-
 Separate CI (build+test) from CD (deploy) workflows. CI produces artifacts and validates quality. CD only runs after CI succeeds and handles deployment tasks like registry pushes. This separation provides:
 
 - Clear pipeline stages with explicit dependencies
@@ -38,6 +34,7 @@ A CD workflow that:
 4. Authenticates to container registry
 5. Pushes with version tag and conditional `latest` tag
 
+[//]: pattern
 ## Permissions
 
 CD workflows require specific permissions for artifact handling and registry push:
@@ -56,6 +53,7 @@ permissions:
 - `packages: write` enables pushing to GitHub Container Registry (ghcr.io)
 - For external registries (ACR, ECR, Docker Hub), use secrets for authentication
 
+[//]: pattern
 ## Example CD Workflow
 
 **.github/workflows/cd.yml**:
@@ -127,6 +125,7 @@ jobs:
           fi
 ```
 
+[//]: pattern
 ## CI Workflow Changes for Artifact Passing
 
 The CI workflow must save the Docker image as an artifact. Add this to your CI workflow:
@@ -163,6 +162,7 @@ jobs:
           retention-days: 1
 ```
 
+[//]: pattern
 ## Conditional Latest Tag
 
 The `latest` tag should only be applied on the main branch. This prevents development builds from overwriting production `latest`:
@@ -181,6 +181,7 @@ fi
 - Development branches should use version or commit tags
 - Prevents accidental deployment of unstable code via `latest`
 
+[//]: pattern
 ## Azure Container Registry Variant
 
 For ACR instead of GHCR:
@@ -203,6 +204,7 @@ For ACR instead of GHCR:
           docker push "${REGISTRY}/${IMAGE_NAME}:${VERSION}"
 ```
 
+[//]: pattern
 ## Docker Hub Variant
 
 For Docker Hub:
@@ -224,6 +226,7 @@ For Docker Hub:
           docker push "${REGISTRY}/${IMAGE_NAME}:${VERSION}"
 ```
 
+[//]: pattern
 ## workflow_run Considerations
 
 The `workflow_run` trigger has specific behaviors:
@@ -241,6 +244,7 @@ ${{ github.event.workflow_run.id }}            # Workflow run ID for artifact do
 
 ## Troubleshooting
 
+[//]: pattern
 ### Artifact Not Found
 
 **Symptom**: CD workflow fails with "Unable to find any artifacts" or similar error.
@@ -272,6 +276,7 @@ ${{ github.event.workflow_run.id }}            # Workflow run ID for artifact do
 
 4. **Artifact expired**: Check retention settings (default 90 days, set to 1 day for intermediate artifacts)
 
+[//]: pattern
 ### CD Workflow Not Triggering
 
 **Symptom**: CI succeeds but CD never runs.
@@ -299,6 +304,7 @@ ${{ github.event.workflow_run.id }}            # Workflow run ID for artifact do
    if: ${{ github.event.workflow_run.conclusion == 'success' }}
    ```
 
+[//]: pattern
 ### Docker Image Load Fails
 
 **Symptom**: `docker load` fails with "invalid tar header" or similar.
@@ -317,6 +323,7 @@ ${{ github.event.workflow_run.id }}            # Workflow run ID for artifact do
 
 3. **Image name mismatch**: The loaded image has the name from `docker save`, not the artifact name
 
+[//]: pattern
 ### Registry Push Fails
 
 **Symptom**: `docker push` fails with authentication or permission errors.

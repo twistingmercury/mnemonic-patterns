@@ -17,10 +17,7 @@ tags:
 
 CHANGELOG.md documents what changed between versions of a project, helping users understand the impact of upgrades and maintainers track project history following Keep a Changelog conventions.
 
-## Purpose
-
-CHANGELOG.md documents what changed between versions of a project, helping users understand the impact of upgrades and maintainers track project history.
-
+[//]: pattern
 ## When to Use CHANGELOG.md
 
 **Required for:**
@@ -40,6 +37,7 @@ All CHANGELOG.md files MUST follow the [Keep a Changelog](https://keepachangelog
 
 ## Required Structure
 
+[//]: pattern
 ### File Header
 
 ```markdown
@@ -51,6 +49,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ```
 
+[//]: pattern
 ### Unreleased Section
 
 Every CHANGELOG.md MUST maintain an `## [Unreleased]` section at the top for changes that haven't been released yet:
@@ -77,6 +76,7 @@ Every CHANGELOG.md MUST maintain an `## [Unreleased]` section at the top for cha
 - Security vulnerability fixes and improvements
 ```
 
+[//]: pattern
 ### Version Sections
 
 Each released version gets its own section with version number and release date:
@@ -96,6 +96,7 @@ Each released version gets its own section with version number and release date:
 - Database connection pool exhaustion under high load
 ```
 
+[//]: pattern
 ## Change Categories
 
 Group changes under these standardized headings:
@@ -124,6 +125,7 @@ Group changes under these standardized headings:
 - Test improvements (unless it impacts users)
 - Development tooling changes
 
+[//]: pattern
 ## Writing Style
 
 **Good changelog entries:**
@@ -138,6 +140,7 @@ Group changes under these standardized headings:
 - "Refactored database layer to use repository pattern" (internal detail)
 - "Fixed bug" (not specific enough)
 
+[//]: pattern
 ## Release Preparation Process
 
 When preparing a new release:
@@ -178,6 +181,7 @@ When preparing a new release:
 - Login timeout issue
 ```
 
+[//]: pattern
 ## Integration with Versioning
 
 CHANGELOG.md works alongside semantic versioning:

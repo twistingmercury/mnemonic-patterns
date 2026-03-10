@@ -21,6 +21,7 @@ The never-nester pattern eliminates deep nesting by using guard clauses with ear
 
 ## Pattern
 
+[//]: pattern
 ### Avoid Deep Nesting with Guard Clauses
 
 **Bad (nested):**
@@ -76,6 +77,7 @@ process_file() {
 }
 ```
 
+[//]: pattern
 ## Complete Example: Refactoring Nested to Flat
 
 **Before (deeply nested):**
@@ -164,6 +166,7 @@ deploy_application() {
 
 ## Pattern Variations
 
+[//]: pattern
 ### Validation Functions
 
 ```bash
@@ -200,6 +203,7 @@ main() {
 }
 ```
 
+[//]: pattern
 ### Flattening else/if Chains
 
 **Bad (nested else/if):**
@@ -252,6 +256,7 @@ process_status() {
 }
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Validate early** - Check all prerequisites at the start of the function

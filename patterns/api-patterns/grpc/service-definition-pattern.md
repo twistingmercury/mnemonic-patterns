@@ -18,6 +18,7 @@ tags:
 
 This pattern provides complete Protocol Buffer definitions for gRPC services in Go projects.
 
+[//]: pattern
 ## Complete Proto File
 
 ```protobuf
@@ -320,6 +321,7 @@ enum SyncResult {
 }
 ```
 
+[//]: pattern
 ## Go Server Implementation
 
 ```go
@@ -611,6 +613,7 @@ func ptr[T any](v T) *T {
 }
 ```
 
+[//]: pattern
 ## Buf Configuration
 
 ```yaml
@@ -649,6 +652,7 @@ plugins:
       - paths=source_relative
 ```
 
+[//]: pattern
 ## Code Generation
 
 ```bash
@@ -665,8 +669,10 @@ buf lint
 buf breaking --against '.git#branch=main'
 ```
 
+[//]: pattern
 ## Key Patterns
 
+[//]: pattern
 ### Error Handling
 
 - Use gRPC status codes (InvalidArgument, NotFound, Internal, etc.)
@@ -674,18 +680,21 @@ buf breaking --against '.git#branch=main'
 - Include descriptive error messages
 - Use structured error details for validation errors
 
+[//]: pattern
 ### Pagination
 
 - Use page_token for cursor-based pagination
 - Return next_page_token and total_count
 - Implement reasonable default page_size
 
+[//]: pattern
 ### Field Masks
 
 - Use google.protobuf.FieldMask for partial updates
 - Validate field paths
 - Only update specified fields
 
+[//]: pattern
 ### Streaming
 
 - Server streaming: One request, multiple responses
@@ -693,6 +702,7 @@ buf breaking --against '.git#branch=main'
 - Bidirectional: Multiple requests and responses
 - Handle context cancellation properly
 
+[//]: pattern
 ## Testing
 
 ```go

@@ -19,6 +19,7 @@ tags:
 
 SOLID principles from object-oriented programming can be applied to shell script functions to create more maintainable, testable, and flexible code. This pattern shows how to implement each principle in shell scripts.
 
+[//]: pattern
 ## Single Responsibility Principle
 
 Each function should do one thing well. Use orchestrator functions to coordinate focused functions.
@@ -86,6 +87,7 @@ deploy() {
 }
 ```
 
+[//]: pattern
 ## Open/Closed Principle
 
 Functions should be extensible without modification. Use environment variables to allow behavior extension.
@@ -138,6 +140,7 @@ export NOTIFIER="custom_slack_notifier"
 send_notification "Deployment complete"
 ```
 
+[//]: pattern
 ## Liskov Substitution Principle
 
 Functions with similar purposes should be interchangeable - same signature and behavior contract.
@@ -180,6 +183,7 @@ BACKUP_FUNCTION="${BACKUP_FUNCTION:-backup_to_local}"
 "${BACKUP_FUNCTION}" "${SOURCE_DIR}" "${BACKUP_DEST}"
 ```
 
+[//]: pattern
 ## Interface Segregation Principle
 
 Don't force functions to depend on parameters they don't use. Only accept what you need.
@@ -224,6 +228,7 @@ process_file_with_options() {
 }
 ```
 
+[//]: pattern
 ## Dependency Inversion Principle
 
 Depend on abstractions (environment variables, function references) not concrete implementations.
@@ -270,6 +275,7 @@ export LOGGER="custom_logger"
 process_data "important-file.txt"
 ```
 
+[//]: pattern
 ## Complete Example: All Principles Together
 
 ```bash

@@ -17,18 +17,16 @@ tags:
 
 ## Overview
 
-The build script orchestrates Docker multi-stage builds to run E2E tests before exporting binaries, ensuring broken code never gets exported to end users.
-
-## Philosophy
-
 The build script orchestrates Docker build targets in sequence: first run E2E tests inside Docker using the linux binary, then export all platform binaries only if tests pass. This ensures broken code never gets exported.
 
+[//]: pattern
 ## The Pattern
 
 1. Run `docker build --target e2e_tests` to build and test
 2. If tests pass (exit code 0), run `docker build --target export` to export binaries
 3. If tests fail, stop immediately - don't export broken binaries
 
+[//]: pattern
 ## Dockerfile Structure
 
 Multi-stage Dockerfile with three key stages:
@@ -112,6 +110,7 @@ FROM scratch AS export
 COPY --from=builder /out/ .
 ```
 
+[//]: pattern
 ## Build Script
 
 The orchestration script extracts version metadata, runs tests first, and only exports binaries if tests pass.
@@ -219,6 +218,7 @@ log_info "  - windows/amd64"
 
 CI platforms (GitHub Actions, GitLab CI, Azure Pipelines) simply call the build script. All complexity lives in the script and Dockerfile.
 
+[//]: pattern
 ### GitHub Actions Example
 
 ```yaml
@@ -248,6 +248,7 @@ jobs:
           path: .bin/
 ```
 
+[//]: pattern
 ### GitLab CI Example
 
 ```yaml
@@ -263,6 +264,7 @@ build:
       - .bin/
 ```
 
+[//]: pattern
 ### Azure Pipelines Example
 
 ```yaml

@@ -24,6 +24,7 @@ related_patterns:
 
 This pattern demonstrates implementing gRPC services in Go using google.golang.org/grpc, including server/client setup, interceptors, streaming, and error handling.
 
+[//]: pattern
 ## Prerequisites
 
 ```bash
@@ -33,6 +34,7 @@ go get google.golang.org/grpc/codes
 go get google.golang.org/grpc/status
 ```
 
+[//]: pattern
 ## Project Structure
 
 ```
@@ -57,6 +59,7 @@ project/
 └── buf.gen.yaml                      # Buf configuration
 ```
 
+[//]: pattern
 ## Server Implementation
 
 ```go
@@ -333,6 +336,7 @@ func toGRPCError(err error) error {
 }
 ```
 
+[//]: pattern
 ## Server Setup
 
 ```go
@@ -386,8 +390,10 @@ func main() {
 }
 ```
 
+[//]: pattern
 ## Interceptors (Middleware)
 
+[//]: pattern
 ### Logging Interceptor
 
 ```go
@@ -447,6 +453,7 @@ func LoggingStreamInterceptor() grpc.StreamServerInterceptor {
 }
 ```
 
+[//]: pattern
 ### Auth Interceptor
 
 ```go
@@ -553,6 +560,7 @@ func (w *wrappedStream) Context() context.Context {
 }
 ```
 
+[//]: pattern
 ## Client Implementation
 
 ```go
@@ -646,6 +654,7 @@ func clientLoggingInterceptor() grpc.UnaryClientInterceptor {
 }
 ```
 
+[//]: pattern
 ## Testing
 
 ```go
@@ -705,6 +714,7 @@ func TestGetUser_NotFound(t *testing.T) {
 }
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Always use context** for cancellation and timeouts

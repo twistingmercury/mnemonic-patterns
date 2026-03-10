@@ -18,6 +18,7 @@ tags:
 
 This pattern demonstrates configuration management for Cobra CLIs with explicit config passing, environment variable overrides, and clear precedence rules.
 
+[//]: pattern
 ## Configuration Structure
 
 ```go
@@ -73,6 +74,7 @@ func defaultConfig() Config {
 }
 ```
 
+[//]: pattern
 ## Config File Loading
 
 ```go
@@ -121,6 +123,7 @@ func loadConfigFile(path string, cfg *Config) error {
 }
 ```
 
+[//]: pattern
 ## Environment Variable Overrides
 
 ```go
@@ -139,6 +142,7 @@ func applyEnvOverrides(cfg *Config) {
 }
 ```
 
+[//]: pattern
 ## Config Precedence
 
 Configuration values are applied in this order (last wins):
@@ -158,6 +162,7 @@ export MYTOOL_API_TIMEOUT=90s
 mytool command --timeout 120s
 ```
 
+[//]: pattern
 ## Injecting Config to Commands
 
 All domain commands receive config explicitly:
@@ -203,6 +208,7 @@ func main() {
 }
 ```
 
+[//]: pattern
 ## Using Config in Commands
 
 ```go
@@ -255,6 +261,7 @@ func runUserAdd(cmd *cobra.Command, cfg *config.Config) error {
 }
 ```
 
+[//]: pattern
 ## Config Command for Management
 
 ```go
@@ -364,6 +371,7 @@ api:
   timeout: 60s
 ```
 
+[//]: pattern
 ## Configuration Testing
 
 ```go
@@ -444,12 +452,14 @@ func TestApplyEnvOverrides(t *testing.T) {
 
 ## Key Patterns
 
+[//]: pattern
 ### Explicit Config Injection
 ```go
 func Command(cfg *config.Config) (*cobra.Command, error)
 ```
 No globals, config passed explicitly to all commands.
 
+[//]: pattern
 ### Single Initialization Point
 ```go
 func main() {
@@ -460,6 +470,7 @@ func main() {
 ```
 Config initialized once at startup, then passed around.
 
+[//]: pattern
 ### Environment Variable Naming
 ```
 MYTOOL_API_BASE_URL
@@ -468,6 +479,7 @@ MYTOOL_LOG_LEVEL
 ```
 Consistent prefix, uppercase, underscores.
 
+[//]: pattern
 ### Validation
 ```go
 func runCommand(cmd *cobra.Command, cfg *config.Config) error {
@@ -490,6 +502,7 @@ Validate config before using it in commands.
 
 ## Production Considerations
 
+[//]: pattern
 ### Secrets Management
 Don't store secrets in config file:
 
@@ -501,6 +514,7 @@ if apiKey == "" {
 }
 ```
 
+[//]: pattern
 ### Config Validation
 Validate config after loading:
 
@@ -516,6 +530,7 @@ func (c *Config) Validate() error {
 }
 ```
 
+[//]: pattern
 ### Multiple Environments
 Support different config profiles:
 

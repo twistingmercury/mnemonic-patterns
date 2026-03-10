@@ -25,6 +25,7 @@ related_patterns:
 
 This pattern demonstrates implementing a RESTful API in Go using the Gin framework. It shows how to implement an OpenAPI specification with proper middleware, error handling, and validation.
 
+[//]: pattern
 ## Prerequisites
 
 ```bash
@@ -33,6 +34,7 @@ go get -u github.com/go-playground/validator/v10
 go get -u github.com/golang-jwt/jwt/v5
 ```
 
+[//]: pattern
 ## Project Structure
 
 ```
@@ -58,6 +60,7 @@ project/
 └── openapi.yaml                 # API specification
 ```
 
+[//]: pattern
 ## Main Server Setup
 
 ```go
@@ -121,6 +124,7 @@ func main() {
 }
 ```
 
+[//]: pattern
 ## Router Setup
 
 ```go
@@ -169,6 +173,7 @@ func Setup() *gin.Engine {
 }
 ```
 
+[//]: pattern
 ## Models
 
 ```go
@@ -238,6 +243,7 @@ type ErrorDetail struct {
 }
 ```
 
+[//]: pattern
 ## Handlers
 
 ```go
@@ -460,6 +466,7 @@ func DeleteUser(c *gin.Context) {
 }
 ```
 
+[//]: pattern
 ## Error Handling
 
 ```go
@@ -516,6 +523,7 @@ func getValidationMessage(e validator.FieldError) string {
 }
 ```
 
+[//]: pattern
 ## Middleware
 
 ```go
@@ -645,6 +653,7 @@ func CORS() gin.HandlerFunc {
 }
 ```
 
+[//]: pattern
 ## Key Implementation Patterns
 
 ### Gin Router Best Practices
@@ -678,6 +687,7 @@ func CORS() gin.HandlerFunc {
 4. **Set security headers** (CORS, CSP)
 5. **Rate limit** API endpoints
 
+[//]: pattern
 ## Testing
 
 See "REST API Testing Pattern (Go)" for comprehensive testing examples using Gin's test mode and httptest package.

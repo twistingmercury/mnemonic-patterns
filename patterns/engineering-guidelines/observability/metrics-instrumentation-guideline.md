@@ -17,6 +17,7 @@ tags:
 
 Expose Prometheus metrics for hosted services and background workers using RED (Request, Errors, Duration) and USE (Utilization, Saturation, Errors) methods to provide complete observability.
 
+[//]: pattern
 ## Scope: When to Expose Metrics
 
 ### MUST Expose Metrics For
@@ -42,6 +43,7 @@ Expose Prometheus metrics for hosted services and background workers using RED (
 - One-off scripts (they're not long-running processes)
 - Development/test utilities (they're not production workloads)
 
+[//]: pattern
 ## What to Measure: RED and USE Methods
 
 ### RED Method (Request-Driven Services)
@@ -72,6 +74,7 @@ Don't forget the metrics that matter to the business:
 - Conversion rates
 - Feature usage
 
+[//]: pattern
 ## Prometheus Implementation Standards
 
 ### Endpoint Requirements
@@ -121,6 +124,7 @@ http_request_duration_seconds_count 1000
 - Use sparingly - histograms are usually better
 - More expensive computationally
 
+[//]: pattern
 ## Naming Conventions
 
 ### MUST Follow These Rules
@@ -172,6 +176,7 @@ http_request_duration_seconds_count 1000
 - `http_requests` (counters need `_total` suffix)
 - `response_time_ms` (wrong unit - use seconds)
 
+[//]: pattern
 ## Labels and Cardinality
 
 ### MUST Follow Cardinality Rules
@@ -221,6 +226,7 @@ If you have:
 - Transaction IDs
 - Any user-generated content
 
+[//]: pattern
 ## Performance Thresholds for Tracing
 
 When implementing distributed tracing alongside metrics, use these thresholds to determine what to trace:
@@ -236,6 +242,7 @@ When implementing distributed tracing alongside metrics, use these thresholds to
 
 These thresholds help correlate metrics alerts with trace data for investigation.
 
+[//]: pattern
 ## Critical Metrics Checklist
 
 ### MUST Implement These for Request-Driven Services
@@ -261,6 +268,7 @@ These thresholds help correlate metrics alerts with trace data for investigation
 - Feature usage (counter)
 - Conversion rates (gauge)
 
+[//]: pattern
 ## Common Pitfalls to Avoid
 
 ### ❌ Cardinality Explosion
@@ -328,6 +336,7 @@ http_requests_total        # Correct
 request_duration_seconds   # Correct
 ```
 
+[//]: pattern
 ## Storage Cost Awareness
 
 With default Prometheus settings:
@@ -337,6 +346,7 @@ With default Prometheus settings:
 
 High cardinality labels can quickly make metrics expensive. Monitor your time series count and set retention policies appropriately.
 
+[//]: pattern
 ## Integration with Observability Stack
 
 Metrics work together with logs and traces for complete observability:

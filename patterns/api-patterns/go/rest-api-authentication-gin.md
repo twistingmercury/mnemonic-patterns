@@ -25,6 +25,7 @@ related_patterns:
 
 This pattern demonstrates implementing authentication in Go using Gin framework middleware. It covers JWT Bearer tokens, API keys, and OAuth2 integration.
 
+[//]: pattern
 ## Prerequisites
 
 ```bash
@@ -33,8 +34,10 @@ go get -u github.com/golang-jwt/jwt/v5
 go get -u golang.org/x/oauth2
 ```
 
+[//]: pattern
 ## JWT Bearer Token Authentication
 
+[//]: pattern
 ### JWT Middleware
 
 ```go
@@ -145,6 +148,7 @@ func respondUnauthorized(c *gin.Context, message string) {
 }
 ```
 
+[//]: pattern
 ### Token Generation
 
 ```go
@@ -210,6 +214,7 @@ func generateToken(userID uuid.UUID, email string, roles []string, duration time
 }
 ```
 
+[//]: pattern
 ### Login Handler
 
 ```go
@@ -263,8 +268,10 @@ func Login(c *gin.Context) {
 }
 ```
 
+[//]: pattern
 ## API Key Authentication
 
+[//]: pattern
 ### API Key Middleware
 
 ```go
@@ -360,8 +367,10 @@ func loadValidAPIKeys() map[string]*APIKeyInfo {
 }
 ```
 
+[//]: pattern
 ## Multiple Authentication Options (OR)
 
+[//]: pattern
 ### Either JWT or API Key
 
 ```go
@@ -411,8 +420,10 @@ func FlexibleAuth() gin.HandlerFunc {
 }
 ```
 
+[//]: pattern
 ## Role-Based Authorization
 
+[//]: pattern
 ### Role Check Middleware
 
 ```go
@@ -470,8 +481,10 @@ func RequireRole(requiredRoles ...string) gin.HandlerFunc {
 // adminRoutes.Use(middleware.JWTAuth(), middleware.RequireRole("admin"))
 ```
 
+[//]: pattern
 ## Rate Limiting
 
+[//]: pattern
 ### Rate Limiter Middleware
 
 ```go
@@ -591,8 +604,10 @@ func RateLimit(limit int, window time.Duration) gin.HandlerFunc {
 }
 ```
 
+[//]: pattern
 ## Router Configuration
 
+[//]: pattern
 ### Complete Authentication Setup
 
 ```go
@@ -663,8 +678,10 @@ func Setup() *gin.Engine {
 }
 ```
 
+[//]: pattern
 ## Testing Authentication
 
+[//]: pattern
 ### Test Helpers
 
 ```go
@@ -728,8 +745,10 @@ func TestJWTAuth_InvalidToken(t *testing.T) {
 }
 ```
 
+[//]: pattern
 ## Security Best Practices
 
+[//]: pattern
 ### 1. Token Storage
 
 ```go
@@ -744,6 +763,7 @@ if jwtSecret == "" {
 // GOOD: secret := []byte(os.Getenv("JWT_SECRET"))
 ```
 
+[//]: pattern
 ### 2. Token Validation
 
 ```go
@@ -763,6 +783,7 @@ if claims.Audience != expectedAudience {
 }
 ```
 
+[//]: pattern
 ### 3. Error Messages
 
 ```go
@@ -774,6 +795,7 @@ if claims.Audience != expectedAudience {
 // GOOD: "Invalid credentials"
 ```
 
+[//]: pattern
 ### 4. Password Hashing
 
 ```go
@@ -792,8 +814,10 @@ func CheckPassword(password, hash string) bool {
 }
 ```
 
+[//]: pattern
 ## Common Patterns
 
+[//]: pattern
 ### Extract User from Context
 
 ```go
@@ -823,6 +847,7 @@ func GetProfile(c *gin.Context) {
 }
 ```
 
+[//]: pattern
 ### Scoped Permissions
 
 ```go

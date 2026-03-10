@@ -21,10 +21,7 @@ tags:
 
 Execute the actual compiled CLI binary as a subprocess exactly as end users would. Never import internal CLI packages to ensure true black-box testing from the user's perspective.
 
-## Philosophy
-
-Execute the actual compiled binary as a subprocess, exactly as end users would. Never import internal CLI packages. This ensures true black-box testing from the user's perspective.
-
+[//]: pattern
 ## Core Approach
 
 1. **Binary Execution via `os/exec`**:
@@ -46,6 +43,7 @@ Execute the actual compiled binary as a subprocess, exactly as end users would. 
    - Tests must run in any order
    - No shared state between tests
 
+[//]: pattern
 ## Separate Go Module for E2E Tests
 
 E2E tests should be a separate Go module with their own `go.mod` to isolate test dependencies from the main application. This keeps testify and other test-only dependencies out of the main module.
@@ -74,6 +72,7 @@ go 1.24
 require github.com/stretchr/testify v1.10.0
 ```
 
+[//]: pattern
 ## Binary Discovery for Docker/CI
 
 Tests must support finding the binary via environment variable when running in Docker or CI, with fallback to relative paths for local development.
@@ -112,6 +111,7 @@ func getBinaryPath(t *testing.T) string {
 }
 ```
 
+[//]: pattern
 ## Example Test Structure
 
 ```go
@@ -187,6 +187,7 @@ func TestUserDisable_ConfirmationPrompt(t *testing.T) {
 
 ## Helper Functions
 
+[//]: pattern
 ### Command Execution
 
 ```go
@@ -255,6 +256,7 @@ func createTempYAML(t *testing.T, content string) string {
 }
 ```
 
+[//]: pattern
 ### Database Verification
 
 ```go
@@ -300,6 +302,7 @@ func companyExists(t *testing.T, domain string) bool {
 }
 ```
 
+[//]: pattern
 ## Required Packages
 
 ```go
@@ -319,6 +322,7 @@ import (
 )
 ```
 
+[//]: pattern
 ## Key Patterns
 
 1. **AAA Pattern**: Arrange (setup), Act (execute), Assert (verify)
@@ -327,6 +331,7 @@ import (
 4. **Database Verification**: Verify state via direct SQL queries (external verification)
 5. **No Internal Imports**: Never import CLI internal packages
 
+[//]: pattern
 ## Common Pitfalls
 
 - **Forgetting t.Cleanup()**: Always register cleanup functions
@@ -340,12 +345,14 @@ import (
 
 All CLI commands must be tested for:
 
+[//]: pattern
 ### Happy Path
 
 - Valid input with minimal required fields
 - Valid input with all optional fields
 - Multiple output formats (JSON, YAML, table)
 
+[//]: pattern
 ### Validation Errors
 
 - Invalid format (UUID, email, domain, etc.)
@@ -355,6 +362,7 @@ All CLI commands must be tested for:
 - Invalid YAML/JSON structure
 - Non-existent files
 
+[//]: pattern
 ### CLI-Specific Scenarios
 
 - Network timeouts/connection errors

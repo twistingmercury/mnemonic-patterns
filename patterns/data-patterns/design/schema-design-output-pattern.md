@@ -29,6 +29,7 @@ When designing a database schema, the data-architect agent should produce output
 - Graph schema (if applicable)
 - Clear implementation instructions
 
+[//]: pattern
 ## Output Template
 
 ```markdown
@@ -150,6 +151,7 @@ CREATE FULLTEXT INDEX pattern_content FOR (p:Pattern) ON EACH [p.name, p.content
 - **Neo4j version:** 5.0+
 ```
 
+[//]: pattern
 ## Section Details
 
 ### Entities Section
@@ -229,6 +231,7 @@ Critical for data-engineer:
 2. **Implementation notes:** Special considerations
 3. **Compatibility:** Version requirements
 
+[//]: pattern
 ## Example: Complete Schema Design
 
 ```markdown
@@ -354,6 +357,7 @@ CREATE CONSTRAINT concept_name_unique FOR (c:Concept) REQUIRE c.name IS UNIQUE;
 - Neo4j 5.0+
 ```
 
+[//]: pattern
 ## Using This Pattern
 
 1. **data-architect** produces output in this format

@@ -18,10 +18,7 @@ tags:
 
 Use gRPC client with generated protobuf code to make RPC calls exactly as API consumers would. Never import gRPC server implementation packages to test as a black box from the consumer's perspective.
 
-## Philosophy
-
-Use gRPC client with generated protobuf code to make RPC calls exactly as API consumers would. Never import gRPC server implementation packages. Test as a black box from the consumer's perspective.
-
+[//]: pattern
 ## Core Approach
 
 1. **Use gRPC client**:
@@ -47,6 +44,7 @@ Use gRPC client with generated protobuf code to make RPC calls exactly as API co
    - Resource exhausted (RESOURCE_EXHAUSTED)
    - Server errors (INTERNAL, UNAVAILABLE)
 
+[//]: pattern
 ## Example Test Structure
 
 ```go
@@ -392,6 +390,7 @@ func TestDeadlineExceeded(t *testing.T) {
 }
 ```
 
+[//]: pattern
 ## Helper Functions
 
 ```go
@@ -500,6 +499,7 @@ func deleteUserByEmail(t *testing.T, client pb.UserServiceClient, email string) 
 }
 ```
 
+[//]: pattern
 ## Required Packages
 
 ```go
@@ -524,6 +524,7 @@ import (
 )
 ```
 
+[//]: pattern
 ## gRPC Status Codes to Test
 
 ### Success (OK)
@@ -554,6 +555,7 @@ import (
 - **codes.Aborted**: Concurrent operation conflict
 - **codes.Cancelled**: Client cancelled the request
 
+[//]: pattern
 ## Streaming Patterns
 
 ### Server-Side Streaming
@@ -577,6 +579,7 @@ import (
 - Use separate goroutines for sending and receiving
 - Test: concurrent send/receive, ordering, backpressure
 
+[//]: pattern
 ## Key Patterns
 
 1. **Standard gRPC Client**: Use `google.golang.org/grpc` package
@@ -588,6 +591,7 @@ import (
 7. **Test Cleanup**: Delete created resources in `t.Cleanup()`
 8. **No Internal Imports**: Never import gRPC server implementation packages
 
+[//]: pattern
 ## Common Pitfalls
 
 - **Forgetting context deadlines**: Always set timeouts with `context.WithTimeout()`
@@ -604,6 +608,7 @@ import (
 
 All gRPC services must be tested for:
 
+[//]: pattern
 ### Unary RPCs
 
 - Successful call (OK)
@@ -614,6 +619,7 @@ All gRPC services must be tested for:
 - Permission denied (PERMISSION_DENIED)
 - Deadline exceeded (DEADLINE_EXCEEDED)
 
+[//]: pattern
 ### Server-Side Streaming RPCs
 
 - Full stream reception
@@ -622,6 +628,7 @@ All gRPC services must be tested for:
 - Empty stream
 - Large stream handling
 
+[//]: pattern
 ### Client-Side Streaming RPCs
 
 - Multiple message sends
@@ -630,6 +637,7 @@ All gRPC services must be tested for:
 - Timeout during streaming
 - `CloseAndRecv()` handling
 
+[//]: pattern
 ### Bidirectional Streaming RPCs
 
 - Concurrent send/receive
@@ -638,6 +646,7 @@ All gRPC services must be tested for:
 - Error handling in both directions
 - Stream closure from either side
 
+[//]: pattern
 ### Authentication/Authorization
 
 - Missing credentials (UNAUTHENTICATED)
@@ -646,6 +655,7 @@ All gRPC services must be tested for:
 - Insufficient permissions (PERMISSION_DENIED)
 - Role-based access control
 
+[//]: pattern
 ### Resource Management
 
 - Connection pooling
@@ -654,6 +664,7 @@ All gRPC services must be tested for:
 - Graceful shutdown
 - Error recovery
 
+[//]: pattern
 ### Edge Cases
 
 - Very large messages

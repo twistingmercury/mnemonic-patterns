@@ -19,6 +19,7 @@ tags:
 
 Library scripts contain reusable functions that are sourced by other scripts without direct execution. They do not have the standard script header (no shebang, no `set -e`, no `main()` function).
 
+[//]: pattern
 ## Structure
 
 ```bash
@@ -66,6 +67,7 @@ my_functions::file_exists() {
 }
 ```
 
+[//]: pattern
 ## Key Differences from Executable Scripts
 
 **Library scripts DO NOT have**:
@@ -83,6 +85,7 @@ my_functions::file_exists() {
 - Same naming conventions (snake_case locals, SCREAMING_SNAKE_CASE globals)
 - Same quoting style (`"${var}"` always)
 
+[//]: pattern
 ## Namespace Convention
 
 The namespace is derived from the filename:
@@ -91,6 +94,7 @@ The namespace is derived from the filename:
 - Filename: `string_utils.sh` → Namespace: `string_utils::`
 - Filename: `file-helpers.sh` → Namespace: `file_helpers::` (hyphens become underscores)
 
+[//]: pattern
 ## Usage Example
 
 ```bash
@@ -122,6 +126,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **One library per domain** - Group related functions together
