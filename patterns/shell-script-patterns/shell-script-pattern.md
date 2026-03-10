@@ -19,6 +19,7 @@ tags:
 
 Standard structure for executable shell scripts ensures consistency, testability, and maintainability across all shell script projects.
 
+[//]: pattern
 ## Structure
 
 ```bash
@@ -67,6 +68,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Section Breakdown
 
 ### 1. Standard Header
@@ -192,6 +194,7 @@ main "$@"
 - Passes all arguments to main function
 - Exit code propagates from main
 
+[//]: pattern
 ## Complete Example
 
 ```bash
@@ -268,6 +271,7 @@ export VERBOSE="true"
 ./process.sh
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Never-nester pattern** - Use early returns instead of deep nesting

@@ -29,6 +29,7 @@ UPDATE users SET deleted_at = now() WHERE id = '123';
 
 The record remains in the database but is excluded from normal queries.
 
+[//]: pattern
 ## Implementation
 
 ### Step 1: Add deleted_at Column
@@ -75,6 +76,7 @@ comment on view active_users is
 drop view if exists active_users;
 ```
 
+[//]: pattern
 ## Table Structure
 
 ```sql
@@ -93,6 +95,7 @@ create table users (
 );
 ```
 
+[//]: pattern
 ## Query Patterns
 
 ### Select Active Records
@@ -145,6 +148,7 @@ where deleted_at is not null
   and deleted_at < now() - interval '90 days';
 ```
 
+[//]: pattern
 ## Index Strategy
 
 ### Partial Index for Active Records
@@ -177,6 +181,7 @@ create index idx_users_email_active on users (email) where deleted_at is null;
 select * from users where email = 'test@example.com' and deleted_at is null;
 ```
 
+[//]: pattern
 ## Unique Constraints with Soft Delete
 
 ### Problem
@@ -202,6 +207,7 @@ on users (email) where deleted_at is null;
 -- 3. Two active users with same email
 ```
 
+[//]: pattern
 ## Foreign Key Considerations
 
 ### Option 1: Allow References to Deleted Records
@@ -241,6 +247,7 @@ create trigger trg_users_cascade_soft_delete
     execute function cascade_soft_delete_user();
 ```
 
+[//]: pattern
 ## Application Integration
 
 ### Repository Pattern (Go)
@@ -289,6 +296,7 @@ const restore = `
 `
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Use partial indexes** - Essential for performance on active record queries
@@ -299,6 +307,7 @@ const restore = `
 6. **Track deletion metadata** - Consider `deleted_by` for audit trails
 7. **API design** - Decide if deleted records are returned with a flag or hidden entirely
 
+[//]: pattern
 ## Anti-Patterns
 
 - **Forgetting the filter** - Always check for `deleted_at is null` unless explicitly including deleted

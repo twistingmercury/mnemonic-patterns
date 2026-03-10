@@ -21,6 +21,7 @@ Creating and managing temporary directories safely across platforms (macOS BSD a
 
 ## Pattern
 
+[//]: pattern
 ### Cross-Platform Temporary Directory Creation
 
 ```bash
@@ -40,6 +41,7 @@ create_temp_dir() {
 }
 ```
 
+[//]: pattern
 ### Cleanup Helper Function
 
 ```bash
@@ -56,6 +58,7 @@ cleanup_temp_dir() {
 }
 ```
 
+[//]: pattern
 ### Using with Trap for Automatic Cleanup
 
 ```bash
@@ -95,6 +98,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Complete Example with Error Handling
 
 ```bash
@@ -187,6 +191,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Advanced Pattern: Named Temp Directories
 
 ```bash
@@ -215,6 +220,7 @@ BACKUP_WORKSPACE=$(create_named_temp_dir "backup")
 BUILD_WORKSPACE=$(create_named_temp_dir "build")
 ```
 
+[//]: pattern
 ## Pattern: Temp Directory with Validation
 
 ```bash
@@ -250,6 +256,7 @@ create_validated_temp_dir() {
 }
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Always use mktemp** - Don't create temp directories manually

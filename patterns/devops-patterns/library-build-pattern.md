@@ -17,10 +17,6 @@ tags:
 
 ## Overview
 
-Library builds differ from service builds because they have no deployable artifact. Success means the code compiles and tests pass, handled through containerized builds while E2E tests run on the host.
-
-## Philosophy
-
 Library builds differ fundamentally from service builds. A library has no deployable artifact - no binary, no container image pushed to a registry. Success means the code compiles and tests pass.
 
 Key principles:
@@ -32,6 +28,7 @@ Key principles:
 
 The containerized build handles unit tests and compilation. E2E tests, which often require Docker Compose or external services, run on the host after the container exits successfully.
 
+[//]: pattern
 ## Build Dockerfile
 
 The Dockerfile creates a consistent build environment for unit tests and compilation.
@@ -60,6 +57,7 @@ Key design decisions:
 - **Layer caching**: `go.mod` and `go.sum` copied first so dependencies cache separately from source
 - **Entrypoint**: Runs the build script directly
 
+[//]: pattern
 ## Build Script
 
 The build script orchestrates unit tests, compilation, and optional E2E tests. The `SKIP_E2E` environment variable controls whether E2E tests run.
@@ -127,6 +125,7 @@ Key design decisions:
 - **Fail fast**: `set -e` and explicit return codes ensure failures propagate
 - **Shared print utilities**: Consistent logging across all scripts
 
+[//]: pattern
 ## Docker Runner Script
 
 This script builds and runs the containerized build. It always skips E2E tests since those run on the host.
@@ -161,6 +160,7 @@ Key design decisions:
 - **--rm flag**: Removes container after execution for clean builds
 - **Descriptive logging**: Clear indication of what runs in container vs host
 
+[//]: pattern
 ## GitHub Actions Workflow
 
 The CI workflow runs the containerized build first, then E2E tests on the host.
@@ -208,6 +208,7 @@ Key design decisions:
 - **E2E on host**: Avoids Docker-in-Docker complexity, allows Docker Compose in E2E tests
 - **Caching enabled**: `cache: true` speeds up Go dependency downloads
 
+[//]: pattern
 ## Makefile Targets
 
 The Makefile provides convenient entry points for local development.
@@ -274,6 +275,7 @@ Key targets:
 | **Version embedding** | Not applicable | ldflags with version/commit |
 | **Artifacts** | None | Images, binaries, coverage reports |
 
+[//]: pattern
 ## The SKIP_E2E Pattern
 
 The `SKIP_E2E` pattern solves a common problem: E2E tests often need Docker Compose or external services that are difficult to run inside a container.
@@ -360,6 +362,7 @@ The build fails fast if any step fails:
 3. **Compilation** - Code must compile (`go build ./...`)
 4. **E2E tests** - Integration tests must pass (when not skipped)
 
+[//]: pattern
 ## Print Utilities
 
 The build scripts use shared print utilities for consistent logging.

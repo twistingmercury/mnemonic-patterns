@@ -21,6 +21,7 @@ File locking prevents multiple instances of a script from running simultaneously
 
 ## Pattern
 
+[//]: pattern
 ### Basic Lock Acquisition with Timeout
 
 ```bash
@@ -47,6 +48,7 @@ acquire_lock() {
 }
 ```
 
+[//]: pattern
 ### Lock Release
 
 ```bash
@@ -59,6 +61,7 @@ release_lock() {
 }
 ```
 
+[//]: pattern
 ### Complete Example with Lock Management
 
 ```bash
@@ -135,6 +138,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Advanced Pattern: Lock with Process ID
 
 Store the process ID in the lock file to identify which process holds the lock:
@@ -190,6 +194,7 @@ release_lock_with_pid() {
 }
 ```
 
+[//]: pattern
 ## Pattern: Stale Lock Detection
 
 Check if the process holding the lock is still running:
@@ -237,6 +242,7 @@ acquire_lock_safe() {
 }
 ```
 
+[//]: pattern
 ## Complete Example with Stale Lock Handling
 
 ```bash
@@ -338,6 +344,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Always use timeout** - Prevent indefinite waiting
@@ -357,6 +364,7 @@ main "$@"
 - **Using same lock file** - Multiple scripts interfere with each other
 - **No trap handler** - Lock not released on errors or signals
 
+[//]: pattern
 ## Testing Concurrent Execution
 
 ```bash

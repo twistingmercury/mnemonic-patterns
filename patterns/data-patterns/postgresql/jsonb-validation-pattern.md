@@ -16,14 +16,11 @@ related_patterns:
   - Audit Columns Pattern
 ---
 
-# JSONB Validation Pattern
+## Overview
 
 This pattern provides techniques for validating JSONB data at the database level using CHECK constraints.
 
-## Overview
-
-JSONB columns offer flexibility but can become a data quality risk. Use CHECK constraints to enforce structure while maintaining flexibility.
-
+[//]: pattern
 ## Basic Structure Validation
 
 ### Ensure Object Type
@@ -52,6 +49,7 @@ create table products (
 );
 ```
 
+[//]: pattern
 ## Required Fields Validation
 
 ### Single Required Field
@@ -80,6 +78,7 @@ create table audit_events (
 );
 ```
 
+[//]: pattern
 ## Field Type Validation
 
 ### Validate Field Is String
@@ -123,6 +122,7 @@ create table versioned_docs (
 );
 ```
 
+[//]: pattern
 ## Enum-like Validation
 
 ### Validate Field Against Allowed Values
@@ -152,6 +152,7 @@ create table subscriptions (
 );
 ```
 
+[//]: pattern
 ## Complex Validation Examples
 
 ### Conditional Validation
@@ -200,6 +201,7 @@ create table surveys (
 );
 ```
 
+[//]: pattern
 ## Migration Example
 
 ```sql
@@ -246,6 +248,7 @@ create trigger trg_user_preferences_updated_at
     for each row execute function update_updated_at();
 ```
 
+[//]: pattern
 ## Indexing JSONB
 
 ### GIN Index for Containment Queries
@@ -270,6 +273,7 @@ select * from user_preferences
 where settings->>'theme' = 'dark';
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Default to empty object/array** - `default '{}'` or `default '[]'`
@@ -279,6 +283,7 @@ where settings->>'theme' = 'dark';
 5. **Consider migration** - How will you evolve the JSON structure?
 6. **Index what you query** - GIN for containment, expression for specific paths
 
+[//]: pattern
 ## When NOT to Use JSONB
 
 JSONB is great for:
@@ -293,6 +298,7 @@ Consider relational columns for:
 - Fields needing unique constraints
 - Fields with complex validation
 
+[//]: pattern
 ## Application Integration
 
 ### Go Struct with JSONB
@@ -321,6 +327,7 @@ func (s Settings) Value() (driver.Value, error) {
 }
 ```
 
+[//]: pattern
 ## Error Messages
 
 When constraints fail, errors look like:

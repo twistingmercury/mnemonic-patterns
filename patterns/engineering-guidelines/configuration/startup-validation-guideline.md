@@ -17,12 +17,9 @@ tags:
 
 Applications must validate their configuration at startup and fail immediately if configuration is invalid. This fail-fast approach catches configuration mistakes early rather than causing subtle production issues during runtime.
 
-## Purpose
-
-Applications must validate their configuration at startup and fail immediately if configuration is invalid. This fail-fast approach catches configuration mistakes early rather than causing subtle production issues during runtime.
-
 ## Core Requirements
 
+[//]: pattern
 ### 1. Validate ALL Configuration at Startup
 
 **Rule**: Perform comprehensive validation of all configuration values before the application begins processing requests.
@@ -41,6 +38,7 @@ Applications must validate their configuration at startup and fail immediately i
 - `TIMEOUT` values are positive integers
 - API keys are present when required
 
+[//]: pattern
 ### 2. Exit with Code 1 on Validation Failure
 
 **Rule**: When configuration validation fails, exit the process with exit code 1.
@@ -55,6 +53,7 @@ if validation_fails:
     exit(1)
 ```
 
+[//]: pattern
 ### 3. Log at CRITICAL Level
 
 **Rule**: All configuration validation failures must be logged at CRITICAL level with specific field names identifying what's wrong.
@@ -71,6 +70,7 @@ if validation_fails:
 - "Invalid config"
 - "Missing required field"
 
+[//]: pattern
 ### 4. Report All Errors at Once
 
 **Rule**: Collect and report ALL configuration validation failures in one operation, not just the first error encountered.
@@ -97,6 +97,7 @@ if validation_errors:
     exit(1)
 ```
 
+[//]: pattern
 ### 5. No Retry Loops for Configuration Issues
 
 **Rule**: Do not implement retry loops for configuration validation. If configuration is wrong, it won't fix itself.
@@ -105,6 +106,7 @@ if validation_errors:
 
 **Let the orchestrator handle restarts**: Kubernetes and other orchestrators will restart your container based on their policies while you investigate and fix the configuration.
 
+[//]: pattern
 ## What NOT to Do
 
 ### ❌ Fail Silently

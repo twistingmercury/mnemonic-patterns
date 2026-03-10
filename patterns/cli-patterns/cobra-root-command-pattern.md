@@ -18,6 +18,7 @@ tags:
 
 This pattern demonstrates setting up a Cobra root command with custom exit codes, error-to-exit-code mapping, custom help templates, and explicit initialization.
 
+[//]: pattern
 ## Root Command Setup
 
 ```go
@@ -76,6 +77,7 @@ func Execute() {
 }
 ```
 
+[//]: pattern
 ## Custom Help Template with Environment Variables
 
 ```go
@@ -108,6 +110,7 @@ Use "{{.CommandPath}} [command] --help" for more information about a command.{{e
 `
 ```
 
+[//]: pattern
 ## Error to Exit Code Mapping
 
 ```go
@@ -138,6 +141,7 @@ func DetermineExitCode(err error) int {
 }
 ```
 
+[//]: pattern
 ## Exit Code Testing
 
 ```go
@@ -208,6 +212,7 @@ func TestDetermineExitCode(t *testing.T) {
 }
 ```
 
+[//]: pattern
 ## Persistent Flags Pattern
 
 Persistent flags are available to the command and all its subcommands:
@@ -243,6 +248,7 @@ func runCommand(cmd *cobra.Command, args []string) error {
 }
 ```
 
+[//]: pattern
 ## Version Command
 
 Cobra can automatically add version information:
@@ -284,6 +290,7 @@ go build -ldflags "\
 
 ## Key Patterns
 
+[//]: pattern
 ### SilenceUsage and SilenceErrors
 ```go
 SilenceUsage:  true,  // Don't auto-show usage on errors
@@ -291,6 +298,7 @@ SilenceErrors: true,  // Handle errors ourselves in Execute()
 ```
 This gives you full control over error formatting and when to show usage.
 
+[//]: pattern
 ### Custom Exit Codes
 Follow sysexits.h conventions for better shell script integration:
 - 0: Success
@@ -300,6 +308,7 @@ Follow sysexits.h conventions for better shell script integration:
 - 75: Temporary failure (timeout, retry possible)
 - 77: Permission denied
 
+[//]: pattern
 ### Error Handling Philosophy
 ```go
 func Execute() {
@@ -312,9 +321,11 @@ func Execute() {
 }
 ```
 
+[//]: pattern
 ### Environment Variables in Help
 Document environment variables in custom help template so users know about configuration options.
 
+[//]: pattern
 ## Shell Integration
 
 Exit codes enable proper shell error handling:
@@ -349,6 +360,7 @@ func TestExecuteWithError(t *testing.T) {
 
 ## Production Considerations
 
+[//]: pattern
 ### Logging
 Add structured logging at root level:
 
@@ -365,6 +377,7 @@ func Initialize(subCommands ...*cobra.Command) error {
 }
 ```
 
+[//]: pattern
 ### Context
 Pass context through commands for cancellation:
 
@@ -388,6 +401,7 @@ func Execute() {
 }
 ```
 
+[//]: pattern
 ### Telemetry
 Add telemetry hooks:
 

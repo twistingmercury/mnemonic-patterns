@@ -19,6 +19,7 @@ tags:
 
 This pattern demonstrates all gRPC streaming types with practical use cases and Go implementations.
 
+[//]: pattern
 ## Stream Types Overview
 
 ```
@@ -28,6 +29,7 @@ Client Streaming:      Client → → → Server → Client
 Bidirectional Stream:  Client ⇄ ⇄ ⇄ Server
 ```
 
+[//]: pattern
 ## Complete Streaming Service
 
 ```protobuf
@@ -189,6 +191,7 @@ message Row {
 }
 ```
 
+[//]: pattern
 ## Server Streaming Implementation
 
 ```go
@@ -324,6 +327,7 @@ func (s *StreamingServiceServer) WatchResources(req *streamingv1.WatchResourcesR
 }
 ```
 
+[//]: pattern
 ## Client Streaming Implementation
 
 ```go
@@ -401,6 +405,7 @@ func (s *StreamingServiceServer) ProcessBatch(stream streamingv1.StreamingServic
 }
 ```
 
+[//]: pattern
 ## Bidirectional Streaming Implementation
 
 ```go
@@ -596,6 +601,7 @@ func ptr[T any](v T) *T {
 }
 ```
 
+[//]: pattern
 ## Client Implementation Examples
 
 ```go
@@ -715,26 +721,31 @@ func chat(client streamingv1.StreamingServiceClient, userID, roomID string) erro
 }
 ```
 
+[//]: pattern
 ## Best Practices
 
+[//]: pattern
 ### Server Streaming
 - Send data in reasonable chunk sizes (64KB - 1MB)
 - Respect context cancellation
 - Include progress information
 - Handle backpressure appropriately
 
+[//]: pattern
 ### Client Streaming
 - Buffer writes for better performance
 - Validate data before finalizing
 - Return comprehensive summary
 - Handle partial failures gracefully
 
+[//]: pattern
 ### Bidirectional Streaming
 - Use goroutines for concurrent send/receive
 - Implement proper synchronization
 - Handle connection lifecycle
 - Gracefully handle EOF from either side
 
+[//]: pattern
 ### General
 - Set reasonable timeouts
 - Implement heartbeats for long-lived streams
@@ -742,6 +753,7 @@ func chat(client streamingv1.StreamingServiceClient, userID, roomID string) erro
 - Test stream cancellation scenarios
 - Monitor stream memory usage
 
+[//]: pattern
 ## Flow Control
 
 ```go

@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(docker compose:*)",
-      "Bash(./scripts/validate.sh 2>&1)"
+      "Bash(./scripts/validate.sh 2>&1)",
+      "Bash(./scripts/load.sh --dir ./patterns/go-patterns)",
+      "Bash(curl -s http://localhost:8080/v1/api/patterns/repository-timestamp-pattern | jq .)",
+      "Bash(psql \"postgres://mnemonic:mnemonic_dev@localhost:5433/mnemonic\" -c \"SELECT * FROM patterns WHERE name = 'repository-timestamp-pattern';\")",
+      "Bash(psql \"postgres://mnemonic:mnemonic_dev@localhost:5433/mnemonic\" -c \"\\\\dt\")",
+      "Bash(psql \"postgres://mnemonic:mnemonic_dev@localhost:5433/mnemonic\" -c \"SELECT id, pattern_id, chunk_index, token_count, created_at FROM pattern_chunks WHERE pattern_id = '60efb7b5-02a3-4f75-a3a1-04a99cf1ec61';\")",
+      "Bash(psql \"postgres://mnemonic:mnemonic_dev@localhost:5433/mnemonic\" -c \"SELECT id, pattern_id, section_title, chunk_index, enrichment_status, enrichment_error, enriched_at, created_at, updated_at FROM pattern_chunks WHERE pattern_id = '60efb7b5-02a3-4f75-a3a1-04a99cf1ec61' ORDER BY chunk_index;\")",
+      "Bash(psql \"postgres://mnemonic:mnemonic_dev@localhost:5433/mnemonic\" -c \"SELECT chunk_index, section_title, content FROM pattern_chunks WHERE pattern_id = '60efb7b5-02a3-4f75-a3a1-04a99cf1ec61' AND chunk_index IN \\(0, 1\\);\")"
     ]
   }
 }

@@ -16,12 +16,9 @@ tags:
 
 ## Overview
 
-Create a comprehensive build pipeline script that orchestrates all quality gates: tool installation, code analysis, unit testing, Docker build, E2E testing, and coverage reporting using shared utility libraries.
-
-## Philosophy
-
 Create a comprehensive build pipeline script that orchestrates all quality gates: tool installation, code analysis, unit testing, Docker build, E2E testing, and coverage reporting. Use shared utility libraries for consistent logging.
 
+[//]: pattern
 ## Complete Build Script
 
 **build/build.sh**:
@@ -195,6 +192,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Utility Library: print.sh
 
 **scripts/lib/print.sh**:
@@ -298,6 +296,7 @@ The script fails fast (`set -e`) if any stage fails:
 5. Docker build fails → Build fails
 6. E2E tests fail → Build fails
 
+[//]: pattern
 ## Cleanup Trap Pattern
 
 When using docker compose for E2E tests, always use a cleanup trap to ensure resources are removed even if tests fail or the script is interrupted:

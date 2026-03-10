@@ -21,6 +21,7 @@ Retry logic adds resilience to operations that may fail transiently (network req
 
 ## Pattern
 
+[//]: pattern
 ### Basic Retry with Attempts
 
 ```bash
@@ -56,6 +57,7 @@ else
 fi
 ```
 
+[//]: pattern
 ## Pattern with Exponential Backoff
 
 ```bash
@@ -90,6 +92,7 @@ retry_with_backoff() {
 }
 ```
 
+[//]: pattern
 ## Complete Example with Retry Logic
 
 ```bash
@@ -168,6 +171,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Advanced Pattern: Retry with Jitter
 
 Add randomness to backoff delay to prevent thundering herd:
@@ -205,6 +209,7 @@ retry_with_jitter() {
 }
 ```
 
+[//]: pattern
 ## Pattern: Retry with Conditional Retry
 
 Only retry on specific error conditions:
@@ -260,6 +265,7 @@ retry_smart() {
 }
 ```
 
+[//]: pattern
 ## Pattern: Retry with Progress Callback
 
 ```bash
@@ -303,6 +309,7 @@ log_progress() {
 retry_with_progress 3 2 log_progress curl -f "https://api.example.com/data"
 ```
 
+[//]: pattern
 ## Complete Production Example
 
 ```bash
@@ -385,6 +392,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Configurable attempts** - Use environment variables for max retries
@@ -395,6 +403,7 @@ main "$@"
 6. **Conditional retry** - Only retry on transient errors, not permanent failures
 7. **Log attempts** - Clear visibility into retry behavior
 
+[//]: pattern
 ## When to Use Retry Logic
 
 **Good candidates:**

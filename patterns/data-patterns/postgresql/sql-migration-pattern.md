@@ -23,6 +23,7 @@ related_patterns:
 
 This pattern defines conventions for creating versioned, reversible database migrations using golang-migrate or similar tools with structured naming conventions and idempotency requirements.
 
+[//]: pattern
 ## File Structure
 
 ```
@@ -38,6 +39,7 @@ migrations/
 └── ...
 ```
 
+[//]: pattern
 ## Naming Convention
 
 **Format**: `NNN_description.up.sql` / `NNN_description.down.sql`
@@ -60,6 +62,7 @@ migrations/
 - `create_table.up.sql` (no sequence number)
 - `001_UpdateUsersTable.up.sql` (not snake_case)
 
+[//]: pattern
 ## Migration Rules
 
 ### 1. Idempotent When Possible
@@ -163,6 +166,7 @@ migrate -path ./migrations -database "$DATABASE_URL" down 1
 psql $DATABASE_URL -c "\dt"
 ```
 
+[//]: pattern
 ## Migration Templates
 
 ### Create Table
@@ -259,6 +263,7 @@ drop index if exists idx_child_parent_id;
 alter table child_table drop constraint if exists fk_child_parent;
 ```
 
+[//]: pattern
 ## Forward Compatibility
 
 When migrations and application code are deployed independently:
@@ -300,6 +305,7 @@ update users set new_name = old_name;
 alter table users drop column old_name;
 ```
 
+[//]: pattern
 ## Tools
 
 ### golang-migrate
@@ -336,6 +342,7 @@ migrate -path ./migrations -database "$DATABASE_URL" force 5
 postgres://username:password@host:5432/database?sslmode=disable
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Never edit applied migrations** - Create new migrations to fix issues
@@ -346,6 +353,7 @@ postgres://username:password@host:5432/database?sslmode=disable
 6. **Document complex migrations** - Explain the "why" in comments
 7. **Consider deployment order** - Migrations may deploy separately from app
 
+[//]: pattern
 ## Anti-Patterns
 
 - **Editing applied migrations** - Creates inconsistent environments

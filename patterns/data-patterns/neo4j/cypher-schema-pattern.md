@@ -22,6 +22,7 @@ related_patterns:
 
 This pattern covers Neo4j schema setup using Cypher, including constraints, indexes, and schema conventions for consistent graph database design.
 
+[//]: pattern
 ## Naming Conventions
 
 | Element | Convention | Example |
@@ -32,6 +33,7 @@ This pattern covers Neo4j schema setup using Cypher, including constraints, inde
 | Constraints | snake_case with suffix | `pattern_id_unique`, `agent_name_exists` |
 | Indexes | snake_case | `pattern_name`, `concept_type_name` |
 
+[//]: pattern
 ## Constraints
 
 ### Uniqueness Constraint
@@ -88,6 +90,7 @@ CREATE CONSTRAINT relates_to_weight_exists IF NOT EXISTS
 FOR ()-[r:RELATES_TO]-() REQUIRE r.weight IS NOT NULL;
 ```
 
+[//]: pattern
 ## Indexes
 
 ### Property Index (Single Property)
@@ -138,6 +141,7 @@ CREATE RANGE INDEX pattern_priority_range IF NOT EXISTS
 FOR (p:Pattern) ON (p.priority);
 ```
 
+[//]: pattern
 ## Complete Schema Setup Script
 
 ```cypher
@@ -205,6 +209,7 @@ SHOW CONSTRAINTS;
 SHOW INDEXES;
 ```
 
+[//]: pattern
 ## Node Label Design
 
 ### When to Use Multiple Labels
@@ -236,6 +241,7 @@ CREATE INDEX pattern_type IF NOT EXISTS
 FOR (p:Pattern) ON (p.type);
 ```
 
+[//]: pattern
 ## Relationship Design
 
 ### Relationship Types
@@ -265,6 +271,7 @@ CREATE (p1)-[:RELATES_TO {
 }]->(p2)
 ```
 
+[//]: pattern
 ## Schema Migration Pattern
 
 ### Version Tracking
@@ -299,6 +306,7 @@ MERGE (v:SchemaVersion {name: 'mnemonic'})
 SET v.version = 3, v.migratedAt = datetime();
 ```
 
+[//]: pattern
 ## Verification Queries
 
 ### List All Constraints
@@ -334,6 +342,7 @@ WHERE count > 1
 RETURN id, count;
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Use IF NOT EXISTS** - Makes scripts idempotent
@@ -343,6 +352,7 @@ RETURN id, count;
 5. **Document relationships** - Include comments explaining relationship meaning
 6. **Version your schema** - Track schema changes for migrations
 
+[//]: pattern
 ## Common Issues
 
 ### Constraint Creation Fails

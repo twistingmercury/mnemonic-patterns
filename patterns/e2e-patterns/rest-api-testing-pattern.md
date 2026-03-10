@@ -18,10 +18,7 @@ tags:
 
 Use standard Go HTTP client to make requests exactly as API consumers would. Never import API handler or service packages to test as a black box from the consumer's perspective.
 
-## Philosophy
-
-Use standard Go HTTP client to make requests exactly as API consumers would. Never import API handler or service packages. Test as a black box from the consumer's perspective.
-
+[//]: pattern
 ## Core Approach
 
 1. **Use `net/http` for requests**:
@@ -45,6 +42,7 @@ Use standard Go HTTP client to make requests exactly as API consumers would. Nev
    - Server errors (500)
    - Network errors (timeouts, connection refused)
 
+[//]: pattern
 ## Example Test Structure
 
 ```go
@@ -170,6 +168,7 @@ func TestListUsers_Pagination(t *testing.T) {
 }
 ```
 
+[//]: pattern
 ## Helper Functions
 
 ```go
@@ -231,6 +230,7 @@ func deleteUserByEmail(t *testing.T, email string) {
 }
 ```
 
+[//]: pattern
 ## Required Packages
 
 ```go
@@ -247,6 +247,7 @@ import (
 )
 ```
 
+[//]: pattern
 ## HTTP Status Codes to Test
 
 ### Success (2xx)
@@ -269,6 +270,7 @@ import (
 - **500 Internal Server Error**: Unexpected server failures
 - **503 Service Unavailable**: Service temporarily down
 
+[//]: pattern
 ## Key Patterns
 
 1. **Standard HTTP Client**: Use `net/http` package, not custom clients
@@ -278,6 +280,7 @@ import (
 5. **Error Response Validation**: Check error messages, not just status codes
 6. **No Internal Imports**: Never import API handler packages
 
+[//]: pattern
 ## Common Pitfalls
 
 - **Ignoring response bodies**: Always check error messages, not just status codes
@@ -292,6 +295,7 @@ import (
 
 All REST endpoints must be tested for:
 
+[//]: pattern
 ### Happy Path
 
 - Successful creation (POST 201)
@@ -300,6 +304,7 @@ All REST endpoints must be tested for:
 - Successful deletion (DELETE 204)
 - List operations with pagination
 
+[//]: pattern
 ### Validation Errors
 
 - Invalid JSON structure (400)
@@ -307,18 +312,21 @@ All REST endpoints must be tested for:
 - Invalid field formats (400)
 - Invalid field values (422)
 
+[//]: pattern
 ### Authentication/Authorization
 
 - Missing authentication (401)
 - Invalid token (401)
 - Insufficient permissions (403)
 
+[//]: pattern
 ### Resource Errors
 
 - Resource not found (404)
 - Duplicate resource (409)
 - Constraint violations (409)
 
+[//]: pattern
 ### Network/Infrastructure
 
 - Connection timeouts

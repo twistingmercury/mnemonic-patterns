@@ -17,17 +17,11 @@ related_patterns:
   - SQL Migration Pattern
 ---
 
-# pgvector Setup Pattern
+## Overview
 
 This pattern covers setting up PostgreSQL's pgvector extension for storing and querying vector embeddings.
 
-## Overview
-
-pgvector enables:
-- Storage of high-dimensional vectors (embeddings from OpenAI, etc.)
-- Similarity search using cosine, L2, or inner product distance
-- Approximate nearest neighbor (ANN) search with indexes
-
+[//]: pattern
 ## Extension Installation
 
 ### Migration to Enable Extension
@@ -58,17 +52,18 @@ select * from pg_extension where extname = 'vector';
 select opfname from pg_opfamily where opfname like '%vector%';
 ```
 
+[//]: pattern
 ## Vector Column Types
 
 ### Common Embedding Dimensions
 
-| Model | Dimensions | Column Definition |
-|-------|------------|-------------------|
-| OpenAI text-embedding-ada-002 | 1536 | `vector(1536)` |
-| OpenAI text-embedding-3-small | 1536 | `vector(1536)` |
-| OpenAI text-embedding-3-large | 3072 | `vector(3072)` |
-| Cohere embed-english-v3.0 | 1024 | `vector(1024)` |
-| Sentence Transformers (all-MiniLM) | 384 | `vector(384)` |
+| Model                              | Dimensions | Column Definition |
+| ---------------------------------- | ---------- | ----------------- |
+| OpenAI text-embedding-ada-002      | 1536       | `vector(1536)`    |
+| OpenAI text-embedding-3-small      | 1536       | `vector(1536)`    |
+| OpenAI text-embedding-3-large      | 3072       | `vector(3072)`    |
+| Cohere embed-english-v3.0          | 1024       | `vector(1024)`    |
+| Sentence Transformers (all-MiniLM) | 384        | `vector(384)`     |
 
 ### Table with Vector Column
 
@@ -98,15 +93,16 @@ comment on column patterns.embedding is
     'OpenAI text-embedding-3-small vector (1536 dimensions)';
 ```
 
+[//]: pattern
 ## Index Strategies
 
 ### Decision Matrix
 
-| Row Count | Index Type | Build Time | Query Speed | Recall | Memory |
-|-----------|------------|------------|-------------|--------|--------|
-| < 1,000 | None (exact) | N/A | Fast enough | 100% | Low |
-| 1,000 - 100,000 | IVFFlat | Fast | Good | ~95% | Medium |
-| 100,000+ | HNSW | Slow | Excellent | ~99% | High |
+| Row Count       | Index Type   | Build Time | Query Speed | Recall | Memory |
+| --------------- | ------------ | ---------- | ----------- | ------ | ------ |
+| < 1,000         | None (exact) | N/A        | Fast enough | 100%   | Low    |
+| 1,000 - 100,000 | IVFFlat      | Fast       | Good        | ~95%   | Medium |
+| 100,000+        | HNSW         | Slow       | Excellent   | ~99%   | High   |
 
 ### No Index (Exact Search)
 
@@ -142,9 +138,9 @@ comment on index idx_patterns_embedding_ivfflat is
 
 **Tuning IVFFlat:**
 
-| Parameter | Description | Rule of Thumb |
-|-----------|-------------|---------------|
-| `lists` | Number of clusters | `sqrt(row_count)` |
+| Parameter             | Description        | Rule of Thumb                  |
+| --------------------- | ------------------ | ------------------------------ |
+| `lists`               | Number of clusters | `sqrt(row_count)`              |
 | `probes` (query time) | Clusters to search | Higher = better recall, slower |
 
 ```sql
@@ -171,35 +167,37 @@ comment on index idx_patterns_embedding_hnsw is
 
 **Tuning HNSW:**
 
-| Parameter | Description | Trade-off |
-|-----------|-------------|-----------|
-| `m` | Max connections per node | Higher = better recall, more memory |
-| `ef_construction` | Build-time search width | Higher = better index, slower build |
-| `ef_search` (query time) | Query-time search width | Higher = better recall, slower query |
+| Parameter                | Description              | Trade-off                            |
+| ------------------------ | ------------------------ | ------------------------------------ |
+| `m`                      | Max connections per node | Higher = better recall, more memory  |
+| `ef_construction`        | Build-time search width  | Higher = better index, slower build  |
+| `ef_search` (query time) | Query-time search width  | Higher = better recall, slower query |
 
 ```sql
 -- Increase ef_search for better recall (at query time)
 set hnsw.ef_search = 100;  -- Default is 40
 ```
 
+[//]: pattern
 ## Distance Functions
 
 ### Available Operators
 
-| Operator | Function | Use Case |
-|----------|----------|----------|
-| `<=>` | Cosine distance | Text embeddings (most common) |
-| `<->` | L2 (Euclidean) distance | Image embeddings |
-| `<#>` | Inner product (negative) | When vectors are normalized |
+| Operator | Function                 | Use Case                      |
+| -------- | ------------------------ | ----------------------------- |
+| `<=>`    | Cosine distance          | Text embeddings (most common) |
+| `<->`    | L2 (Euclidean) distance  | Image embeddings              |
+| `<#>`    | Inner product (negative) | When vectors are normalized   |
 
 ### Index Operator Classes
 
-| Distance | Operator Class | Index Definition |
-|----------|----------------|------------------|
-| Cosine | `vector_cosine_ops` | `using ivfflat (col vector_cosine_ops)` |
-| L2 | `vector_l2_ops` | `using ivfflat (col vector_l2_ops)` |
-| Inner Product | `vector_ip_ops` | `using ivfflat (col vector_ip_ops)` |
+| Distance      | Operator Class      | Index Definition                        |
+| ------------- | ------------------- | --------------------------------------- |
+| Cosine        | `vector_cosine_ops` | `using ivfflat (col vector_cosine_ops)` |
+| L2            | `vector_l2_ops`     | `using ivfflat (col vector_l2_ops)`     |
+| Inner Product | `vector_ip_ops`     | `using ivfflat (col vector_ip_ops)`     |
 
+[//]: pattern
 ## Migration Example: Complete Setup
 
 ```sql
@@ -245,6 +243,7 @@ on patterns (enrichment_status)
 where enrichment_status in ('pending', 'processing');
 ```
 
+[//]: pattern
 ## Maintenance
 
 ### Rebuilding Indexes
@@ -287,6 +286,7 @@ from patterns
 where embedding is not null;
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Start without index** - For < 1,000 rows, exact search is fine
@@ -297,6 +297,7 @@ where embedding is not null;
 6. **Rebuild after bulk loads** - IVFFlat benefits from reindexing
 7. **Monitor query plans** - Ensure indexes are actually used
 
+[//]: pattern
 ## Common Issues
 
 ### Extension Not Found

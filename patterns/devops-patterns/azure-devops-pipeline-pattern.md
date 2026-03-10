@@ -16,12 +16,9 @@ tags:
 
 ## Overview
 
-Azure DevOps CI/CD pipelines execute the complete build workflow: tool installation, code analysis, testing, Docker build, E2E tests, coverage reporting, and artifact push.
-
-## Philosophy
-
 Create comprehensive Azure DevOps pipelines that execute the complete build workflow: tool installation, code analysis, testing, Docker build, E2E tests, coverage reporting, and ACR push. Use environment variables for configuration.
 
+[//]: pattern
 ## Complete Pipeline YAML
 
 **azure-pipelines.yml**:
@@ -89,6 +86,7 @@ stages:
 
 ## Pipeline Components
 
+[//]: pattern
 ### Trigger Configuration
 
 ```yaml
@@ -101,6 +99,7 @@ trigger:
       - v*            # Trigger on version tags (v1.0.0, v2.0.0, etc.)
 ```
 
+[//]: pattern
 ### Pool Selection
 
 ```yaml
@@ -114,6 +113,7 @@ pool:
   name: "Your-Agent-Pool"
 ```
 
+[//]: pattern
 ### Variable Configuration
 
 ```yaml
@@ -124,6 +124,7 @@ variables:
   # Add more variables as needed
 ```
 
+[//]: pattern
 ### Go Setup
 
 ```yaml
@@ -132,6 +133,7 @@ variables:
     version: "$(GO_VERSION)"
 ```
 
+[//]: pattern
 ### Azure Container Registry Authentication
 
 ```yaml
@@ -150,6 +152,7 @@ variables:
 2. Create new Azure Resource Manager connection
 3. Use service connection name in `azureSubscription` field
 
+[//]: pattern
 ### Build Execution
 
 ```yaml
@@ -170,6 +173,7 @@ The build script (`build/build.sh`) should orchestrate:
 5. E2E tests via Docker Compose
 6. Coverage report generation
 
+[//]: pattern
 ### Test Results Publishing
 
 ```yaml
@@ -181,6 +185,7 @@ The build script (`build/build.sh`) should orchestrate:
     failTaskOnFailedTests: true      # Fail pipeline if tests fail
 ```
 
+[//]: pattern
 ### Code Coverage Publishing
 
 ```yaml
@@ -190,6 +195,7 @@ The build script (`build/build.sh`) should orchestrate:
     summaryFileLocation: "**/coverage.xml"
 ```
 
+[//]: pattern
 ### Docker Image Push
 
 ```yaml
@@ -199,6 +205,7 @@ The build script (`build/build.sh`) should orchestrate:
   displayName: "Push Images to ACR"
 ```
 
+[//]: pattern
 ## Multi-Stage Pipeline Pattern
 
 For more complex workflows with deployment stages:
@@ -240,6 +247,7 @@ stages:
                   displayName: "Deploy to Production"
 ```
 
+[//]: pattern
 ## CLI Tool Pipeline Pattern
 
 For CLI tools that need multi-platform builds:

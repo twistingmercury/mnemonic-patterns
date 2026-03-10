@@ -23,6 +23,7 @@ related_patterns:
 
 This pattern provides complete Protocol Buffer (protobuf) definitions for gRPC services. Proto definitions are language-agnostic and can be compiled to any supported language (Go, Python, Java, C++, etc.).
 
+[//]: pattern
 ## Complete Proto File
 
 ```protobuf
@@ -185,6 +186,7 @@ message Error {
 
 ## Key Patterns
 
+[//]: pattern
 ### 1. RPC Types
 
 #### Unary RPC (Request-Response)
@@ -240,6 +242,7 @@ rpc SyncUsers(stream UserSyncRequest) returns (stream UserSyncResponse);
 - Order independent
 - Good for chat, real-time collaboration
 
+[//]: pattern
 ### 2. Pagination
 
 **Token-Based Pagination:**
@@ -262,6 +265,7 @@ message ListUsersResponse {
 - Efficient for large datasets
 - Standard pattern across Google APIs
 
+[//]: pattern
 ### 3. Partial Updates (FieldMask)
 
 **Update only specified fields:**
@@ -295,6 +299,7 @@ message UpdateUserRequest {
 - Prevents accidental overwrites
 - Bandwidth efficient
 
+[//]: pattern
 ### 4. Error Handling
 
 **Structured Errors:**
@@ -326,6 +331,7 @@ message CreateUserResponse {
 }
 ```
 
+[//]: pattern
 ### 5. Versioning
 
 **Package Versioning:**
@@ -345,6 +351,7 @@ package user.v2;
 - Clear separation of versions
 - Gradual migration path
 
+[//]: pattern
 ### 6. Enum Best Practices
 
 **Always include UNSPECIFIED:**
@@ -363,6 +370,7 @@ enum UserStatus {
 - 0 value is always `*_UNSPECIFIED`
 - Use UPPER_SNAKE_CASE
 
+[//]: pattern
 ### 7. Oneof for Variants
 
 **Mutually exclusive fields:**
@@ -383,6 +391,7 @@ message UserSyncRequest {
 
 ## Design Best Practices
 
+[//]: pattern
 ### Naming Conventions
 
 1. **Services:** PascalCase with "Service" suffix - `UserService`
@@ -391,6 +400,7 @@ message UserSyncRequest {
 4. **Fields:** snake_case - `user_id`, `created_at`
 5. **Enums:** UPPER_SNAKE_CASE - `USER_STATUS_ACTIVE`
 
+[//]: pattern
 ### Request/Response Naming
 
 ```protobuf
@@ -399,6 +409,7 @@ rpc GetUser(GetUserRequest) returns (GetUserResponse);
 rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
 ```
 
+[//]: pattern
 ### Reserved Fields
 
 **Reserve deprecated fields:**
@@ -419,6 +430,7 @@ message User {
 - Documents removed fields
 - Avoids compatibility issues
 
+[//]: pattern
 ### Comments and Documentation
 
 ```protobuf
@@ -445,6 +457,7 @@ message User {
 
 ## Code Generation
 
+[//]: pattern
 ### Generate for Go
 
 ```bash
@@ -453,6 +466,7 @@ protoc --go_out=. --go_opt=paths=source_relative \
   api/proto/v1/user_service.proto
 ```
 
+[//]: pattern
 ### Generate for Python
 
 ```bash
@@ -462,6 +476,7 @@ python -m grpc_tools.protoc -I. \
   api/proto/v1/user_service.proto
 ```
 
+[//]: pattern
 ### Generate for Multiple Languages
 
 ```bash
@@ -485,6 +500,7 @@ plugins:
     out: gen/python
 ```
 
+[//]: pattern
 ## Validation with buf
 
 **buf.yaml:**
@@ -533,6 +549,7 @@ import "api/proto/v1/common/pagination.proto";
 import "api/proto/v1/common/errors.proto";
 ```
 
+[//]: pattern
 ## Well-Known Types
 
 Use Google's well-known types:

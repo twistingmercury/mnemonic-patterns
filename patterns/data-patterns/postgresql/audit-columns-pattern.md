@@ -22,6 +22,7 @@ related_patterns:
 
 This pattern defines standard columns for tracking when and optionally by whom records were created and modified. Every table should include created_at and updated_at columns for audit trails.
 
+[//]: pattern
 ## Basic Audit Columns
 
 Every table should include at minimum:
@@ -44,6 +45,7 @@ create trigger trg_example_updated_at
     for each row execute function update_updated_at();
 ```
 
+[//]: pattern
 ## Column Definitions
 
 | Column | Type | Constraints | Purpose |
@@ -53,6 +55,7 @@ create trigger trg_example_updated_at
 | `created_by` | `uuid` | `REFERENCES users(id)` | Who created (optional) |
 | `updated_by` | `uuid` | `REFERENCES users(id)` | Who last modified (optional) |
 
+[//]: pattern
 ## Implementation Levels
 
 ### Level 1: Timestamps Only (Minimum)
@@ -103,6 +106,7 @@ create index idx_audit_log_table_record on audit_log (table_name, record_id);
 create index idx_audit_log_changed_at on audit_log (changed_at);
 ```
 
+[//]: pattern
 ## Automatic User Tracking
 
 ### Using Session Variables
@@ -159,6 +163,7 @@ func (r *Repository) CreateOrder(ctx context.Context, order *Order) error {
 }
 ```
 
+[//]: pattern
 ## Migration Templates
 
 ### Adding Audit Columns to New Table
@@ -216,6 +221,7 @@ create trigger trg_legacy_table_updated_at
     for each row execute function update_updated_at();
 ```
 
+[//]: pattern
 ## Query Patterns
 
 ### Find Recently Created
@@ -249,6 +255,7 @@ where updated_by = $user_id
 order by updated_at desc;
 ```
 
+[//]: pattern
 ## Indexing Recommendations
 
 ```sql
@@ -262,6 +269,7 @@ create index idx_products_updated_at on products (updated_at desc);
 create index idx_orders_updated_by on orders (updated_by);
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Always use timestamptz** - Store with timezone information
@@ -271,6 +279,7 @@ create index idx_orders_updated_by on orders (updated_by);
 5. **Consider user tracking** - For multi-user systems
 6. **Index if querying** - Only add indexes if you query by these columns
 
+[//]: pattern
 ## Type Choices
 
 ### Why timestamptz?
@@ -295,6 +304,7 @@ created_at timestamptz  -- Unambiguous, always UTC internally
 created_by uuid references users(id)
 ```
 
+[//]: pattern
 ## Anti-Patterns
 
 - **Nullable audit columns** - Makes queries and reasoning harder

@@ -19,6 +19,7 @@ We use trunk-based development with one stable main branch and short-lived featu
 
 ## Rules
 
+[//]: pattern
 ### Main Branch (Trunk)
 
 **MUST:**
@@ -36,6 +37,7 @@ We use trunk-based development with one stable main branch and short-lived featu
 - Commit directly to main branch (branch protection enforces this)
 - Merge broken or untested code to main
 
+[//]: pattern
 ### Development Branches
 
 **MUST:**
@@ -53,6 +55,7 @@ We use trunk-based development with one stable main branch and short-lived featu
 - Work on multiple unrelated tasks in one branch
 - Let old branches accumulate after merge
 
+[//]: pattern
 ### Branch Naming Convention
 
 **MUST:**
@@ -67,6 +70,7 @@ We use trunk-based development with one stable main branch and short-lived featu
 - Use arbitrary or inconsistent branch names
 - Omit the Jira ticket reference
 
+[//]: pattern
 ### Pull Requests
 
 **MUST:**
@@ -83,6 +87,7 @@ We use trunk-based development with one stable main branch and short-lived featu
 - Merge without CI checks passing
 - Merge without required approvals
 
+[//]: pattern
 ### Deployment Readiness
 
 **MUST:**

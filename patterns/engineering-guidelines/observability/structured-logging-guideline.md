@@ -18,10 +18,7 @@ tags:
 
 Logs are for anomalies, not normal operations. Distributed tracing captures successful request flows. Logs surface deviations from expected behavior, tied together with trace context for complete investigation.
 
-## Philosophy
-
-Logs are for anomalies, not normal operations. Distributed tracing captures successful request flows. Logs surface deviations from expected behavior that need human attention. Trace context ties logs and traces together for complete investigation.
-
+[//]: pattern
 ## Production Log Level
 
 **Default to WARN level in production.**
@@ -70,6 +67,7 @@ Do NOT overuse the `warn` level. Reserve it for conditions requiring investigati
 
 If it does not require investigation, log it at `info` level. Excessive warnings create noise and alert fatigue.
 
+[//]: pattern
 ## Required Log Fields
 
 Every log entry MUST include these standard fields:
@@ -101,6 +99,7 @@ These fields enable correlation with distributed traces per OpenTelemetry/W3C Tr
 - **user_id**: Internal UUID or database ID (never PII like username, email)
 - **session_id**: Internal session identifier
 
+[//]: pattern
 ## Stack Trace Sanitization
 
 "Sanitized" means removing information that exposes system internals or sensitive data while preserving diagnostic value.
@@ -131,6 +130,7 @@ These fields enable correlation with distributed traces per OpenTelemetry/W3C Tr
 - For Go, libraries like `github.com/pkg/errors` provide easier programmatic sanitization
 - Test sanitization logic to ensure critical debugging information is preserved
 
+[//]: pattern
 ## Never Log These
 
 **Non-negotiable restrictions:**
@@ -150,6 +150,7 @@ These fields enable correlation with distributed traces per OpenTelemetry/W3C Tr
 - Full request/response bodies (log sanitized versions)
 - Session tokens or cookies
 
+[//]: pattern
 ## Trace Context Correlation
 
 OpenTelemetry uses two core identifiers to correlate distributed requests:
@@ -182,6 +183,7 @@ When a service receives this header, it continues the same trace by creating chi
 3. Navigate span hierarchy using `span_id` values
 4. Understand both what went wrong and why
 
+[//]: pattern
 ## Log Output Format
 
 ### Containerized Applications
@@ -217,6 +219,7 @@ Use JSON or another structured format for operational data, not just debugging o
 - Trend detection
 - Machine-readable for aggregation tools
 
+[//]: pattern
 ## Daily Log Review Requirements
 
 On-call engineers MUST review logs daily as part of standard operational duties.
@@ -240,6 +243,7 @@ On-call engineers MUST review logs daily as part of standard operational duties.
 
 Daily log review catches problems before they become incidents. Builds operational awareness of normal vs. abnormal behavior. Teams practicing this consistently see far fewer midnight incidents - problems addressed during business hours before escalation.
 
+[//]: pattern
 ## Implementation Checklist
 
 Use this checklist when implementing structured logging:

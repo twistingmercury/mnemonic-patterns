@@ -27,6 +27,7 @@ Every subcommand follows this structure:
 3. **RunE handler** - Calls separate run function
 4. **runX() function** - Step-by-step implementation with comments
 
+[//]: pattern
 ## Complete Subcommand Example
 
 ```go
@@ -177,6 +178,7 @@ func runCompanyAdd(command *cobra.Command, cfg *config.Config, yamlFile string) 
 }
 ```
 
+[//]: pattern
 ## Find/Get Command Pattern
 
 For retrieval commands:
@@ -271,6 +273,7 @@ func runCompanyFind(command *cobra.Command, cfg *config.Config, companyGuid, out
 }
 ```
 
+[//]: pattern
 ## Update Command Pattern
 
 For update commands:
@@ -348,6 +351,7 @@ func runCompanyUpdate(command *cobra.Command, cfg *config.Config, yamlFile strin
 }
 ```
 
+[//]: pattern
 ## List Command Pattern
 
 For list commands with pagination:
@@ -440,12 +444,14 @@ func runUserList(command *cobra.Command, cfg *config.Config, status string, page
 
 ## Key Patterns
 
+[//]: pattern
 ### XCommand(cfg) Function Signature
 ```go
 func AddCommand(cfg *config.Config) (*cobra.Command, error)
 ```
 Returns configured command with error for initialization failures.
 
+[//]: pattern
 ### Flag Variables in Function Scope
 ```go
 func AddCommand(cfg *config.Config) (*cobra.Command, error) {
@@ -455,6 +461,7 @@ func AddCommand(cfg *config.Config) (*cobra.Command, error) {
 ```
 Not package-level globals, cleaner testing.
 
+[//]: pattern
 ### Separate Run Function
 ```go
 RunE: func(command *cobra.Command, args []string) error {
@@ -463,6 +470,7 @@ RunE: func(command *cobra.Command, args []string) error {
 ```
 Separates command setup from execution logic.
 
+[//]: pattern
 ### Step-by-Step Comments
 ```go
 // Step 1: Check if --yaml flag is provided
@@ -471,6 +479,7 @@ Separates command setup from execution logic.
 ```
 Makes code self-documenting and easy to follow.
 
+[//]: pattern
 ### Help on Error
 ```go
 if yamlFile == "" {
@@ -482,12 +491,14 @@ if yamlFile == "" {
 ```
 Show help when user makes usage error.
 
+[//]: pattern
 ### Persistent Flag Access
 ```go
 skipAuth, _ := command.Flags().GetBool("skip-auth")
 ```
 Access root-level persistent flags in subcommands.
 
+[//]: pattern
 ## Testing Subcommands
 
 ```go

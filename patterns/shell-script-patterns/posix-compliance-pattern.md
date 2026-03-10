@@ -20,6 +20,7 @@ POSIX compliance ensures shell scripts work consistently across different platfo
 
 ## Pattern
 
+[//]: pattern
 ### Use printf Instead of echo
 
 **Bad (non-POSIX):**
@@ -34,6 +35,7 @@ echo "Processing $file"
 printf "Processing %s\n" "${file}"
 ```
 
+[//]: pattern
 ### Use $() Instead of Backticks
 
 **Bad (non-POSIX):**
@@ -48,6 +50,7 @@ result=`ls -la`
 result=$(ls -la)
 ```
 
+[//]: pattern
 ### Use [ ] Instead of [[ ]]
 
 **Bad (bash-specific):**
@@ -64,6 +67,7 @@ result=$(ls -la)
 
 Note: Use single `=` for string comparison in `[ ]`, not `==`.
 
+[//]: pattern
 ### Use Portable Flag Syntax
 
 **Bad (GNU-specific):**
@@ -78,6 +82,7 @@ grep -P 'pattern' file.txt  # -P not available on BSD/macOS
 grep -E 'pattern' file.txt  # -E works on both BSD and GNU
 ```
 
+[//]: pattern
 ## Complete Example
 
 ```bash
@@ -118,6 +123,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Always use printf** - More predictable output formatting across platforms

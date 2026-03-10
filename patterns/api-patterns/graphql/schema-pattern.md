@@ -18,6 +18,7 @@ tags:
 
 This pattern provides a complete GraphQL schema template for Go-based GraphQL APIs using gqlgen.
 
+[//]: pattern
 ## Complete GraphQL Schema
 
 ```graphql
@@ -338,6 +339,7 @@ type HealthStatus {
 }
 ```
 
+[//]: pattern
 ## gqlgen Configuration
 
 ```yaml
@@ -388,6 +390,7 @@ directives:
     skip_runtime: false
 ```
 
+[//]: pattern
 ## Resolver Implementation Example
 
 ```go
@@ -519,6 +522,7 @@ func (r *subscriptionResolver) PostCreated(ctx context.Context) (<-chan *model.P
 }
 ```
 
+[//]: pattern
 ## Directive Implementation
 
 ```go
@@ -555,6 +559,7 @@ func AuthDirective(ctx context.Context, obj interface{}, next graphql.Resolver, 
 }
 ```
 
+[//]: pattern
 ## DataLoader Pattern for N+1 Problem
 
 ```go
@@ -619,38 +624,45 @@ func userBatchFunc(service *service.UserService) dataloader.BatchFunc {
 }
 ```
 
+[//]: pattern
 ## Key Patterns
 
+[//]: pattern
 ### Pagination (Relay Cursor Connections)
 - Use cursor-based pagination for stability
 - Include `PageInfo` with `hasNextPage` and `hasPreviousPage`
 - Return `totalCount` for UI display
 - Cursors should be opaque (base64 encoded)
 
+[//]: pattern
 ### Error Handling
 - Use union types for mutation results
 - Implement `Error` interface for typed errors
 - Include error codes for client handling
 - Return errors as data, not in `errors` field (when appropriate)
 
+[//]: pattern
 ### Authentication & Authorization
 - Use custom directives for declarative auth
 - Store user context in GraphQL context
 - Implement role-based access control
 - Support field-level authorization
 
+[//]: pattern
 ### Subscriptions
 - Use channels for real-time updates
 - Clean up on context cancellation
 - Consider using Redis pub/sub for distributed systems
 - Rate limit subscription connections
 
+[//]: pattern
 ### DataLoader
 - Prevent N+1 queries
 - Batch requests per query
 - Configure appropriate wait times
 - Cache results within request context
 
+[//]: pattern
 ## Code Generation
 
 Generate GraphQL code:
@@ -663,6 +675,7 @@ Generate with custom config:
 go run github.com/99designs/gqlgen generate --config gqlgen.yml
 ```
 
+[//]: pattern
 ## Testing
 
 ```go

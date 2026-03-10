@@ -18,10 +18,6 @@ tags:
 
 BATS (Bash Automated Testing System) tests should follow a consistent structure with proper setup, teardown, and clear test organization. Each test should be independent, well-named, and follow the AAA (Arrange, Act, Assert) pattern.
 
-## Philosophy
-
-BATS (Bash Automated Testing System) tests should follow a consistent structure with proper setup, teardown, and clear test organization. Each test should be independent, well-named, and follow the AAA (Arrange, Act, Assert) pattern.
-
 ## Quality Standards
 
 All BATS tests MUST:
@@ -52,6 +48,7 @@ All BATS tests MUST:
    - Describe what behavior is being validated
    - Format: `@test "component action - expected behavior"`
 
+[//]: pattern
 ## Example Test File Structure
 
 ```bash
@@ -133,6 +130,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## Helper Functions
 
 Define reusable helper functions before tests:
@@ -183,6 +181,7 @@ count_lines() {
 }
 ```
 
+[//]: pattern
 ## Test Organization Patterns
 
 ### Grouping Related Tests
@@ -240,6 +239,7 @@ count_lines() {
 }
 ```
 
+[//]: pattern
 ## Environment Variable Management
 
 ```bash
@@ -267,6 +267,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## Test Data and Fixtures
 
 ```bash
@@ -319,6 +320,7 @@ git clone https://github.com/bats-core/bats-assert tests/bats/test_helper/bats-a
 brew install shellcheck jq yq docker
 ```
 
+[//]: pattern
 ## Shellcheck Configuration
 
 Create `tests/bats/.shellcheckrc`:
@@ -331,6 +333,7 @@ format=gcc
 severity=warning
 ```
 
+[//]: pattern
 ## Running Tests
 
 ```bash
@@ -378,6 +381,7 @@ RUN_SLOW_TESTS=1 bats tests/bats/*.bats
 - **Using grep -P**: Not portable (BSD doesn't support), use `-E` instead
 - **Platform-specific stat**: Use portable version with fallback
 
+[//]: pattern
 ## Test File Template
 
 ```bash

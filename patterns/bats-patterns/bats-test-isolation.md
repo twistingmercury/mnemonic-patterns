@@ -18,13 +18,10 @@ tags:
 
 Test isolation ensures that each test runs independently without interference from other tests or system state. Proper isolation prevents flaky tests, enables parallel execution, and ensures tests can run in any order with consistent results.
 
-## Philosophy
-
-Test isolation ensures that each test runs independently without interference from other tests or system state. Proper isolation prevents flaky tests, enables parallel execution, and ensures tests can run in any order with consistent results.
-
 ## Quality Standards
 
 All BATS tests MUST:
+
 - **Pass shellcheck** with the project's `.shellcheckrc` configuration
 - **Be POSIX compliant** - use `printf` not `echo`, avoid bash-isms
 - **Be readable** - extract variables, avoid terse one-liners
@@ -52,6 +49,7 @@ All BATS tests MUST:
    - Tests don't depend on execution order
    - Tests don't share data or resources
 
+[//]: pattern
 ## Using $BATS_TEST_TMPDIR
 
 ```bash
@@ -95,6 +93,7 @@ teardown() {
 
 ## Environment Variable Isolation
 
+[//]: pattern
 ### Pattern 1: Override and Restore
 
 ```bash
@@ -135,6 +134,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ### Pattern 2: Using Subshells for Temporary Changes
 
 ```bash
@@ -151,6 +151,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ### Pattern 3: Script-Specific Environment Override
 
 ```bash
@@ -171,6 +172,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## Working Directory Isolation
 
 ```bash
@@ -202,6 +204,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## File System Isolation
 
 ```bash
@@ -229,6 +232,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## Docker Resource Isolation
 
 ```bash
@@ -256,6 +260,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## Parallel Test Execution Safety
 
 ```bash
@@ -298,6 +303,7 @@ teardown() {
 # bats --jobs 4 tests/bats/test-script.bats
 ```
 
+[//]: pattern
 ## Fixture Isolation
 
 ```bash
@@ -334,6 +340,7 @@ teardown() {
 }
 ```
 
+[//]: pattern
 ## State File Isolation
 
 ```bash

@@ -20,6 +20,7 @@ Shell scripts should be clear and maintainable, not clever or terse. Extract com
 
 ## Pattern
 
+[//]: pattern
 ### Prefer Clear Code Over Clever One-Liners
 
 **Bad (terse, hard to understand):**
@@ -47,6 +48,7 @@ count_json_files() {
 }
 ```
 
+[//]: pattern
 ### Extract Complex Logic to Named Functions
 
 **Bad (inline complexity):**
@@ -91,6 +93,7 @@ main() {
 }
 ```
 
+[//]: pattern
 ### Use Descriptive Variable Names
 
 **Bad (cryptic abbreviations):**
@@ -109,6 +112,7 @@ output_dir="/tmp/out"
 line_count=$(wc -l < "${input_file}" | tr -d ' ')
 ```
 
+[//]: pattern
 ## Complete Example: Refactoring for Readability
 
 **Before (terse, hard to maintain):**
@@ -183,6 +187,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Extract complex conditions** - Put multi-part conditions in named functions

@@ -17,6 +17,7 @@ tags:
 
 This guideline defines minimum code coverage requirements for unit and integration tests, along with testing philosophies for different test types.
 
+[//]: pattern
 ## Coverage Requirements
 
 ### Minimum Thresholds
@@ -49,6 +50,7 @@ If you cannot hit these coverage targets, document why:
 
 Include the reasoning in code comments or test documentation so future developers understand the decision.
 
+[//]: pattern
 ## What Not to Test
 
 Skip tests that don't provide value:
@@ -61,6 +63,7 @@ Skip tests that don't provide value:
 
 Document why you skipped testing specific code so the reasoning is clear to future maintainers.
 
+[//]: pattern
 ## End-to-End Testing Philosophy
 
 ### Black-Box Testing Approach
@@ -103,6 +106,7 @@ Use judgment on testing every permutation of query parameters or request variati
 - Tests run automatically in CI
 - If E2E tests fail, the build fails
 
+[//]: pattern
 ## Documentation Testing
 
 Test that documentation is accurate and usable.
@@ -127,6 +131,7 @@ Verify that:
 - Troubleshooting guides resolve actual issues
 - Code examples compile and run
 
+[//]: pattern
 ## CI Pipeline Requirements
 
 Code must meet these coverage and testing standards before merging:

@@ -23,6 +23,7 @@ Shell scripts often need to work across different platforms, primarily macOS (BS
 
 ## Pattern
 
+[//]: pattern
 ### stat Command (File Information)
 
 The `stat` command has different syntax on BSD (macOS) and GNU (Linux).
@@ -59,6 +60,7 @@ get_file_mtime() {
 }
 ```
 
+[//]: pattern
 ### grep Command (Pattern Matching)
 
 **Bad (GNU-specific Perl regex):**
@@ -92,6 +94,7 @@ find_pattern() {
 }
 ```
 
+[//]: pattern
 ### find Command (File Search)
 
 **Always specify -type explicitly:**
@@ -114,6 +117,7 @@ find "${dir}" -type f -name "*.log" -exec rm {} \;
 find "${dir}" -type f -name "*.log" -exec rm {} +
 ```
 
+[//]: pattern
 ### mktemp Command (Temporary Files)
 
 The `mktemp` command behaves differently on BSD and GNU systems.
@@ -154,6 +158,7 @@ create_temp_file() {
 }
 ```
 
+[//]: pattern
 ## Complete Cross-Platform Example
 
 ```bash
@@ -253,6 +258,7 @@ main() {
 main "$@"
 ```
 
+[//]: pattern
 ## Platform Detection (When Needed)
 
 Sometimes you need to detect the platform explicitly:
@@ -296,6 +302,7 @@ main() {
 }
 ```
 
+[//]: pattern
 ## Best Practices
 
 1. **Use portable command flags** - Prefer options that work on both BSD and GNU

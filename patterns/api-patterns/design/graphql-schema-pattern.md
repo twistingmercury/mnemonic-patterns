@@ -23,6 +23,8 @@ related_patterns:
 
 This pattern provides a complete GraphQL schema template following best practices for queries, mutations, subscriptions, pagination, and error handling. The schema is language-agnostic and can be implemented using any GraphQL server framework.
 
+[//]: pattern
+
 ## Complete GraphQL Schema
 
 ```graphql
@@ -252,20 +254,20 @@ type Subscription {
 ```graphql
 type Query {
   users(
-    first: Int = 20      # Number of items to fetch
-    after: String        # Cursor to fetch after
+    first: Int = 20 # Number of items to fetch
+    after: String # Cursor to fetch after
   ): UserConnection!
 }
 
 type UserConnection {
   edges: [UserEdge!]!
   pageInfo: PageInfo!
-  totalCount: Int!       # Total number of items
+  totalCount: Int! # Total number of items
 }
 
 type UserEdge {
-  node: User!            # The actual data
-  cursor: String!        # Opaque cursor for this item
+  node: User! # The actual data
+  cursor: String! # Opaque cursor for this item
 }
 
 type PageInfo {
@@ -277,6 +279,7 @@ type PageInfo {
 ```
 
 **Benefits:**
+
 - Works with insertions/deletions during pagination
 - Opaque cursors hide implementation details
 - Supports bidirectional navigation
@@ -293,8 +296,8 @@ type CreateUserSuccess {
 
 type CreateUserError implements Error {
   message: String!
-  code: String!      # Machine-readable error code
-  field: String      # Field that caused the error (for validation)
+  code: String! # Machine-readable error code
+  field: String # Field that caused the error (for validation)
 }
 
 union CreateUserResult = CreateUserSuccess | CreateUserError
@@ -305,6 +308,7 @@ type Mutation {
 ```
 
 **Client Query:**
+
 ```graphql
 mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
@@ -325,14 +329,18 @@ mutation CreateUser($input: CreateUserInput!) {
 ```
 
 **Benefits:**
+
 - Errors are part of the schema
 - Type-safe error handling
 - Field-level error attribution
 - Better than throwing exceptions
 
+[//]: pattern
+
 ### 3. Authentication & Authorization
 
 **Directive-Based Auth:**
+
 ```graphql
 directive @auth(requires: Role = USER) on OBJECT | FIELD_DEFINITION
 
@@ -349,14 +357,18 @@ type Query {
 ```
 
 **Benefits:**
+
 - Declarative authorization
 - Easy to audit security requirements
 - Consistent across schema
 - Self-documenting
 
+[//]: pattern
+
 ### 4. Subscriptions
 
 **Real-time Updates:**
+
 ```graphql
 type Subscription {
   # Subscribe to specific user changes
@@ -371,6 +383,7 @@ type Subscription {
 ```
 
 **Client Subscription:**
+
 ```graphql
 subscription WatchUser($userId: ID!) {
   userUpdated(userId: $userId) {
@@ -382,6 +395,7 @@ subscription WatchUser($userId: ID!) {
 ```
 
 **Benefits:**
+
 - Real-time data updates
 - Event-driven architecture
 - Reduces polling
@@ -390,6 +404,7 @@ subscription WatchUser($userId: ID!) {
 ### 5. Input Types
 
 **Mutation Inputs:**
+
 ```graphql
 input CreateUserInput {
   email: Email!
@@ -411,14 +426,18 @@ type Mutation {
 ```
 
 **Benefits:**
+
 - Single argument for mutations
 - Easy to extend without breaking changes
 - Clear separation between create and update
 - Type safety for nested data
 
+[//]: pattern
+
 ### 6. Interfaces
 
 **Shared Fields:**
+
 ```graphql
 interface Node {
   id: ID!
@@ -442,6 +461,7 @@ type Post implements Node {
 ```
 
 **Query by Interface:**
+
 ```graphql
 query GetNode($id: ID!) {
   node(id: $id) {
@@ -460,6 +480,8 @@ query GetNode($id: ID!) {
 ```
 
 ## Schema Design Best Practices
+
+[//]: pattern
 
 ### Naming Conventions
 
@@ -489,10 +511,13 @@ tags: [String]
 ```
 
 **Guidelines:**
+
 - Use `!` for required fields
 - Return lists as `[Type!]!` (non-null list with non-null items)
 - Avoid nullable IDs and timestamps
 - Make input fields nullable for updates
+
+[//]: pattern
 
 ### Versioning
 
@@ -508,15 +533,18 @@ type User {
 
   # Additive change (no breaking)
   email: Email
-  phone: String  # New field added
+  phone: String # New field added
 }
 ```
 
 **Guidelines:**
+
 - Add new fields instead of changing existing ones
 - Use `@deprecated` for old fields
 - Never remove fields (mark deprecated instead)
 - Add new optional arguments to queries
+
+[//]: pattern
 
 ### Documentation
 
@@ -546,6 +574,8 @@ type User implements Node {
   status: UserStatus!
 }
 ```
+
+[//]: pattern
 
 ## Validation
 

@@ -23,21 +23,20 @@ related_patterns:
 
 Databases are storage-only with all business logic handled in the application layer. This pattern defines how Go repositories manage created_at and updated_at timestamp columns consistently.
 
-## Philosophy
-
-**Databases are storage-only** - No triggers, functions, or stored procedures. All business logic, including timestamp management, is handled in the application layer (Go repositories).
-
 This pattern defines how Go repositories manage `created_at` and `updated_at` timestamp columns consistently across the codebase.
 
+[//]: pattern
 ## Core Principles
 
-1. **created_at** - Relies on database DEFAULT, handled automatically
-2. **updated_at** - MUST be explicitly set in every UPDATE statement
-3. **Use SQL NOW()** - Not Go's `time.Now()` (keeps time consistent with database)
-4. **Explicit is better** - Make timestamp handling visible in SQL
+1. **Databases are storage-only** - No triggers, functions, or stored procedures. All business logic, including timestamp management, is handled in the application layer (Go repositories).
+2. **created_at** - Relies on database DEFAULT, handled automatically
+3. **updated_at** - MUST be explicitly set in every UPDATE statement
+4. **Use SQL NOW()** - Not Go's `time.Now()` (keeps time consistent with database)
+5. **Explicit is better** - Make timestamp handling visible in SQL
 
 ## created_at Handling
 
+[//]: pattern
 ### Database Schema
 
 Tables include a `created_at` column with a DEFAULT value:
@@ -54,6 +53,7 @@ create table users (
 );
 ```
 
+[//]: pattern
 ### Repository INSERT Pattern
 
 **Option 1: Let database handle it (Recommended)**
@@ -107,6 +107,7 @@ func (r *UserRepository) Create(ctx context.Context, user *User) error {
 
 ## updated_at Handling
 
+[//]: pattern
 ### Repository UPDATE Pattern
 
 **ALWAYS explicitly set `updated_at` in UPDATE statements:**
@@ -134,6 +135,7 @@ func (r *UserRepository) Update(ctx context.Context, user *User) error {
 }
 ```
 
+[//]: pattern
 ### Partial Update Pattern
 
 For partial updates (PATCH operations):
@@ -152,6 +154,7 @@ func (r *UserRepository) UpdateEmail(ctx context.Context, id uuid.UUID, email st
 }
 ```
 
+[//]: pattern
 ### Batch Update Pattern
 
 Even batch updates must include `updated_at`:
@@ -177,6 +180,7 @@ func (r *UserRepository) DeactivateUsers(ctx context.Context, ids []uuid.UUID) e
 - **RETURNING updated_at** - If you need the exact timestamp value
 - **No triggers** - Application explicitly manages this, not the database
 
+[//]: pattern
 ## Complete Repository Example
 
 ```go
@@ -323,6 +327,7 @@ func (r *UserRepository) Delete(ctx context.Context, id uuid.UUID) error {
 }
 ```
 
+[//]: pattern
 ## Using sqlx for Cleaner Code
 
 If using `jmoiron/sqlx`, the pattern is similar but with named parameters:
@@ -371,6 +376,7 @@ func (r *UserRepository) Update(ctx context.Context, user *User) error {
 }
 ```
 
+[//]: pattern
 ## Anti-Patterns
 
 ### Don't: Forget updated_at in UPDATE
@@ -460,6 +466,7 @@ Using SQL `now()` instead of Go's `time.Now()`:
 - **Transaction-safe** - Timestamp set within transaction boundary
 - **Time zone handling** - Database handles TZ conversion (timestamptz)
 
+[//]: pattern
 ## Testing Timestamps
 
 ```go

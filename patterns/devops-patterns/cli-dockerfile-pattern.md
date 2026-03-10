@@ -18,10 +18,7 @@ tags:
 
 Build CLI tools for multiple platforms (Linux, macOS, Windows) using Docker cross-compilation. Generate static binaries with CGO_ENABLED=0 and embed version information for traceability.
 
-## Philosophy
-
-Build CLI tools for multiple platforms (Linux, macOS, Windows) using Docker cross-compilation. Generate static binaries with CGO_ENABLED=0. Embed version information for traceability.
-
+[//]: pattern
 ## Cross-Compilation Dockerfile
 
 ```dockerfile
@@ -100,6 +97,7 @@ RUN CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build \
 - **macOS ARM64**: Apple Silicon Macs (M1, M2, M3)
 - **Windows AMD64**: Standard x86_64 Windows
 
+[//]: pattern
 ## Build Script Pattern
 
 ```bash

@@ -16,11 +16,7 @@ tags:
 
 ## Overview
 
-This pattern covers comprehensive assertion techniques for BATS tests using the bats-assert library. It provides clear, expressive assertions that produce readable test failures and descriptive error messages. Use this pattern to write BATS tests that clearly communicate what is being validated and why it matters.
-
-## Philosophy
-
-Clear, expressive assertions are the foundation of maintainable tests. Use the bats-assert library for readable test failures and descriptive error messages. Each assertion should clearly communicate what is being validated and why it matters.
+Clear, expressive assertions are the foundation of maintainable tests. Use the bats-assert library for readable test failures and descriptive error messages. Each assertion should clearly communicate what is being validated and why it matters. This pattern covers comprehensive assertion techniques for BATS tests using the bats-assert library. It provides clear, expressive assertions that produce readable test failures and descriptive error messages. Use this pattern to write BATS tests that clearly communicate what is being validated and why it matters.
 
 ## Quality Standards
 
@@ -50,6 +46,7 @@ All BATS tests MUST:
    - Add custom error messages when needed
    - Make failures easy to diagnose
 
+[//]: pattern
 ## Installing bats-assert
 
 ```bash
@@ -65,6 +62,7 @@ load 'test_helper/bats-support/load'
 load 'test_helper/bats-assert/load'
 ```
 
+[//]: pattern
 ## Exit Code Assertions
 
 ### Basic Success/Failure
@@ -119,6 +117,7 @@ load 'test_helper/bats-assert/load'
 }
 ```
 
+[//]: pattern
 ## Output Assertions
 
 ### Exact Match
@@ -174,6 +173,7 @@ load 'test_helper/bats-assert/load'
 }
 ```
 
+[//]: pattern
 ## Line-Specific Assertions
 
 ### Assert Specific Line
@@ -230,6 +230,7 @@ load 'test_helper/bats-assert/load'
 }
 ```
 
+[//]: pattern
 ## File and Directory Assertions
 
 ### File Existence
@@ -305,6 +306,7 @@ load 'test_helper/bats-assert/load'
 }
 ```
 
+[//]: pattern
 ## Variable and Value Assertions
 
 ### Equal Assertions
@@ -339,6 +341,7 @@ load 'test_helper/bats-assert/load'
 }
 ```
 
+[//]: pattern
 ## Custom Assertions
 
 ### Helper Function Assertions
@@ -390,6 +393,7 @@ assert_file_count() {
 }
 ```
 
+[//]: pattern
 ## Docker State Assertions
 
 ### Container Assertions
@@ -441,6 +445,7 @@ assert_file_count() {
 }
 ```
 
+[//]: pattern
 ## JSON and YAML Assertions
 
 ### JSON Structure
@@ -505,6 +510,7 @@ assert_file_count() {
 }
 ```
 
+[//]: pattern
 ## Error Message Assertions
 
 ### Helpful Error Messages
@@ -541,6 +547,7 @@ assert_file_count() {
 }
 ```
 
+[//]: pattern
 ## Complex Assertion Patterns
 
 ### Chained Assertions

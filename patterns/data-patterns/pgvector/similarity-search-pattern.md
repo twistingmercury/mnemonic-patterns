@@ -22,6 +22,7 @@ related_patterns:
 
 This pattern covers query patterns for vector similarity search using pgvector, including cosine similarity, filtering, pagination, and hybrid search combining vector and relational queries.
 
+[//]: pattern
 ## Basic Similarity Search
 
 ### Cosine Similarity (Most Common)
@@ -75,6 +76,7 @@ order by embedding <-> $1::vector
 limit 10;
 ```
 
+[//]: pattern
 ## Filtered Search
 
 ### Filter Then Search (Recommended)
@@ -118,6 +120,7 @@ where category = 'technology'
 limit 10;
 ```
 
+[//]: pattern
 ## Hybrid Search
 
 ### Vector + Full-Text Search
@@ -163,6 +166,7 @@ order by final_score desc
 limit 10;
 ```
 
+[//]: pattern
 ## Pagination
 
 ### Offset-Based (Simple but Slow for Deep Pages)
@@ -204,6 +208,7 @@ order by embedding <=> $1::vector, id
 limit 10;
 ```
 
+[//]: pattern
 ## Batch Operations
 
 ### Find Similar for Multiple Queries
@@ -251,6 +256,7 @@ order by similarity desc
 limit 100;
 ```
 
+[//]: pattern
 ## Performance Optimization
 
 ### Ensure Index Usage
@@ -286,6 +292,7 @@ set hnsw.ef_search = 100;
 -- Good values: 40-100 for balance, 200+ for high recall
 ```
 
+[//]: pattern
 ## Go Implementation
 
 ### Basic Search
@@ -348,6 +355,7 @@ func (r *PatternRepository) UpdateEmbedding(ctx context.Context, id uuid.UUID, e
 }
 ```
 
+[//]: pattern
 ## Query Patterns Summary
 
 | Use Case | Query Pattern |
@@ -359,6 +367,7 @@ func (r *PatternRepository) UpdateEmbedding(ctx context.Context, id uuid.UUID, e
 | Pagination | Keyset with `(distance, id)` |
 | Multiple queries | LATERAL join |
 
+[//]: pattern
 ## Best Practices
 
 1. **Always LIMIT** - Vector search without limit is expensive

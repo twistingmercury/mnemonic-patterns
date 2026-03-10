@@ -19,6 +19,7 @@ tags:
 
 This pattern demonstrates various authentication schemes for RESTful APIs in OpenAPI 3.1 specifications.
 
+[//]: pattern
 ## Multiple Authentication Schemes
 
 ```yaml
@@ -350,8 +351,10 @@ security:
   - bearerAuth: []
 ```
 
+[//]: pattern
 ## Authentication Patterns
 
+[//]: pattern
 ### JWT Bearer Token (Recommended)
 **Best for:** User authentication in web and mobile apps
 - Stateless authentication
@@ -388,6 +391,7 @@ func JWTAuthMiddleware(secret []byte) func(http.Handler) http.Handler {
 }
 ```
 
+[//]: pattern
 ### API Key Authentication
 **Best for:** Service-to-service communication, webhooks
 - Static keys for machine authentication
@@ -411,6 +415,7 @@ func APIKeyAuthMiddleware(validKeys map[string]bool) func(http.Handler) http.Han
 }
 ```
 
+[//]: pattern
 ### OAuth 2.0 Flows
 
 #### Authorization Code Flow
@@ -431,6 +436,7 @@ func APIKeyAuthMiddleware(validKeys map[string]bool) func(http.Handler) http.Han
 - Use only for migrating legacy apps
 - Prefer authorization code or client credentials
 
+[//]: pattern
 ### OpenID Connect
 **Best for:** Single Sign-On (SSO)
 - Built on OAuth 2.0
@@ -438,8 +444,10 @@ func APIKeyAuthMiddleware(validKeys map[string]bool) func(http.Handler) http.Han
 - Standard claims for user profile
 - Supports multiple identity providers
 
+[//]: pattern
 ## Security Best Practices
 
+[//]: pattern
 ### Token Security
 1. Use HTTPS only in production
 2. Set appropriate token expiration times
@@ -447,6 +455,7 @@ func APIKeyAuthMiddleware(validKeys map[string]bool) func(http.Handler) http.Han
 4. Validate tokens on every request
 5. Include audience (aud) and issuer (iss) claims
 
+[//]: pattern
 ### API Key Security
 1. Never commit keys to version control
 2. Use environment-specific keys
@@ -454,6 +463,7 @@ func APIKeyAuthMiddleware(validKeys map[string]bool) func(http.Handler) http.Han
 4. Monitor for unauthorized usage
 5. Use key prefixes for identification (e.g., `sk_prod_...`)
 
+[//]: pattern
 ### Rate Limiting
 Combine with authentication to prevent abuse:
 ```yaml
@@ -462,6 +472,7 @@ x-rate-limit:
   unauthenticated: 100/hour
 ```
 
+[//]: pattern
 ### CORS Configuration
 Configure CORS headers properly:
 ```yaml
@@ -479,8 +490,10 @@ x-cors:
   max-age: 3600
 ```
 
+[//]: pattern
 ## Testing Authentication
 
+[//]: pattern
 ### Test Bearer Token
 ```bash
 # Obtain token
@@ -493,12 +506,14 @@ curl https://api.example.com/v1/users/me \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
 ```
 
+[//]: pattern
 ### Test API Key
 ```bash
 curl https://api.example.com/v1/data \
   -H "X-API-Key: sk_test_1234567890"
 ```
 
+[//]: pattern
 ### Test OAuth 2.0 Client Credentials
 ```bash
 # Get access token
