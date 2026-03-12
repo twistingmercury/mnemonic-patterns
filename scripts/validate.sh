@@ -189,9 +189,9 @@ validate_pattern() {
     fi
 
     # --- Validate: body structure ---
-    # Check for at least one H2 section
-    if ! grep -q '^## ' "${file}"; then
-        print::error "No H2 sections (## ) found in ${file}: at least one is required"
+    # Check for at least one [//]: pattern decorator
+    if ! grep -qF '[//]: pattern' "${file}"; then
+        print::error "No '[//]: pattern' decorators found in ${file}: at least one decorated section is required"
         errors=$((errors + 1))
     fi
 
