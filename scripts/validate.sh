@@ -153,11 +153,12 @@ validate_pattern() {
     fi
 
     # --- Extract field values ---
-    local name entity_type language domain
+    local name entity_type language domain description
     name="$(printf "%s" "${metadata}" | jq -r '.name')"
     entity_type="$(printf "%s" "${metadata}" | jq -r '.entity_type')"
     language="$(printf "%s" "${metadata}" | jq -r '.language')"
     domain="$(printf "%s" "${metadata}" | jq -r '.domain')"
+    description="$(printf "%s" "${metadata}" | jq -r '.description')"
 
     # --- Validate: name format ---
     if ! printf "%s" "${name}" | grep -qE "${NAME_PATTERN}"; then
@@ -173,6 +174,12 @@ validate_pattern() {
     # --- Validate: entity_type format ---
     if ! printf "%s" "${entity_type}" | grep -qE "${KEBAB_PATTERN}"; then
         print::error "Invalid entity_type '${entity_type}' in ${file}: must be kebab-case (${KEBAB_PATTERN})"
+        errors=$((errors + 1))
+    fi
+
+    # --- Validate: description non-empty ---
+    if [ -z "${description}" ]; then
+        print::error "Empty description in ${file}: description must be a non-empty string"
         errors=$((errors + 1))
     fi
 

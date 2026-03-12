@@ -13,7 +13,7 @@ tags:
 
 # GitHub Actions CI Pattern
 
-## Philosophy
+## Overview
 
 When build logic lives in Docker and shell scripts, CI configuration becomes minimal. The CI platform just orchestrates - it doesn't own your build process. This makes switching between GitHub, GitLab, Azure DevOps trivial.
 
@@ -25,6 +25,7 @@ The build script contains all the complexity: multi-stage Docker builds, test ex
 - Platform-specific quirks stay out of your build process
 
 [//]: pattern
+
 ## The Pattern
 
 A minimal workflow that:
@@ -35,6 +36,7 @@ A minimal workflow that:
 4. Uploads artifacts
 
 [//]: pattern
+
 ## Example Workflow
 
 **.github/workflows/ci.yml**:
@@ -57,7 +59,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Full history for git tags
+          fetch-depth: 0 # Full history for git tags
 
       - name: Set build metadata
         id: meta
@@ -100,6 +102,7 @@ jobs:
 Because the build script handles all complexity, CI configurations across platforms look nearly identical.
 
 [//]: pattern
+
 ### GitLab CI
 
 **.gitlab-ci.yml**:
@@ -129,6 +132,7 @@ build:
 ```
 
 [//]: pattern
+
 ### Azure Pipelines
 
 **azure-pipelines.yml**:
@@ -167,6 +171,7 @@ steps:
 ## Workflow Variations
 
 [//]: pattern
+
 ### Release Workflow
 
 Trigger on tags for releases with additional artifact naming:
@@ -177,7 +182,7 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 jobs:
   release:
@@ -213,6 +218,7 @@ jobs:
 ```
 
 [//]: pattern
+
 ### Matrix Build for Multiple Runners
 
 When you need builds on different OS runners (rare with containerized builds):
@@ -258,6 +264,7 @@ The CI workflow expects the build script to:
 This contract keeps the CI configuration stable while allowing build logic to evolve independently.
 
 [//]: pattern
+
 ## Permissions for Artifacts
 
 When passing artifacts between workflows (CI → CD), specific permissions are required:
@@ -265,17 +272,17 @@ When passing artifacts between workflows (CI → CD), specific permissions are r
 ```yaml
 permissions:
   contents: read
-  actions: write  # Required for cross-workflow artifact access
+  actions: write # Required for cross-workflow artifact access
 ```
 
 **Permission Requirements**:
 
-| Scenario | Permission | Why |
-|----------|------------|-----|
-| Upload artifacts for same workflow | None (default) | Same workflow access is implicit |
-| Upload artifacts for other workflows | `actions: write` | Cross-workflow artifact access |
-| Download from same workflow | None (default) | Same workflow access is implicit |
-| Download from other workflow | `actions: read` | Cross-workflow artifact access |
+| Scenario                             | Permission       | Why                              |
+| ------------------------------------ | ---------------- | -------------------------------- |
+| Upload artifacts for same workflow   | None (default)   | Same workflow access is implicit |
+| Upload artifacts for other workflows | `actions: write` | Cross-workflow artifact access   |
+| Download from same workflow          | None (default)   | Same workflow access is implicit |
+| Download from other workflow         | `actions: read`  | Cross-workflow artifact access   |
 
 **Example with Artifact Permissions**:
 
@@ -284,7 +291,7 @@ name: CI
 
 permissions:
   contents: read
-  actions: write  # Enable CD workflow to download our artifacts
+  actions: write # Enable CD workflow to download our artifacts
 
 jobs:
   build:
@@ -305,10 +312,11 @@ jobs:
         with:
           name: docker-image
           path: /tmp/image.tar
-          retention-days: 1  # Short retention for intermediate artifacts
+          retention-days: 1 # Short retention for intermediate artifacts
 ```
 
 [//]: pattern
+
 ## Working Directory for Monorepos
 
 For monorepos where the service lives in a subdirectory, use `defaults.run.working-directory`:
@@ -320,11 +328,11 @@ on:
   push:
     branches: [main, develop]
     paths:
-      - 'services/my-service/**'
+      - "services/my-service/**"
   pull_request:
     branches: [main, develop]
     paths:
-      - 'services/my-service/**'
+      - "services/my-service/**"
 
 defaults:
   run:
@@ -346,7 +354,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: binaries
-          path: services/my-service/.bin/  # Full path required for actions
+          path: services/my-service/.bin/ # Full path required for actions
 ```
 
 **Key Points**:
@@ -357,6 +365,7 @@ jobs:
 - Combine with `paths:` filter to avoid running CI for unrelated changes
 
 [//]: pattern
+
 ## PR vs Push Behavior
 
 Control build behavior differently for PRs vs direct pushes. Common pattern: skip registry push on PRs.
@@ -411,7 +420,7 @@ jobs:
 
   push:
     needs: build
-    if: github.event_name == 'push'  # Skip on PRs
+    if: github.event_name == 'push' # Skip on PRs
     runs-on: ubuntu-latest
     steps:
       - name: Push to registry
