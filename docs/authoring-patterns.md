@@ -417,10 +417,10 @@ Run the validator to catch errors before uploading:
 ./scripts/validate.sh
 ```
 
-By default, this scans the `patterns/` directory. To validate a specific directory:
+By default, this scans the `patterns/` directory. To validate a specific directory of pattern files:
 
 ```bash
-./scripts/validate.sh --dir docs/superpowers
+./scripts/validate.sh --dir ./my-patterns
 ```
 
 **The validator verifies:**
