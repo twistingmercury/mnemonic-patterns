@@ -1,6 +1,6 @@
 # Authoring Mnemonic Pattern Files
 
-This guide teaches you how to write pattern files for the Mnemonic AI memory system. Each pattern is a Markdown file with YAML frontmatter, where decorated sections become searchable chunks in Mnemonic's vector index.
+This guide teaches you how to write pattern files for the Mnemonic AI memory system. Each pattern is a Markdown file with YAML frontmatter. Decorated sections become searchable chunks in Mnemonic's vector index.
 
 For a complete reference of all fields and rules, see [Pattern File Schema](pattern-file-schema.md).
 
@@ -27,17 +27,19 @@ related_patterns:
 
 ## Overview
 
-Context, motivation, and when to use this pattern. This section is never indexed, so put introductory material here. Explain the problem this pattern solves and why you should care.
+Context, motivation, and when to use this pattern. Overview is never indexed, so place introductory material here. Explain the problem this pattern solves and why it matters.
 
 [//]: pattern
+
 ## Section Title
 
-Content that will be indexed as a searchable chunk. Code examples, named techniques, implementation details — anything useful to search for later.
+Content indexed as a searchable chunk. Includes code examples, named techniques, implementation details — anything useful to retrieve later.
 
 [//]: pattern
+
 ## Another Section
 
-More indexed content. Each decorated section becomes a standalone search result with this heading as the title.
+More indexed content. Each decorated section becomes a standalone search result, with the heading as the title.
 ```
 
 Run validation:
@@ -55,6 +57,7 @@ A pattern is valid when it has frontmatter, at least one decorated section, and 
 Keep it descriptive but short. Filenames match the pattern name.
 
 **Rules:**
+
 - Kebab-case only: lowercase letters, numbers, hyphens
 - No spaces, underscores, or special characters
 - Max 128 characters (rarely needed)
@@ -62,11 +65,11 @@ Keep it descriptive but short. Filenames match the pattern name.
 
 **Examples:**
 
-| Good | Bad | Why |
-|------|-----|-----|
-| `cobra-root-command-pattern` | `root-cmd-go` | Descriptive, clear, searchable |
-| `repository-timestamp-pattern` | `ts-pattern` | Full context, not cryptic |
-| `error-handling-best-practice` | `error_handling_best_practice` | Kebab-case required |
+| Good                           | Bad                            | Why                            |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| `cobra-root-command-pattern`   | `root-cmd-go`                  | Descriptive, clear, searchable |
+| `repository-timestamp-pattern` | `ts-pattern`                   | Full context, not cryptic      |
+| `error-handling-best-practice` | `error_handling_best_practice` | Kebab-case required            |
 
 ### `entity_type` — Pattern Category
 
@@ -83,13 +86,13 @@ Classify what kind of pattern this is. Use kebab-case.
 
 **Examples:**
 
-| Good | Bad | Why |
-|------|-----|-----|
-| `cli-pattern` | `CLIPattern`, `cli_pattern` | Kebab-case, clear category |
-| `go-pattern` | `golang-pattern` | Consistent with repository convention |
-| `best-practice` | `goodpractice` | One-word categories are harder to search |
+| Good            | Bad                         | Why                                      |
+| --------------- | --------------------------- | ---------------------------------------- |
+| `cli-pattern`   | `CLIPattern`, `cli_pattern` | Kebab-case, clear category               |
+| `go-pattern`    | `golang-pattern`            | Consistent with repository convention    |
+| `best-practice` | `goodpractice`              | One-word categories are harder to search |
 
-Choose a category that makes the pattern findable. If multiple categories apply, pick the primary one.
+Choose the category that makes the pattern most findable. If multiple categories apply, pick the primary domain.
 
 ### `language` and `domain` — Search Axes
 
@@ -101,20 +104,21 @@ Language and domain are enums — you must choose from predefined lists. These h
 
 **Examples:**
 
-| name | language | domain | use case |
-|------|----------|--------|----------|
-| `cobra-root-command-pattern` | `go` | `cli` | Go CLI patterns |
-| `repository-timestamp-pattern` | `go` | `data-access` | Database patterns in Go |
-| `react-form-validation` | `react` | `frontend` | Frontend patterns |
-| `sql-migration-naming` | `sql` | `data-design` | General SQL patterns |
+| name                           | language | domain        | use case                |
+| ------------------------------ | -------- | ------------- | ----------------------- |
+| `cobra-root-command-pattern`   | `go`     | `cli`         | Go CLI patterns         |
+| `repository-timestamp-pattern` | `go`     | `data-access` | Database patterns in Go |
+| `react-form-validation`        | `react`  | `frontend`    | Frontend patterns       |
+| `sql-migration-naming`         | `sql`    | `data-design` | General SQL patterns    |
 
-Use `agnostic` for language-independent patterns. Pick the domain closest to the pattern's primary use — if a pattern spans multiple domains, choose the main one.
+Use `agnostic` for language-independent patterns. Pick the domain closest to the pattern's primary use.
 
 ### `description` — Search Text
 
-This is your elevator pitch. Authors see it in search results.
+Your elevator pitch. Authors see it in search results.
 
 **Rules:**
+
 - Non-empty, max 500 characters
 - One sentence or two short sentences
 - Mention what the pattern teaches and when to use it
@@ -122,17 +126,17 @@ This is your elevator pitch. Authors see it in search results.
 
 **Examples:**
 
-| Good | Bad | Why |
-|------|-----|-----|
-| `Root command pattern with custom exit codes, error mapping, custom help template with environment variables, and explicit command initialization` | `Cobra root command stuff` | Specific techniques, not vague |
-| `Application-layer timestamp management pattern for created_at and updated_at columns in repositories, following storage-only database philosophy` | `Database timestamps` | States the philosophy, clear scope |
-| `Configuration management with explicit config injection, environment variable overrides, and config precedence for Cobra CLIs` | `How to handle config` | Concrete techniques mentioned |
+| Good                                                                                                                                               | Bad                        | Why                                |
+| -------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ---------------------------------- |
+| `Root command pattern with custom exit codes, error mapping, custom help template with environment variables, and explicit command initialization` | `Cobra root command stuff` | Specific techniques, not vague     |
+| `Application-layer timestamp management pattern for created_at and updated_at columns in repositories, following storage-only database philosophy` | `Database timestamps`      | States the philosophy, clear scope |
+| `Configuration management with explicit config injection, environment variable overrides, and config precedence for Cobra CLIs`                    | `How to handle config`     | Concrete techniques mentioned      |
 
 Write the description after drafting the pattern — you'll know what to emphasize then.
 
 ### `agents` — Who Should Know This
 
-Optional. List agent roles this pattern is relevant to (e.g., `go-software-engineer`, `backend-developer`). Helps Mnemonic route patterns to the right team member.
+Optional. List agent roles this pattern is relevant to (e.g., `go-software-engineer`, `backend-developer`). Routes patterns to the appropriate team.
 
 ```yaml
 agents:
@@ -164,7 +168,7 @@ version: PostgreSQL 14+
 version: React 18.x
 ```
 
-This signals to readers whether the pattern applies to their codebase.
+Readers use this to judge whether the pattern applies to their codebase.
 
 ### `related_patterns` — Pattern Cross-References
 
@@ -176,7 +180,7 @@ related_patterns:
   - error-handling-best-practice
 ```
 
-Link to patterns you expect readers to want next. The system will build graph connections automatically.
+Link to patterns readers will likely want next. The system builds graph connections automatically.
 
 ## Writing the Body
 
@@ -184,18 +188,18 @@ Link to patterns you expect readers to want next. The system will build graph co
 
 Every pattern must have a `## Overview` section as its first body section. This section is never indexed.
 
-**What goes in Overview:**
+**Include:**
 
-- What problem does this pattern solve?
-- When should you use it? When should you avoid it?
-- Why is this the right approach?
-- Any prerequisites or assumptions?
+- The problem this pattern solves
+- When to use it and when to avoid it
+- Why this is the right approach
+- Prerequisites and assumptions
 
-**What doesn't:**
+**Exclude:**
 
-- Code examples (those go in decorated sections)
-- Step-by-step instructions (those go in decorated sections)
-- Details that belong in a specific scenario (those go in H2/H3 decorated sections)
+- Code examples (put those in decorated sections)
+- Step-by-step instructions (put those in decorated sections)
+- Details belonging to specific scenarios (put those in H2/H3 decorated sections)
 
 **Example Overview:**
 
@@ -205,7 +209,7 @@ Every pattern must have a `## Overview` section as its first body section. This 
 This pattern demonstrates setting up a Cobra root command with custom exit codes, error-to-exit-code mapping, custom help templates, and explicit initialization. Use this when you need fine-grained control over CLI startup, error formatting, and exit codes for shell script integration. Avoid if your CLI is simple and doesn't need custom exit codes or specialized help text.
 ```
 
-The Overview prepares readers for the details; it doesn't repeat them.
+Overview introduces context; don't repeat the details.
 
 ### Decorated Sections: Making Content Searchable
 
@@ -213,12 +217,13 @@ Any section you want to appear in Mnemonic search results must be preceded by a 
 
 ```markdown
 [//]: pattern
+
 ## Root Command Setup
 
 This section will be indexed...
 ```
 
-**Only decorated sections are stored in Mnemonic.** Everything else (including Overview) is discarded during chunking.
+**Only decorated sections are stored in Mnemonic.** Everything else—including Overview—is discarded during chunking.
 
 ### Choosing What to Decorate
 
@@ -242,66 +247,71 @@ This section will be indexed...
 
 ```markdown
 [//]: pattern
+
 ## Introduction
 
 This pattern is about timestamps...
 ```
 
-Too vague. "Introduction" doesn't describe the chunk. Readers won't search for "Introduction."
+"Introduction" is too vague to be searchable. Readers don't search for "Introduction."
 
-**Better example:**
+**Good example:**
 
 ```markdown
 [//]: pattern
+
 ## Repository UPDATE Pattern
 
-ALWAYS explicitly set `updated_at` in UPDATE statements:
+Always explicitly set `updated_at` in UPDATE statements:
 ...
 ```
 
-Specific, searchable, stands alone.
+Specific, searchable, stands independently.
 
-### Naming Decorated Sections Well
+### Naming Decorated Sections
 
 Section headings become chunk titles in search results. Make them specific and actionable.
 
 **Pattern:**
 
-| Heading | Quality | Why |
-|---------|---------|-----|
-| `## Error to Exit Code Mapping` | Good | Specific technique, searchable |
-| `## Root Command Setup` | Good | Clear scope, shows what section covers |
-| `## Anti-Patterns` | Good | Readers specifically search for "what not to do" |
-| `## Implementation` | Poor | Too vague, could be anything |
-| `## Example` | Poor | Which example? Won't help search |
-| `## Key Points` | Poor | Readers search for techniques, not summaries |
+| Heading                         | Quality | Why                                              |
+| ------------------------------- | ------- | ------------------------------------------------ |
+| `## Error to Exit Code Mapping` | Good    | Specific technique, searchable                   |
+| `## Root Command Setup`         | Good    | Clear scope, shows what section covers           |
+| `## Anti-Patterns`              | Good    | Readers specifically search for "what not to do" |
+| `## Implementation`             | Poor    | Too vague, could be anything                     |
+| `## Example`                    | Poor    | Which example? Won't help search                 |
+| `## Key Points`                 | Poor    | Readers search for techniques, not summaries     |
 
-Name sections after the specific thing you're teaching: the technique, the scenario, the configuration option, or the anti-pattern.
+Name sections after the specific thing you teach: the technique, the scenario, the configuration option, or the anti-pattern.
 
 ### Granularity: H2 vs H3
 
-Use **H2** (`##`) for top-level sections that stand alone. Use **H3** (`###`) for subsections within a broader topic.
+Use **H2** (`##`) for top-level sections that stand alone. Use **H3** (`###`) for subsections under a broader topic.
 
 **H2 example:**
 
 ```markdown
 [//]: pattern
+
 ## Root Command Setup
 
 Full section on setting up the root command...
 
 [//]: pattern
+
 ## Custom Help Template with Environment Variables
 
 Full section on help templates...
 ```
 
-Each is independently valuable; each is decorated.
+Each stands alone and is decorated.
 
 **H3 example:**
 
 ```markdown
 [//]: pattern
+
 ## Repository Pattern
 
 This is the top-level section.
@@ -317,7 +327,7 @@ Details about inserts within this pattern...
 
 The H2 is a container; H2 and H3 sections are decorated separately if each is independently useful.
 
-**Rule of thumb:** If a section could be found and used without reading the parent section, make it decorated. If it only makes sense after reading the parent, make it an H3 under the parent.
+**Rule of thumb:** Decorate sections that are independently useful. If a section only makes sense after reading the parent, make it an H3 under the parent instead.
 
 ## The `[//]: pattern` Decorator
 
@@ -327,23 +337,23 @@ The H2 is a container; H2 and H3 sections are decorated separately if each is in
 [//]: pattern
 ```
 
-Exact string, no trailing whitespace, on its own line immediately before a heading.
+Use this exact string with no trailing whitespace. Place it on its own line immediately before a heading.
 
 ### Rules
 
-1. **Placement:** On the line immediately before a heading (`#`, `##`, `###`, etc.)
-2. **Exactness:** Must be exactly `[//]: pattern` with no variations
-3. **Scope:** Everything from that heading until the next `[//]: pattern` decorator (or EOF) becomes one chunk
-4. **Content outside:** Lines before the first decorator and between decorated sections are discarded
+1. **Placement:** Put it on the line immediately before a heading (`#`, `##`, `###`, etc.)
+2. **Exactness:** Use exactly `[//]: pattern` with no variations
+3. **Scope:** Everything from that heading to the next `[//]: pattern` decorator (or EOF) becomes one chunk
+4. **Exclusions:** Lines before the first decorator and between decorated sections are not indexed
 
 ### What Gets Indexed
 
-| Content | Indexed? |
-|---------|----------|
-| Decorated section heading and body | Yes |
-| `## Overview` section | No — intentionally excluded |
-| Undecorated sections | No |
-| Intro text before first decorator | No |
+| Content                            | Indexed?                    |
+| ---------------------------------- | --------------------------- |
+| Decorated section heading and body | Yes                         |
+| `## Overview` section              | No — intentionally excluded |
+| Undecorated sections               | No                          |
+| Intro text before first decorator  | No                          |
 
 ### Common Mistakes
 
@@ -351,14 +361,15 @@ Exact string, no trailing whitespace, on its own line immediately before a headi
 
 ```markdown
 [//]: pattern
+
 ## Overview
 
 Don't do this — Overview is never indexed.
 ```
 
-The validator will accept it (no rule forbids it), but it's wasted effort. Overview should never be decorated.
+The validator accepts it (no rule forbids it), but it wastes effort. Never decorate Overview.
 
-**Mistake 2: Forgetting decorators entirely**
+**Mistake 2: Forgetting decorators**
 
 ```markdown
 ## Implementation
@@ -370,12 +381,13 @@ The validator will accept it (no rule forbids it), but it's wasted effort. Overv
 ...
 ```
 
-These sections won't be indexed. Readers won't find them in search. Add `[//]: pattern` before each.
+These sections won't be indexed and readers won't find them in search. Add `[//]: pattern` before each.
 
-**Mistake 3: Decorating a section that only makes sense in context**
+**Mistake 3: Decorating context-dependent sections**
 
 ```markdown
 [//]: pattern
+
 ## Key Points
 
 - Point 1
@@ -383,18 +395,19 @@ These sections won't be indexed. Readers won't find them in search. Add `[//]: p
 - Point 3
 ```
 
-If "Key Points" only summarizes the previous section and can't stand alone, don't decorate it. Move it into the previous section or create a dedicated technique section instead.
+If "Key Points" only summarizes the prior section and cannot stand alone, don't decorate it. Merge it into the prior section or create a dedicated technique section.
 
 **Mistake 4: Decorating empty sections**
 
 ```markdown
 [//]: pattern
+
 ## Notes
 
 [Empty body]
 ```
 
-Empty decorated sections are silently dropped during chunking. If you have nothing to say, remove the decorator and section entirely.
+Chunking silently drops empty decorated sections. If you have nothing to say, remove the decorator and section.
 
 ## Validating Your Work
 
@@ -410,25 +423,25 @@ By default, this scans the `patterns/` directory. To validate a specific directo
 ./scripts/validate.sh --dir docs/superpowers
 ```
 
-**The validator checks:**
+**The validator verifies:**
 
 1. File is readable
-2. YAML frontmatter is present and parseable
-3. All required fields (name, entity_type, language, domain, description) are present and non-empty
-4. `name` matches kebab-case format and is max 128 characters
-5. `language` is one of the allowed enum values
-6. `domain` is one of the allowed enum values
-7. `entity_type` is in kebab-case
-8. At least one `[//]: pattern` decorator is present
+2. YAML frontmatter is present and valid
+3. Required fields are present and non-empty (name, entity_type, language, domain, description)
+4. `name` uses kebab-case and is max 128 characters
+5. `language` is a valid enum value
+6. `domain` is a valid enum value
+7. `entity_type` uses kebab-case
+8. At least one `[//]: pattern` decorator exists
 9. A `## Overview` section exists
 
-If validation fails, the output tells you exactly what's wrong:
+If validation fails, read the error message:
 
 ```
 Invalid language 'golang' in cobra-root-command-pattern.md: must be one of: ... go ...
 ```
 
-Fix the error and rerun validation.
+Fix the issue and rerun validation.
 
 ## Complete Worked Example: Authoring a Pattern
 
@@ -436,9 +449,9 @@ Let's walk through authoring a real pattern: "PostgreSQL Connection Pool Pattern
 
 ### Step 1: Define the Scope
 
-What specific problem are we solving?
+What specific problem does this pattern solve?
 
-> Managing database connections in Go: how to configure a connection pool, set timeouts, and handle connection lifecycle in a production application.
+> Managing database connections in Go: configuring a connection pool, setting timeouts, and handling connection lifecycle in production.
 
 ### Step 2: Choose Frontmatter
 
@@ -461,42 +474,45 @@ related_patterns:
 ```
 
 **Decisions:**
-- `name`: Specific, describes what it covers
-- `entity_type`: It's a Go pattern
-- `domain`: `data-access` is the primary domain
-- `description`: States the three main topics (pool config, timeouts, lifecycle)
-- `tags`: Framework and technology keywords
-- `related_patterns`: Connects to other data-layer patterns
+
+- `name`: Specific and descriptive
+- `entity_type`: Classify as a Go pattern
+- `domain`: `data-access` is primary
+- `description`: States three main topics (pool config, timeouts, lifecycle)
+- `tags`: Include framework and technology keywords
+- `related_patterns`: Connect to other data-layer patterns
 
 ### Step 3: Draft Overview
 
 ```markdown
 ## Overview
 
-PostgreSQL connection pooling is essential for production applications. This pattern covers configuring a connection pool with pgx, setting appropriate timeouts, and managing the connection lifecycle. Use this when building any Go application that connects to PostgreSQL. Avoid if you're prototyping with simple single-connection patterns — migrate to pooling before going to production.
+PostgreSQL connection pooling is essential for production applications. This pattern covers configuring a connection pool with pgx, setting appropriate timeouts, and managing the connection lifecycle. Use this when building any Go application connecting to PostgreSQL. Avoid if you're prototyping with simple single-connection patterns — migrate to pooling before production.
 ```
 
-**What this does:**
+**What this achieves:**
+
 - Explains the problem (essential for production)
-- Lists the three main topics (preview of what's coming)
-- Tells readers when to use it (any production app)
-- Tells readers when not to use it (early prototypes)
+- Previews three main topics
+- States when to use it (any production app)
+- States when to avoid it (early prototypes)
 
 ### Step 4: Identify Decorated Sections
 
-What are the independently useful parts?
+What parts are independently useful?
 
 1. Basic pool configuration
 2. Connection timeout settings
 3. Query timeout settings
 4. Connection lifecycle and cleanup
 5. Testing with a pool
-6. Anti-patterns (common mistakes)
+6. Anti-patterns and common mistakes
 
 ### Step 5: Write Decorated Sections
 
-```markdown
+````markdown
 [//]: pattern
+
 ## Connection Pool Configuration
 
 Basic setup with pgx:
@@ -506,9 +522,11 @@ config, _ := pgx.ParseConfig(connString)
 pool, _ := pgx.NewConnPool(ctx, connString, poolConfig)
 defer pool.Close()
 ```
+````
 
 (explain each option)
-```
+
+````
 
 ```markdown
 [//]: pattern
@@ -519,10 +537,11 @@ How to set connect and statement timeouts:
 ```go
 config.ConnectTimeout = 10 * time.Second
 config.StatementCacheMode = pgconn.PreparedStatementCacheModePrepare
-```
+````
 
 (explain why and when)
-```
+
+````
 
 And so on for each technique.
 
@@ -536,30 +555,30 @@ If it passes, you're done. If it fails, fix the issues and rerun.
 
 ### Step 7: Review for Clarity
 
-- Can each decorated section be understood on its own?
-- Are the section headings specific and searchable?
-- Does the Overview give readers the context they need?
+- Does each decorated section stand alone?
+- Are section headings specific and searchable?
+- Does Overview provide necessary context?
 - Are code examples clear and complete?
 
 ## Key Principles
 
-**Be specific, not generic.** "Error Handling" is too broad. "Error to Exit Code Mapping" is specific and searchable.
+**Be specific.** "Error Handling" is too broad. "Error to Exit Code Mapping" is specific and searchable.
 
-**Stand-alone sections.** Each decorated section should be useful to someone who finds it in search, not someone reading the whole pattern.
+**Write standalone sections.** Each decorated section should help someone who finds it in search—not just someone reading the whole pattern.
 
-**Code over prose.** Show working examples. Explain why, not just what.
+**Show code first.** Provide working examples and explain why, not just what.
 
-**Frontmatter as metadata, not narrative.** Name, description, and tags help readers find the pattern. The body teaches them what to do.
+**Frontmatter as metadata.** Name, description, and tags make the pattern findable. The body teaches what to do.
 
-**Validate early, iterate fast.** Run the validator after every major change. It catches structural errors before they become problems.
+**Validate early.** Run the validator after each major change to catch structural errors before they compound.
 
 ## Summary
 
-1. **Choose values carefully:** name (kebab-case, specific), entity_type (category), language/domain (enum), description (searchable), tags (keywords)
-2. **Structure the body:** Overview (non-indexed context), decorated sections (indexed techniques)
+1. **Choose frontmatter carefully:** name (kebab-case, specific), entity_type (category), language/domain (enum), description (searchable), tags (keywords)
+2. **Structure the body:** Overview (context only), decorated sections (indexed techniques)
 3. **Name sections specifically:** Readers search for "Error to Exit Code Mapping," not "Implementation"
-4. **Decorate strategically:** Only sections that stand alone and are independently useful
+4. **Decorate strategically:** Only sections that stand alone
 5. **Validate:** Run `./scripts/validate.sh` to catch errors
-6. **Iterate:** Review for clarity and consistency before merging
+6. **Iterate:** Review for clarity before merging
 
 See [Pattern File Schema](pattern-file-schema.md) for the complete reference.

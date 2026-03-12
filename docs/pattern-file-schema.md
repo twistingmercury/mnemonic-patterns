@@ -10,13 +10,13 @@ Pattern files are Markdown documents with YAML frontmatter. The body uses `[//]:
 
 ### Required Fields
 
-| Field         | Type   | Format     | Constraints                                                                                     |
-| ------------- | ------ | ---------- | ----------------------------------------------------------------------------------------------- |
-| `name`        | string | kebab-case | Machine identifier. Regex: `^[a-z][a-z0-9-]*$`. Max 128 characters.                             |
-| `entity_type` | string | kebab-case | Category of pattern. e.g. `best-practice`, `cli-pattern`, `api-specification`                   |
+| Field         | Type   | Format     | Constraints                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------- | ------ | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`        | string | kebab-case | Machine identifier. Regex: `^[a-z][a-z0-9-]*$`. Max 128 characters.                                                                                                                                                                                                                                                                                                                     |
+| `entity_type` | string | kebab-case | Category of pattern. e.g. `best-practice`, `cli-pattern`, `api-specification`                                                                                                                                                                                                                                                                                                           |
 | `language`    | string | enum       | `agnostic`, `bash`, `c`, `cpp`, `csharp`, `cql`, `cypher`, `dart`, `delphi`, `docker`, `elixir`, `erlang`, `go`, `json`, `java`, `javascript`, `kotlin`, `lua`, `markdown`, `matlab`, `mql`, `objective-c`, `perl`, `php`, `plsql`, `powershell`, `python`, `r`, `react`, `ruby`, `rust`, `scala`, `shell`, `sql`, `swift`, `toml`, `tsql`, `typescript`, `visual-basic`, `yaml`, `zig` |
-| `domain`      | string | enum       | `api-design`, `backend`, `frontend`, `testing`, `devops`, `cli`, `data-design`, `documentation`, `data-access`, `security`, `shell-scripting`, `configuration`, `observability`, `source-management` |
-| `description` | string |            | Non-empty. Used for search and display. Max 500 characters.                                     |
+| `domain`      | string | enum       | `api-design`, `backend`, `frontend`, `testing`, `devops`, `cli`, `data-design`, `documentation`, `data-access`, `security`, `shell-scripting`, `configuration`, `observability`, `source-management`                                                                                                                                                                                    |
+| `description` | string |            | Non-empty. Used for search and display. Max 500 characters.                                                                                                                                                                                                                                                                                                                             |
 
 ### Optional Fields
 
@@ -50,6 +50,7 @@ All sections intended to appear in search results must be preceded by `[//]: pat
 
 ```markdown
 [//]: pattern
+
 ## Implementation
 
 Content that will be indexed...
@@ -59,6 +60,7 @@ H3 headings are supported the same as H2:
 
 ```markdown
 [//]: pattern
+
 ### Named Sub-Technique
 
 More content...
@@ -79,6 +81,7 @@ The `[//]: pattern` decorator controls which sections are stored in the Mnemonic
 ```
 
 **Rules:**
+
 - The decorator must be the exact string `[//]: pattern` with no trailing whitespace
 - Place it on its own line immediately before a heading (`#`, `##`, `###`, etc.)
 - Everything from that heading until the next `[//]: pattern` or end of file becomes the chunk body
@@ -86,13 +89,13 @@ The `[//]: pattern` decorator controls which sections are stored in the Mnemonic
 
 ### What Gets Indexed vs. Discarded
 
-| Content | Indexed? |
-| ------- | -------- |
-| Decorated section (heading + body) | Yes |
-| `## Overview` (undecorated) | No — intentionally excluded |
-| Intro prose before first decorator | No |
-| Section without a decorator | No |
-| Empty decorated body (after trimming) | No — dropped silently |
+| Content                               | Indexed?                    |
+| ------------------------------------- | --------------------------- |
+| Decorated section (heading + body)    | Yes                         |
+| `## Overview` (undecorated)           | No — intentionally excluded |
+| Intro prose before first decorator    | No                          |
+| Section without a decorator           | No                          |
+| Empty decorated body (after trimming) | No — dropped silently       |
 
 ### Example
 
@@ -110,12 +113,14 @@ This section has no decorator — it will not be indexed.
 Intro text, context, and motivation go here.
 
 [//]: pattern
+
 ## Core Implementation
 
 This section IS decorated — it will be indexed as a chunk with
 title "Core Implementation" and this content as the body.
 
 [//]: pattern
+
 ### Named Variant
 
 This H3 section is also decorated and will be indexed separately.
@@ -163,16 +168,19 @@ This pattern demonstrates configuration management for Cobra CLIs with explicit
 config passing, environment variable overrides, and clear precedence rules.
 
 [//]: pattern
+
 ## Implementation
 
 ...
 
 [//]: pattern
+
 ## Example
 
 ...
 
 [//]: pattern
+
 ## Key Patterns
 
 ...
