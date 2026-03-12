@@ -2,9 +2,7 @@
 
 This document defines the schema for Mnemonic pattern files used with `mnemctl`.
 
-Pattern files are Markdown documents with YAML frontmatter. The body is divided into
-sections using H2 headings (`##`). Each H2 section is stored as a separate searchable
-chunk in Mnemonic. The H1 title is not chunked.
+Pattern files are Markdown documents with YAML frontmatter. The body uses `[//]: pattern` decorators to mark which sections are indexed as searchable chunks in Mnemonic. Only decorated sections are stored — all other content, including the `## Overview` section, is discarded by the chunker. The H1 title is never indexed.
 
 ---
 
@@ -16,8 +14,8 @@ chunk in Mnemonic. The H1 title is not chunked.
 | ------------- | ------ | ---------- | ----------------------------------------------------------------------------------------------- |
 | `name`        | string | kebab-case | Machine identifier. Regex: `^[a-z][a-z0-9-]*$`. Max 128 characters.                             |
 | `entity_type` | string | kebab-case | Category of pattern. e.g. `best-practice`, `cli-pattern`, `api-specification`                   |
-| `language`    | string | enum       | `agnostic`, `go`, `python`, `dotnet`, `shell`, `typescript`, `react`, `sql`, `cypher`           |
-| `domain`      | string | enum       | `api-design`, `backend`, `frontend`, `testing`, `devops`, `cli`, `data-design`, `documentation` |
+| `language`    | string | enum       | `agnostic`, `bash`, `c`, `cpp`, `csharp`, `cql`, `cypher`, `dart`, `delphi`, `docker`, `elixir`, `erlang`, `go`, `json`, `java`, `javascript`, `kotlin`, `lua`, `markdown`, `matlab`, `mql`, `objective-c`, `perl`, `php`, `plsql`, `powershell`, `python`, `r`, `react`, `ruby`, `rust`, `scala`, `shell`, `sql`, `swift`, `toml`, `tsql`, `typescript`, `visual-basic`, `yaml`, `zig` |
+| `domain`      | string | enum       | `api-design`, `backend`, `frontend`, `testing`, `devops`, `cli`, `data-design`, `documentation`, `data-access`, `security`, `shell-scripting`, `configuration`, `observability`, `source-management` |
 | `description` | string |            | Non-empty. Used for search and display. Max 500 characters.                                     |
 
 ### Optional Fields
@@ -38,29 +36,99 @@ human-facing metadata (e.g. `author`, `created`) without failing validation.
 
 ## Body Structure
 
-The body uses H2 headings to define chunk boundaries. Each H2 section becomes a
-separate searchable chunk stored in Mnemonic.
+The body uses H1 for the file title and any number of H2/H3 sections for content.
 
 ### Required Sections
 
-| Section       | Purpose                                       |
-| ------------- | --------------------------------------------- |
-| `## Overview` | What the pattern is, when to use it, and why. |
+| Section       | Purpose                                       | Decorated?          |
+| ------------- | --------------------------------------------- | ------------------- |
+| `## Overview` | What the pattern is, when to use it, and why. | No — never index it |
 
-### Recommended Sections
+### Decorated Sections
 
-These sections are not required but improve searchability and usefulness:
+All sections intended to appear in search results must be preceded by `[//]: pattern` immediately before the heading. Sections without a decorator are silently discarded.
 
-| Section             | Purpose                               |
-| ------------------- | ------------------------------------- |
-| `## Implementation` | Core implementation code or approach. |
-| `## Example`        | Concrete usage example.               |
-| `## Key Patterns`   | Summary of the key takeaways.         |
+```markdown
+[//]: pattern
+## Implementation
 
-Additional H2 sections are allowed. The author controls chunking by how they
-organize headings — more specific sections produce more targeted search results.
+Content that will be indexed...
+```
 
-> **Note:** A file with no H2 headings will produce no chunks and fail validation.
+H3 headings are supported the same as H2:
+
+```markdown
+[//]: pattern
+### Named Sub-Technique
+
+More content...
+```
+
+There are no prescribed section names beyond `## Overview`. Choose headings that make the content independently discoverable — each decorated section should make sense when returned as a standalone search result.
+
+---
+
+## Chunking
+
+The `[//]: pattern` decorator controls which sections are stored in the Mnemonic vector index.
+
+### Decorator Syntax
+
+```
+[//]: pattern
+```
+
+**Rules:**
+- The decorator must be the exact string `[//]: pattern` with no trailing whitespace
+- Place it on its own line immediately before a heading (`#`, `##`, `###`, etc.)
+- Everything from that heading until the next `[//]: pattern` or end of file becomes the chunk body
+- Lines outside decorated sections are **discarded** — they are never indexed
+
+### What Gets Indexed vs. Discarded
+
+| Content | Indexed? |
+| ------- | -------- |
+| Decorated section (heading + body) | Yes |
+| `## Overview` (undecorated) | No — intentionally excluded |
+| Intro prose before first decorator | No |
+| Section without a decorator | No |
+| Empty decorated body (after trimming) | No — dropped silently |
+
+### Example
+
+```markdown
+---
+name: my-pattern
+...
+---
+
+# My Pattern
+
+## Overview
+
+This section has no decorator — it will not be indexed.
+Intro text, context, and motivation go here.
+
+[//]: pattern
+## Core Implementation
+
+This section IS decorated — it will be indexed as a chunk with
+title "Core Implementation" and this content as the body.
+
+[//]: pattern
+### Named Variant
+
+This H3 section is also decorated and will be indexed separately.
+
+## Notes
+
+This section has no decorator — discarded, not indexed.
+```
+
+### When to Decorate
+
+- **Do decorate:** any section with independently useful content — code examples, named techniques, configuration patterns, best practices
+- **Do not decorate:** `## Overview`, summary sections, introductory prose, sections that only make sense in context of others
 
 ---
 
@@ -94,14 +162,17 @@ related_patterns:
 This pattern demonstrates configuration management for Cobra CLIs with explicit
 config passing, environment variable overrides, and clear precedence rules.
 
+[//]: pattern
 ## Implementation
 
 ...
 
+[//]: pattern
 ## Example
 
 ...
 
+[//]: pattern
 ## Key Patterns
 
 ...
@@ -121,7 +192,7 @@ config passing, environment variable overrides, and clear precedence rules.
 6. `domain` is one of the allowed enum values.
 7. `entity_type` uses kebab-case.
 8. `description` is non-empty.
-9. At least one H2 section is present in the body.
+9. At least one `[//]: pattern` decorator is present in the body.
 10. The `## Overview` section is present.
 
 Unknown frontmatter fields are ignored.
