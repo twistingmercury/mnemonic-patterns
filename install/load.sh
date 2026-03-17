@@ -2,7 +2,7 @@
 # load.sh — Load pattern files into the Mnemonic Admin API.
 #
 # Usage:
-#   ./scripts/load.sh [--server <url>] [--dir <path>]
+#   ./install/load.sh [--server <url>] [--dir <path>]
 #
 # Environment variables (override with flags):
 #   MNEMONIC_BASE_URL   API base URL (default: http://localhost:8080)
@@ -13,35 +13,23 @@
 
 set -euo pipefail
 
-# ---------------------------------------------------------------------------
-# Resolve script directory
-# ---------------------------------------------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly SCRIPT_DIR
 
-# ---------------------------------------------------------------------------
-# Source print library
-# ---------------------------------------------------------------------------
-# shellcheck source=/Users/doublej/dev/mnemonic-patterns/lib/print.sh
-. "${SCRIPT_DIR}/../lib/print.sh"
+# shellcheck source=install/lib/print.sh
+. "${SCRIPT_DIR}/lib/print.sh"
 
-# ---------------------------------------------------------------------------
-# Defaults (overridable via env or flags)
-# ---------------------------------------------------------------------------
 MNEMONIC_BASE_URL="${MNEMONIC_BASE_URL:-http://localhost:8080}"
 PATTERNS_DIR="${PATTERNS_DIR:-${SCRIPT_DIR}/../patterns}"
 
-# ---------------------------------------------------------------------------
-# Counters
-# ---------------------------------------------------------------------------
 COUNT_TOTAL=0
 COUNT_LOADED=0
 COUNT_SKIPPED=0
 COUNT_FAILED=0
 
-# ---------------------------------------------------------------------------
-# Argument parsing
-# ---------------------------------------------------------------------------
+CURL_TMP=""
+trap 'rm -f "${CURL_TMP}"' EXIT INT TERM
+
 parse_args() {
     while [ "$#" -gt 0 ]; do
         case "$1" in
@@ -64,9 +52,6 @@ parse_args() {
     return 0
 }
 
-# ---------------------------------------------------------------------------
-# Dependency checks
-# ---------------------------------------------------------------------------
 check_dependencies() {
     local missing=0
 
@@ -81,9 +66,6 @@ check_dependencies() {
     return 0
 }
 
-# ---------------------------------------------------------------------------
-# Environment validation
-# ---------------------------------------------------------------------------
 validate_environment() {
     if [ ! -d "${PATTERNS_DIR}" ]; then
         print::error "Patterns directory not found: ${PATTERNS_DIR}"
@@ -92,9 +74,6 @@ validate_environment() {
     return 0
 }
 
-# ---------------------------------------------------------------------------
-# Run validate.sh before loading
-# ---------------------------------------------------------------------------
 run_validation() {
     local validate_script="${SCRIPT_DIR}/validate.sh"
 
@@ -105,7 +84,7 @@ run_validation() {
 
     print::info "Running validation first..."
 
-    if ! bash "${validate_script}"; then
+    if ! bash "${validate_script}" --dir "${PATTERNS_DIR}"; then
         print::error "Validation failed — aborting load"
         return 1
     fi
@@ -114,15 +93,10 @@ run_validation() {
     return 0
 }
 
-# ---------------------------------------------------------------------------
-# Frontmatter extraction helpers
-# ---------------------------------------------------------------------------
-
-# Extract the raw YAML frontmatter block (content between first two --- markers)
 extract_frontmatter() {
     local file="${1}"
     awk 'BEGIN { found=0; done=0 }
-         /^---/ {
+         /^---$/ {
              if (found == 0) { found=1; next }
              else { done=1; exit }
          }
@@ -130,11 +104,10 @@ extract_frontmatter() {
     ' "${file}"
 }
 
-# Extract the body: everything after the closing --- of frontmatter
 extract_body() {
     local file="${1}"
     awk 'BEGIN { delimiters=0; found=0 }
-         /^---/ {
+         /^---$/ {
              delimiters++
              if (delimiters == 2) { found=1; next }
              next
@@ -143,27 +116,18 @@ extract_body() {
     ' "${file}"
 }
 
-# ---------------------------------------------------------------------------
-# Build JSON tags array from frontmatter JSON
-# ---------------------------------------------------------------------------
 build_tags_json() {
     local frontmatter_json="${1}"
     printf '%s' "${frontmatter_json}" \
         | jq 'if .tags == null then [] else .tags end'
 }
 
-# ---------------------------------------------------------------------------
-# Build agent_associations array from frontmatter JSON
-# ---------------------------------------------------------------------------
 build_agent_associations_json() {
     local frontmatter_json="${1}"
     printf '%s' "${frontmatter_json}" \
         | jq 'if .agents == null then [] else [ .agents[] | {"agent_name": ., "relevance": 0.8} ] end'
 }
 
-# ---------------------------------------------------------------------------
-# POST a single pattern file
-# ---------------------------------------------------------------------------
 load_pattern() {
     local file="${1}"
     local base_name
@@ -177,7 +141,6 @@ load_pattern() {
     COUNT_TOTAL=$((COUNT_TOTAL + 1))
     print::info "Processing: ${file#"${SCRIPT_DIR}/../"}"
 
-    # --- Extract and parse frontmatter ---
     local raw_frontmatter
     raw_frontmatter="$(extract_frontmatter "${file}")"
 
@@ -194,7 +157,6 @@ load_pattern() {
         return 0
     fi
 
-    # --- Extract scalar fields ---
     local name description entity_type language domain
     name="$(printf '%s' "${frontmatter_json}"        | jq -r '.name        // empty')"
     description="$(printf '%s' "${frontmatter_json}" | jq -r '.description // empty')"
@@ -208,16 +170,13 @@ load_pattern() {
         return 0
     fi
 
-    # --- Build array fields ---
     local tags_json agent_assoc_json
     tags_json="$(build_tags_json "${frontmatter_json}")"
     agent_assoc_json="$(build_agent_associations_json "${frontmatter_json}")"
 
-    # --- Extract body content ---
     local content
     content="$(extract_body "${file}")"
 
-    # --- Build request payload ---
     local payload
     payload="$(jq -n \
         --arg     name                "${name}" \
@@ -239,28 +198,28 @@ load_pattern() {
             content:             $content
         }')"
 
-    # --- POST to API; capture status and body separately ---
     local api_url="${MNEMONIC_BASE_URL}/v1/api/patterns"
-    local http_status response_body tmp_body
-    tmp_body="$(mktemp)"
+    local http_status response_body
+    CURL_TMP="$(mktemp)"
 
     if ! http_status="$(curl -sS \
-        -o "${tmp_body}" \
+        --max-time 30 \
+        --connect-timeout 10 \
+        -o "${CURL_TMP}" \
         -w '%{http_code}' \
         -X POST \
         -H 'Content-Type: application/json' \
         -d "${payload}" \
-        "${api_url}" 2>&1)"; then
-        rm -f "${tmp_body}"
+        "${api_url}")"; then
+        rm -f "${CURL_TMP}"; CURL_TMP=""
         print::error "Failed to load ${name}: curl error"
         COUNT_FAILED=$((COUNT_FAILED + 1))
         return 0
     fi
 
-    response_body="$(cat "${tmp_body}")"
-    rm -f "${tmp_body}"
+    response_body="$(cat "${CURL_TMP}")"
+    rm -f "${CURL_TMP}"; CURL_TMP=""
 
-    # --- Interpret response ---
     case "${http_status}" in
         202)
             print::success "Loaded: ${name}"
@@ -282,9 +241,6 @@ load_pattern() {
     return 0
 }
 
-# ---------------------------------------------------------------------------
-# Walk the patterns directory and load each markdown file
-# ---------------------------------------------------------------------------
 load_all_patterns() {
     local patterns_dir
     patterns_dir="$(cd "${PATTERNS_DIR}" && pwd)"
@@ -299,22 +255,20 @@ load_all_patterns() {
     return 0
 }
 
-# ---------------------------------------------------------------------------
-# Print summary
-# ---------------------------------------------------------------------------
 print_summary() {
     print::info "Summary:"
     print::info "  Total: ${COUNT_TOTAL}"
     print::success "  Loaded: ${COUNT_LOADED}"
     print::warning "  Skipped (already exist): ${COUNT_SKIPPED}"
-    print::error "  Failed: ${COUNT_FAILED}"
+    if [ "${COUNT_FAILED}" -gt 0 ]; then
+        print::error "  Failed: ${COUNT_FAILED}"
+    else
+        print::info "  Failed: 0"
+    fi
 }
 
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
 main() {
-    parse_args "$@"
+    parse_args "$@" || exit 1
 
     check_dependencies   || exit 1
     validate_environment || exit 1
