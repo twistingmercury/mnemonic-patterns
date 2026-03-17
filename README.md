@@ -17,7 +17,6 @@ Reusable AI engineering patterns for the [Mnemonic](https://github.com/doublej/m
 - [How it works](#how-it-works)
 - [Key Considerations](#key-considerations)
 - [Development Considerations](#development-considerations)
-- [Versioning](#versioning)
 
 ## Usage
 
@@ -36,15 +35,15 @@ make load
 Load to a custom server or directory:
 
 ```bash
-./scripts/load.sh --server http://myserver:8080
-./scripts/load.sh --dir ./my-patterns
+install/load.sh --server http://myserver:8080
+install/load.sh --dir ./my-patterns
 ```
 
 ## How it works
 
 Each pattern file lives under `patterns/` as a Markdown file with YAML frontmatter. Sections preceded by a `[//]: pattern` decorator are chunked and indexed into Mnemonic's vector store, making them retrievable by agents during problem-solving. Sections without the decorator — including `## Overview` — are excluded from the index.
 
-`validate.sh` checks frontmatter schema for all patterns. `load.sh` runs validation first, then POSTs each pattern to the Mnemonic Admin API.
+`install/validate.sh` checks frontmatter schema for all patterns. `install/load.sh` runs validation first, then POSTs each pattern to the Mnemonic Admin API.
 
 **Repository layout:**
 
@@ -85,30 +84,36 @@ See [docs/pattern-file-schema.md](docs/pattern-file-schema.md) for the complete 
 cp patterns/go-patterns/repository-timestamp-pattern.md patterns/go-patterns/my-pattern.md
 
 # Edit your pattern, then validate
-./scripts/validate.sh
+make validate
 ```
 
 See [docs/authoring-patterns.md](docs/authoring-patterns.md) for a step-by-step authoring guide.
 
 ### Testing
 
-Run the validator against patterns before committing:
+Run BATS tests to validate the scripts:
+
+```bash
+make test
+```
+
+This runs `install/validate.sh` and `install/load.sh` against a test suite covering both validation and loading logic.
+
+To validate patterns manually before committing:
 
 ```bash
 make validate
 ```
 
-To validate a specific directory:
+Or validate a specific directory:
 
 ```bash
-./scripts/validate.sh --dir ./my-patterns
+install/validate.sh --dir ./my-patterns
 ```
 
 ### Versioning
 
-This project follows [Semantic Versioning 2.0.0](https://semver.org/).
-
-Version is determined from git tags:
+This project follows [Semantic Versioning 2.0.0](https://semver.org/). Version is determined from git tags:
 
 ```bash
 git describe --tags --always
