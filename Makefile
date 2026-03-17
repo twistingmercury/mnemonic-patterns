@@ -6,6 +6,5 @@ help: ## Show this help
 validate:
 	bash scripts/validate.sh
 
-
 load: validate
 	bash scripts/load.sh

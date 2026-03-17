@@ -6,7 +6,7 @@
 > - **Basic**: Production-ready but actively evolving, expect minor version changes
 > - **Mature**: Stable, battle-tested, changes are rare
 
-Reusable AI engineering patterns for the Mnemonic memory system. Each pattern is a Markdown file with YAML frontmatter that agents can discover and apply when solving problems.
+Reusable AI engineering patterns for the [Mnemonic](https://github.com/doublej/mnemonic) memory system. Each pattern is a Markdown file with YAML frontmatter. Agents discover and apply patterns when solving problems by querying Mnemonic's vector index.
 
 ## Table of Contents
 
@@ -22,16 +22,12 @@ Validate all patterns:
 
 ```bash
 make validate
-# or
-./scripts/validate.sh
 ```
 
 Load patterns into a running Mnemonic instance:
 
 ```bash
 make load
-# or
-./scripts/load.sh
 ```
 
 Load to a custom server or directory:
@@ -43,7 +39,7 @@ Load to a custom server or directory:
 
 ## How it works
 
-Each pattern file lives under `patterns/` as a Markdown file with YAML frontmatter. Sections preceded by a `[//]: pattern` decorator are chunked and indexed into Mnemonic's vector store, making them retrievable by agents during problem-solving.
+Each pattern file lives under `patterns/` as a Markdown file with YAML frontmatter. Sections preceded by a `[//]: pattern` decorator are chunked and indexed into Mnemonic's vector store, making them retrievable by agents during problem-solving. Sections without the decorator — including `## Overview` — are excluded from the index.
 
 `validate.sh` checks frontmatter schema for all patterns. `load.sh` runs validation first, then POSTs each pattern to the Mnemonic Admin API.
 
@@ -68,7 +64,7 @@ patterns/
 - **Indexed content only:** Sections must have a `[//]: pattern` decorator to be stored in Mnemonic; `## Overview` is never indexed
 - **Loading requires a running Mnemonic instance** — `load.sh` uses `MNEMONIC_BASE_URL` (default: `http://localhost:8080`) or `--server`
 
-See [docs/pattern-file-schema.md](docs/pattern-file-schema.md) for the complete field reference and [docs/authoring-patterns.md](docs/authoring-patterns.md) for a step-by-step authoring guide.
+See [docs/pattern-file-schema.md](docs/pattern-file-schema.md) for the complete field reference.
 
 ## Development Considerations
 
@@ -82,14 +78,14 @@ See [docs/pattern-file-schema.md](docs/pattern-file-schema.md) for the complete 
 ### Quick Start
 
 ```bash
-# Validate all patterns
-make validate
-
-# Add a new pattern, then validate
+# Copy an existing pattern as a starting point
 cp patterns/go-patterns/repository-timestamp-pattern.md patterns/go-patterns/my-pattern.md
-# edit my-pattern.md
+
+# Edit your pattern, then validate
 ./scripts/validate.sh
 ```
+
+See [docs/authoring-patterns.md](docs/authoring-patterns.md) for a step-by-step authoring guide.
 
 ### Testing
 
