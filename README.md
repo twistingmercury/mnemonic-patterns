@@ -1,10 +1,13 @@
 # mnemonic-patterns
 
-> **Maturity Level**: Basic
+> **Maturity Level**: Basic — production-ready but actively evolving; expect minor version changes
+> **Version**: v1.0.0
 >
 > - **Emerging**: Prototype, not production-ready, expect breaking changes
 > - **Basic**: Production-ready but actively evolving, expect minor version changes
 > - **Mature**: Stable, battle-tested, changes are rare
+
+---
 
 Reusable AI engineering patterns for the [Mnemonic](https://github.com/doublej/mnemonic) memory system. Each pattern is a Markdown file with YAML frontmatter. Agents discover and apply patterns when solving problems by querying Mnemonic's vector index.
 
@@ -110,5 +113,3 @@ Version is determined from git tags:
 ```bash
 git describe --tags --always
 ```
-
-Current version: `v0.0.1`
