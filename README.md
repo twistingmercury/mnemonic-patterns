@@ -9,7 +9,7 @@
 
 ---
 
-Reusable AI engineering patterns for the [Mnemonic](https://github.com/doublej/mnemonic) memory system. Each pattern is a Markdown file with YAML frontmatter. Agents discover and apply patterns when solving problems by querying Mnemonic's vector index.
+Reusable AI engineering patterns for the [Mnemonic](https://github.com/twistingmercury/mnemonic) memory system. Each pattern is a Markdown file with YAML frontmatter. Agents discover and apply patterns when solving problems by querying Mnemonic's vector index.
 
 ## Table of Contents
 
@@ -62,7 +62,7 @@ patterns/
 
 ## Key Considerations
 
-- **Required frontmatter fields:** `name` (kebab-case), `entity_type` (kebab-case), `language` (enum), `domain` (enum), `description` (non-empty, ≤500 chars)
+- **Required frontmatter fields:** `name` (kebab-case), `entity_type` (kebab-case), `language` (enum), `domain` (enum), `description` (non-empty)
 - **Indexed content only:** Sections must have a `[//]: pattern` decorator to be stored in Mnemonic; `## Overview` is never indexed
 - **Loading requires a running Mnemonic instance** — `load.sh` uses `MNEMONIC_BASE_URL` (default: `http://localhost:8080`) or `--server`
 
