@@ -6,7 +6,7 @@ For a complete reference of all fields and rules, see [Pattern File Schema](patt
 
 ## Quick Start
 
-Copy this template, fill in your content, and validate with `./scripts/validate.sh`:
+Copy this template, fill in your content, and validate with `install/validate.sh`:
 
 ```markdown
 ---
@@ -14,13 +14,13 @@ name: your-pattern-name
 entity_type: pattern-category
 language: go
 domain: backend
-description: One sentence describing what this pattern teaches and when to use it. Keep under 500 characters.
+description: One sentence describing what this pattern teaches and when to use it.
 tags:
   - keyword1
   - keyword2
 version: Go 1.21+
 related_patterns:
-  - related-pattern-name
+  - Related Pattern Name
 ---
 
 # Your Pattern Name
@@ -45,7 +45,7 @@ More indexed content. Each decorated section becomes a standalone search result,
 Run validation:
 
 ```bash
-./scripts/validate.sh
+install/validate.sh
 ```
 
 A pattern is valid when it has frontmatter, at least one decorated section, and a `## Overview`.
@@ -119,7 +119,7 @@ Your elevator pitch. Authors see it in search results.
 
 **Rules:**
 
-- Non-empty, max 500 characters
+- Non-empty
 - One sentence or two short sentences
 - Mention what the pattern teaches and when to use it
 - Make it specific: "how to do X with Y" not "X stuff"
@@ -172,12 +172,12 @@ Readers use this to judge whether the pattern applies to their codebase.
 
 ### `related_patterns` — Pattern Cross-References
 
-Optional. List other pattern names this one relates to. Enrichment may add more.
+Optional. List human-readable display titles of related patterns. Enrichment may add more.
 
 ```yaml
 related_patterns:
-  - cobra-configuration-pattern
-  - error-handling-best-practice
+  - Cobra Configuration Pattern
+  - Error Handling Best Practice
 ```
 
 Link to patterns readers will likely want next. The system builds graph connections automatically.
@@ -414,13 +414,13 @@ Chunking silently drops empty decorated sections. If you have nothing to say, re
 Run the validator to catch errors before uploading:
 
 ```bash
-./scripts/validate.sh
+install/validate.sh
 ```
 
 By default, this scans the `patterns/` directory. To validate a specific directory of pattern files:
 
 ```bash
-./scripts/validate.sh --dir ./my-patterns
+install/validate.sh --dir ./my-patterns
 ```
 
 **The validator verifies:**
@@ -469,8 +469,8 @@ tags:
   - pgx
 version: Go 1.21+, PostgreSQL 14+
 related_patterns:
-  - repository-timestamp-pattern
-  - sql-migration-pattern
+  - Repository Timestamp Pattern
+  - SQL Migration Pattern
 ```
 
 **Decisions:**
@@ -548,7 +548,7 @@ And so on for each technique.
 ### Step 6: Validate
 
 ```bash
-./scripts/validate.sh
+install/validate.sh
 ```
 
 If it passes, you're done. If it fails, fix the issues and rerun.
@@ -578,7 +578,7 @@ If it passes, you're done. If it fails, fix the issues and rerun.
 2. **Structure the body:** Overview (context only), decorated sections (indexed techniques)
 3. **Name sections specifically:** Readers search for "Error to Exit Code Mapping," not "Implementation"
 4. **Decorate strategically:** Only sections that stand alone
-5. **Validate:** Run `./scripts/validate.sh` to catch errors
+5. **Validate:** Run `install/validate.sh` to catch errors
 6. **Iterate:** Review for clarity before merging
 
 See [Pattern File Schema](pattern-file-schema.md) for the complete reference.

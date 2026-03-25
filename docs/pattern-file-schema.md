@@ -1,6 +1,6 @@
 # Pattern File Schema
 
-This document defines the schema for Mnemonic pattern files used with `mnemctl`.
+This document defines the schema for Mnemonic pattern files.
 
 Pattern files are Markdown documents with YAML frontmatter. The body uses `[//]: pattern` decorators to mark which sections are indexed as searchable chunks in Mnemonic. Only decorated sections are stored — all other content, including the `## Overview` section, is discarded by the chunker. The H1 title is never indexed.
 
@@ -16,7 +16,7 @@ Pattern files are Markdown documents with YAML frontmatter. The body uses `[//]:
 | `entity_type` | string | kebab-case | Category of pattern. e.g. `best-practice`, `cli-pattern`, `api-specification`                                                                                                                                                                                                                                                                                                           |
 | `language`    | string | enum       | `agnostic`, `bash`, `c`, `cpp`, `csharp`, `cql`, `cypher`, `dart`, `delphi`, `docker`, `elixir`, `erlang`, `go`, `json`, `java`, `javascript`, `kotlin`, `lua`, `markdown`, `matlab`, `mql`, `objective-c`, `perl`, `php`, `plsql`, `powershell`, `python`, `r`, `react`, `ruby`, `rust`, `scala`, `shell`, `sql`, `swift`, `toml`, `tsql`, `typescript`, `visual-basic`, `yaml`, `zig` |
 | `domain`      | string | enum       | `api-design`, `backend`, `frontend`, `testing`, `devops`, `cli`, `data-design`, `documentation`, `data-access`, `security`, `shell-scripting`, `configuration`, `observability`, `source-management`                                                                                                                                                                                    |
-| `description` | string |            | Non-empty. Used for search and display. Max 500 characters.                                                                                                                                                                                                                                                                                                                             |
+| `description` | string |            | Non-empty. Used for search and display.                                                                                                                                                                                                                                                                                                                             |
 
 ### Optional Fields
 
@@ -25,7 +25,7 @@ Pattern files are Markdown documents with YAML frontmatter. The body uses `[//]:
 | `agents`           | array of string | Agent names this pattern is relevant to. Enrichment may add more.                 |
 | `tags`             | array of string | Additional search keywords.                                                       |
 | `version`          | string          | Version of the language, framework, or spec this pattern targets. e.g. `Go 1.21+` |
-| `related_patterns` | array of string | Names of related patterns by `name` field. Enrichment may add more.               |
+| `related_patterns` | array of string | Human-readable display titles of related patterns. Enrichment may add more.       |
 
 ### Unknown Fields
 
@@ -156,8 +156,8 @@ tags:
   - environment-variables
 version: Go 1.21+
 related_patterns:
-  - cobra-root-command-pattern
-  - cobra-subcommand-pattern
+  - Cobra Root Command Pattern
+  - Cobra Subcommand Pattern
 ---
 
 # Cobra Configuration Pattern
@@ -190,7 +190,7 @@ config passing, environment variable overrides, and clear precedence rules.
 
 ## Validation Rules
 
-`mnemctl pattern validate` enforces the following:
+`install/validate.sh` enforces the following:
 
 1. File exists and is readable.
 2. YAML frontmatter is present and parseable.

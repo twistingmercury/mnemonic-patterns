@@ -39,4 +39,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - YAML frontmatter validation for all patterns
 - Support for loading to custom Mnemonic instance via `--server` flag
 
-[1.0.0]: https://github.com/doublej/mnemonic-patterns/releases/tag/v1.0.0
+[1.0.0]: https://github.com/twistingmercury/mnemonic-patterns/releases/tag/v1.0.0
