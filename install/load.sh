@@ -122,12 +122,6 @@ build_tags_json() {
         | jq 'if .tags == null then [] else .tags end'
 }
 
-build_agent_associations_json() {
-    local frontmatter_json="${1}"
-    printf '%s' "${frontmatter_json}" \
-        | jq 'if .agents == null then [] else [ .agents[] | {"agent_name": ., "relevance": 0.8} ] end'
-}
-
 load_pattern() {
     local file="${1}"
     local base_name
@@ -170,32 +164,29 @@ load_pattern() {
         return 0
     fi
 
-    local tags_json agent_assoc_json
+    local tags_json
     tags_json="$(build_tags_json "${frontmatter_json}")"
-    agent_assoc_json="$(build_agent_associations_json "${frontmatter_json}")"
 
     local content
     content="$(extract_body "${file}")"
 
     local payload
     payload="$(jq -n \
-        --arg     name                "${name}" \
-        --arg     description         "${description}" \
-        --arg     entity_type         "${entity_type}" \
-        --arg     language            "${language}" \
-        --arg     domain              "${domain}" \
-        --argjson tags                "${tags_json}" \
-        --argjson agent_associations  "${agent_assoc_json}" \
-        --arg     content             "${content}" \
+        --arg     name         "${name}" \
+        --arg     description  "${description}" \
+        --arg     entity_type  "${entity_type}" \
+        --arg     language     "${language}" \
+        --arg     domain       "${domain}" \
+        --argjson tags         "${tags_json}" \
+        --arg     content      "${content}" \
         '{
-            name:                $name,
-            description:         $description,
-            entity_type:         $entity_type,
-            language:            $language,
-            domain:              $domain,
-            tags:                $tags,
-            agent_associations:  $agent_associations,
-            content:             $content
+            name:         $name,
+            description:  $description,
+            entity_type:  $entity_type,
+            language:     $language,
+            domain:       $domain,
+            tags:         $tags,
+            content:      $content
         }')"
 
     local api_url="${MNEMONIC_BASE_URL}/v1/api/patterns"
