@@ -7,10 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
-
-- `Makefile`: set `.DEFAULT_GOAL := help` so a bare `make` prints the target list regardless of target order, and added the existing `test` target to `.PHONY`
-
 ## [1.0.1] - 2026-09-16
 
 ### Added
@@ -21,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `Makefile`: set `.DEFAULT_GOAL := help` so a bare `make` prints the target list regardless of target order, and added the existing `test` target to `.PHONY`
 - Scripts relocated from `scripts/` directory to `install/`
 - Shared library moved from `scripts/lib/print.sh` to `install/lib/print.sh`
 - README documentation links updated to reference the mnemonic-docs repository: pattern schema now at `docs/reference/pattern-schema.md`, authoring guide now at `docs/guides/05-authoring-patterns.md`
