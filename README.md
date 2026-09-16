@@ -66,7 +66,7 @@ patterns/
 - **Indexed content only:** Sections must have a `[//]: pattern` decorator to be stored in Mnemonic; `## Overview` is never indexed
 - **Loading requires a running Mnemonic instance** — `load.sh` uses `MNEMONIC_BASE_URL` (default: `http://localhost:8080`) or `--server`
 
-See [docs/pattern-file-schema.md](docs/pattern-file-schema.md) for the complete field reference.
+See [Pattern File Schema](https://github.com/twistingmercury/mnemonic-docs/blob/develop/docs/reference/pattern-schema.md) for the complete field reference.
 
 ## Development Considerations
 
@@ -87,7 +87,7 @@ cp patterns/go-patterns/repository-timestamp-pattern.md patterns/go-patterns/my-
 make validate
 ```
 
-See [docs/authoring-patterns.md](docs/authoring-patterns.md) for a step-by-step authoring guide.
+See [Authoring Patterns](https://github.com/twistingmercury/mnemonic-docs/blob/develop/docs/guides/05-authoring-patterns.md) for a step-by-step authoring guide.
 
 ### Testing
 
