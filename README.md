@@ -1,7 +1,7 @@
 # mnemonic-patterns
 
 > **Maturity Level**: Basic — production-ready but actively evolving; expect minor version changes
-> **Version**: v1.0.0
+> **Version**: v1.0.1
 >
 > - **Emerging**: Prototype, not production-ready, expect breaking changes
 > - **Basic**: Production-ready but actively evolving, expect minor version changes

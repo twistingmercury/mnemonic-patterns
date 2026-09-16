@@ -33,7 +33,7 @@ readonly VALID_DOMAINS="api-design backend frontend testing devops cli data-desi
 readonly NAME_PATTERN='^[a-z][a-z0-9-]*$'
 readonly NAME_MAX_LEN=128
 
-readonly SKIP_FILES="README.md pattern-file-schema.md"
+readonly SKIP_FILES="README.md"
 
 parse_args() {
     while [ $# -gt 0 ]; do

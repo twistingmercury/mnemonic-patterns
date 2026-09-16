@@ -1,12 +1,9 @@
 # Project-specific
 .claude/settings.local.json
 **/code-reviews/
-/docs/superpowers/
+**/code_reviews/
 _*/
 /operations/
-
-# Documentation scripts
-docs/scripts/
 
 # MkDocs
 site/

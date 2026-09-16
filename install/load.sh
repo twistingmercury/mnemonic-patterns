@@ -128,7 +128,7 @@ load_pattern() {
     base_name="$(basename "${file}")"
 
     # Skip reserved filenames
-    if [ "${base_name}" = "README.md" ] || [ "${base_name}" = "pattern-file-schema.md" ]; then
+    if [ "${base_name}" = "README.md" ]; then
         return 0
     fi
 
