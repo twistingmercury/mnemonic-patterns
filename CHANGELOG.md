@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `Makefile`: set `.DEFAULT_GOAL := help` so a bare `make` prints the target list regardless of target order, and added the existing `test` target to `.PHONY`
+
 ## [1.0.1] - 2026-09-16
 
 ### Added
