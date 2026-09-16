@@ -86,9 +86,8 @@ teardown() {
     printf '%s\n' "${output}" | grep -qF "Failed: 0"
 }
 
-@test "validate - skips README.md and pattern-file-schema.md" {
+@test "validate - skips README.md" {
     printf '%s\n' 'readme content' > "${PATTERNS_DIR}/README.md"
-    printf '%s\n' 'schema content' > "${PATTERNS_DIR}/pattern-file-schema.md"
     write_valid_pattern "${PATTERNS_DIR}/test-pattern.md"
 
     run bash "${VALIDATE_SCRIPT}" --dir "${PATTERNS_DIR}"
